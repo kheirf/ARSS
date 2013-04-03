@@ -59,5 +59,8 @@ public class Main
 		else
 			System.out.println("No data found");
 		
+		rs.close();
+		stm.close();
+		con.close();
 	}
 }
