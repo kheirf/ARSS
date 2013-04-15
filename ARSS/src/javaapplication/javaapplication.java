@@ -25,14 +25,17 @@ public class javaapplication
 	     {
 	            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
 	     } 
+		 
 		 catch (InstantiationException ex) 
 		 {
 	            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
 	     } 
+		 
 		 catch (IllegalAccessException ex) 
 		 {
 	            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
 	     } 
+		 
 		 catch (javax.swing.UnsupportedLookAndFeelException ex) 
 		 {
 	            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
