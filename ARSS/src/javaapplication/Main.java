@@ -41,11 +41,25 @@ public class Main
 		
 	}*/
 	
-	public void search(String uname, char [] password) throws SQLException
+	public void search(String uname, char [] password, int role) throws SQLException
 	{
 		String getPass;
 		String convertedPass = new String(password);
-		ResultSet rs = stm.executeQuery("SELECT password FROM administrator WHERE AdminID = '" + uname + "'");
+		ResultSet rs = null;
+		
+		switch(role)
+		{
+		case 1:
+			rs = stm.executeQuery("SELECT password FROM administrator WHERE AdminID = '" + uname + "'");
+			break;
+		case 2:
+			rs = stm.executeQuery("SELECT password FROM clerk WHERE ClerkID = '" + uname + "'");
+			break;
+		case 3:
+			rs = stm.executeQuery("SELECT password FROM mechanic WHERE MechanicID = '" + uname + "'");
+			break;
+		}
+		
 		if(rs.next())
 		{
 			getPass = rs.getString(1);

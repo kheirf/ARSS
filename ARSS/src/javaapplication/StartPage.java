@@ -1,22 +1,20 @@
 package javaapplication;
 
-import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 public class StartPage extends JFrame implements ActionListener
 {    
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton admin; 
 	private JButton clerk; 
 	private JButton mech; 
@@ -103,54 +101,38 @@ public class StartPage extends JFrame implements ActionListener
         setBounds(150, 70, 954, 618);        
         
     }                 
-                                
-    public static void main(String args[]) 
-    {
-        
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(StartPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StartPage().setVisible(true);
-            }
-        });
-    }
+   
+   
 
     
     public void actionPerformed(ActionEvent e) 
     {                                      
     	 if (e.getSource() == admin) 
     	 {    
-    		this.setVisible(false);
-    		new AdminLogin().setVisible(true);    		 
+       		this.setVisible(false);
+       		Login adminL = new Login(1);
+    		adminL.setVisible(true);
+    		new Controller(adminL);
     		 
     	 }
     	 if (e.getSource() == clerk) 
     	 {
-    		 new ClerkLogin().setVisible(true); 
+    		 this.setVisible(false);
+    		 Login clerkL = new Login(2);
+    		 clerkL.setVisible(true);
+    		 new Controller(clerkL);
+    		 
     	 }
     	 if (e.getSource() == mech) 
     	 {
-    		 new MechanicLogin().setVisible(true); 
+    		 this.setVisible(false);
+    		 Login mechL = new Login(3);
+    		 mechL.setVisible(true);
+    		 new Controller(mechL);
+    		 //exitPage();
     	 }
     }
+    
     public void exitPage()
     {
     	this.setVisible(false);
