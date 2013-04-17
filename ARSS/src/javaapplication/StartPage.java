@@ -129,7 +129,6 @@ public class StartPage extends JFrame implements ActionListener
     		 Login mechL = new Login(3);
     		 mechL.setVisible(true);
     		 new Controller(mechL);
-    		 //exitPage();
     	 }
     }
     

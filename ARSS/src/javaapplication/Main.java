@@ -16,30 +16,6 @@ public class Main
 	}
 	
 	
-	/*public static void main(String[] args) throws ClassNotFoundException, SQLException
-	{
-		//Class.forName("com.mysql.jdbc.Driver");
-		//Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
-		//Statement stm = con.createStatement();
-		
-		//String findThis = "1000";
-		//String found = "";
-		
-		ResultSet rs = stm.executeQuery("SELECT * from administrator");
-		
-		while (rs.next())
-		{
-			//found = rs.getString(1);		
-			
-			System.out.print(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + "\n");
-			
-		}	
-		
-		rs.close();
-		stm.close();
-		con.close();
-		
-	}*/
 	
 	public void search(String uname, char [] password, int role) throws SQLException
 	{
@@ -50,13 +26,13 @@ public class Main
 		switch(role)
 		{
 		case 1:
-			rs = stm.executeQuery("SELECT password FROM administrator WHERE AdminID = '" + uname + "'");
+			rs = stm.executeQuery("SELECT password FROM administrator WHERE ID = '" + uname + "'");
 			break;
 		case 2:
-			rs = stm.executeQuery("SELECT password FROM clerk WHERE ClerkID = '" + uname + "'");
+			rs = stm.executeQuery("SELECT password FROM clerk WHERE ID = '" + uname + "'");
 			break;
 		case 3:
-			rs = stm.executeQuery("SELECT password FROM mechanic WHERE MechanicID = '" + uname + "'");
+			rs = stm.executeQuery("SELECT password FROM mechanic WHERE ID = '" + uname + "'");
 			break;
 		}
 		
@@ -77,4 +53,10 @@ public class Main
 		stm.close();
 		con.close();
 	}
+	
+	void addStaff()
+	{
+		
+	}
+	
 }
