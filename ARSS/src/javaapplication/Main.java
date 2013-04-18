@@ -1,6 +1,7 @@
 package javaapplication;
 
 import java.sql.*;
+import java.util.List;
 
 public class Main 
 {
@@ -17,11 +18,12 @@ public class Main
 	
 	
 	
-	public void search(String uname, char [] password, int role) throws SQLException
+	protected int search(String uname, char [] password, int role) throws SQLException
 	{
 		String getPass;
 		String convertedPass = new String(password);
 		ResultSet rs = null;
+		int returnThis;
 		
 		switch(role)
 		{
@@ -42,19 +44,27 @@ public class Main
 			if(convertedPass.equals(getPass))
 			{
 				System.out.println("Correct");
+				returnThis = 1;
 			}
 			else
+			{
 				System.out.println("Incorect");
+			returnThis = 2;
+			}
 		}
 		else
-			System.out.println("No data found");
+		{
+			System.out.println("No data found");			
+		    returnThis = 3;		    
+		}
 		
 		rs.close();
 		stm.close();
 		con.close();
+		return returnThis;
 	}
 	
-	void addStaff()
+	void addStaff(List<String> list)
 	{
 		
 	}

@@ -3,11 +3,12 @@ package javaapplication;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Login extends javax.swing.JFrame //implements ActionListener
+public class Login extends JFrame //implements ActionListener
 
 {
 	/**
@@ -17,8 +18,8 @@ public class Login extends javax.swing.JFrame //implements ActionListener
 	
 	public JButton Login;
 	public JButton switchUser;
-	private static JTextField User_ID; 
-	private JPasswordField Password;
+	protected JTextField User_ID; 
+	protected JPasswordField Password;
 	private static int Role;
     
 	public Login(int role) 

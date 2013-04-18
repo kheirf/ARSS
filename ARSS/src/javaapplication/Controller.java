@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class Controller 
 {
 	private Login login_view;
+	//private AdminMain admin_view;
 	private Main model;
 	
 	Controller(Login view)
@@ -26,7 +29,7 @@ public class Controller
 	    		 try
 	    		 {
 	    			model = new Main();
-					model.search(login_view.getUserID(), login_view.getPassword(), login_view.getRole());
+					checkLogin(model.search(login_view.getUserID(), login_view.getPassword(), login_view.getRole()));
 				 } 
 	    		 catch (SQLException e1) 
 	    		 {
@@ -46,5 +49,29 @@ public class Controller
 				new StartPage().setVisible(true);
 			}
 		}
+	}
+	
+	void checkLogin(int check)
+	{
+		switch (check) 
+		
+		{
+		case 1:
+				AdminMain adminMain = new AdminMain();
+				login_view.setVisible(false);
+			  	adminMain.setVisible(true);
+			    new AdminController(adminMain);
+			  	break;
+		case 2:
+			  	JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
+                login_view.Password.setText("");
+                break;
+		case 3:
+		      	JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);
+                login_view.User_ID.setText("");
+                login_view.Password.setText("");
+                break;
+		}
+		
 	}
 }

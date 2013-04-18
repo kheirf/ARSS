@@ -40,12 +40,12 @@ create table Mechanic
 
 create table Customer
 (
-	ID int(10) PRIMARY KEY AUTO_INCREMENT,
+	CustomerID int(10) PRIMARY KEY AUTO_INCREMENT,
 	Fname varchar(50) NOT NULL,
 	Sname varchar(50) NOT NULL,
 	ContactNo varchar(30) NOT NULL,
 	EmailAddress varchar(30) NULL,
-	DateRegistered date NOT NULL,
+	DateRegistered DATE NOT NULL,
 	HomeAddress varchar(50) NOT NULL
 );
 
@@ -64,10 +64,10 @@ create table Booking
 	ClerkID int(10) NOT NULL,
 	CustomerID int(10) NOT NULL,
 	CarID int(10) NOT NULL,
-	bookingDate date NOT NULL,
+	bookingDate TIMESTAMP NOT NULL,
 	Problem varchar(100),
 	FOREIGN KEY (ClerkID) REFERENCES Clerk(ID),
-	FOREIGN KEY (CustomerID) REFERENCES Customer(ID),
+	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (CarID) REFERENCES Car(CarID)
 );
 
@@ -95,3 +95,8 @@ select * from mechanic;
 select * from customer;
 select * from car;
 select * from booking;
+
+drop * from customer where customerID = 1;
+
+select fname from booking
+join customer using (CustomerID);
