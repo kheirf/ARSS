@@ -66,47 +66,42 @@ public class Main
 	}
 	
 	
-	/*List<String> getActivityList(String uid)
+	String [] getActivityList(String uid)
 	{
-		String [] thisList1;
-		ArrayList<String> thisList2 = new ArrayList<String>();
+		String [] thisList1 = {};
 		ResultSet rs;
 		
 		try 
 		{
 			openConnection();
-			rs = stm.executeQuery("SELECT * FROM sessionlog WHERE ID = " + uid);
+			if((rs = stm.executeQuery("SELECT * FROM sessionlog WHERE userID = " + uid)).next())
+			{
 			rs.last();
 			int lastRow = rs.getRow();
+			thisList1 = new String[lastRow];
 			rs.first();
 			thisList1[0] = rs.getString(1);
-			thisList1[1] = rs.getString(2);
-			thisList1[2] = rs.getString(3);
-			thisList1[3] = rs.getString(4);
-			thisList1[4] = rs.getString(5);
 			
 			for(int i = 1; i < lastRow; i++)
 			{
 				if(rs.next())
 				{
-					for(int j = 1; j < 6; j++)
-					{
-						thisList1.add(rs.getString(i));
-					}
+					thisList1[i] = rs.getString(1);
 				}
-				thisList2.add(thisList1);
+			}
 			}
 			
-		} 
+			rs.close();
+		}
 		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();} 
 			
-		return null;
-	}*/
+		return thisList1;
+	}
 	
 	String[] getContentsList()throws SQLException
 	{
 		ResultSet rs = null;
-		String[] list = null;
+		String[] list = {};
 		try {
 			openConnection();
 			rs = stm.executeQuery("SELECT * FROM administrator UNION SELECT * FROM clerk UNION SELECT * FROM Mechanic");
@@ -127,12 +122,87 @@ public class Main
 			e.printStackTrace();
 		}
 		
-	
-		
-		
 		return list;
 	}
 	
+	List<String> searchForID(String ID, int flag)
+	{
+		ResultSet rs;
+		List<String> list = new ArrayList<String>();
+
+		switch (flag)
+		{
+		case 1:
+			try 
+			{
+				list = new ArrayList<String>();
+		
+				openConnection();
+				if((rs = stm.executeQuery("SELECT * FROM administrator WHERE ID = " + ID)).next())
+				{
+					for (int i = 1; i <= 7; i++)
+					{
+						list.add(rs.getString(i));
+					}
+					list.add("1");
+				}
+				else
+					if((rs = stm.executeQuery("SELECT * FROM clerk WHERE ID = " + ID)).next())
+					{
+						for (int i = 1; i <= 7; i++)
+						{
+							list.add(rs.getString(i));
+						}
+						list.add("2");
+					}
+					else
+						if((rs = stm.executeQuery("SELECT * FROM mechanic WHERE ID = " + ID)).next())
+						{
+							for (int i = 1; i <= 7; i++)
+							{
+								list.add(rs.getString(i));
+							}	
+							list.add("3");
+						}
+				rs.close();
+				closeConnection();
+				} 
+			catch (ClassNotFoundException | SQLException e) 
+			{e.printStackTrace();}
+			break;
+
+		case 2:
+			list = new ArrayList<String>();
+			try 
+			{
+				openConnection();
+				rs = stm.executeQuery("SELECT * FROM sessionlog WHERE logtime = '" + ID + "'");
+				if(rs.next())
+				{
+					for (int i = 1; i < 5; i++)
+					{
+						list.add(rs.getString(i));
+					}
+				}
+				else
+					if((rs = stm.executeQuery("SELECT * FROM activitylog WHERE activitytime = '" + ID + "'")).next())
+					{
+						for (int i = 1; i < 6; i++)
+						{
+							list.add(rs.getString(i));
+						}
+					}
+					else
+						rs.close();
+			}catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+			break;
+			
+		}
+
+		return list;	
+	}
+	
+	/*
 	List<String> searchForID(String ID)
 	{
 		ResultSet rs;
@@ -142,7 +212,7 @@ public class Main
 			openConnection();
 			if((rs = stm.executeQuery("SELECT * FROM administrator WHERE ID = " + ID)).next())
 			{
-				for (int i = 1; i <= 7; i++)
+				for (int i = 1; i <= 7; i++;
 				{
 					list.add(rs.getString(i));
 				}
@@ -174,8 +244,7 @@ public class Main
 
 		return list;	
 	}
-	
-	
+	*/
 	
 	//update rows in staff
 	int updateStaff(int role, List<String> list)
@@ -243,13 +312,15 @@ public class Main
 	}
 	
 	
+	//adding session to sessionlog table
 	void sessionlogs(String uid, String role, String descr)
 	{
 		try
 		{
 			openConnection();
-			stm.executeUpdate("INSERT INTO sessionlog(logintime, userid, userrole, description) " +
-								"VALUES( NOW(), " + uid + ", \"" + role + "\", \"" + descr + "\");");
+			stm.executeUpdate("INSERT INTO sessionlog " +
+								"VALUES( NOW(), " + uid + ", \"" 
+								+ role + "\", \"" + descr + "\");");
 			closeConnection();
 		} 
 		catch (SQLException e) {e.printStackTrace();} catch (ClassNotFoundException e) {

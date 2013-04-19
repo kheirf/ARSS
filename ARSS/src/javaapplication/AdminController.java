@@ -17,16 +17,13 @@ public class AdminController
 {
 	private AdminMain admin_view;
 	private Main model;
-	private Controller main_controller;
-	private String role;
 	private String uid;
 	private static int theRole;
 	CardLayout content;
 	private List<String> list;
-	AdminController(AdminMain view, String uid, String role)
+	AdminController(AdminMain view, String uid)
 	{
 		this.uid = uid;
-		this.role = role;
 		admin_view = view;
 		admin_view.buttonListener(new buttonListener());
 		admin_view.listSelectionListener(new valueChange());
@@ -36,7 +33,7 @@ public class AdminController
 		try 
 		{
 			model = new Main();
-			list = model.searchForID(this.uid);
+			list = model.searchForID(this.uid, 1);
 			admin_view.userName.setText(list.get(1) + " " + list.get(2));
 			admin_view.currentDate.setText(d.toString());
 		} 
@@ -106,10 +103,11 @@ public class AdminController
 	private void populateEditField(String ID, int flag)
 	{
 		list = new ArrayList<String>();
-		list = model.searchForID(ID);
+		
 		switch (flag)
 		{
 		case 1:
+			list = model.searchForID(ID, 1);
 			admin_view.ID_edit.setText(list.get(0));
 			admin_view.Fname_edit.setText(list.get(1));
 			admin_view.Sname_edit.setText(list.get(2));
@@ -118,7 +116,9 @@ public class AdminController
 			admin_view.HomeAdd_edit.setText(list.get(5));
 			admin_view.OldPwd_edit.setText(list.get(6));
 			theRole = Integer.parseInt(list.get(7));
+			break;
 		case 2:
+			list = model.searchForID(ID, 1);
 			admin_view.ID1_delete.setText(list.get(0));
 			admin_view.Fname_delete.setText(list.get(1));
 			admin_view.Sname_delete.setText(list.get(2));
@@ -126,6 +126,13 @@ public class AdminController
 			admin_view.EmailAdd_delete.setText(list.get(4));
 			admin_view.HomeAdd_delete.setText(list.get(5));
 			theRole = Integer.parseInt(list.get(7));
+			break;
+		case 3:
+			list = model.searchForID(ID, 2);
+			admin_view.textArea_activities.setText("Time: " +list.get(0) 
+					+ "\nUser ID: " + list.get(1) + "\nRole: " + list.get(2) +
+					"\nDescription: " + list.get(3));
+			break;
 		}
 	}
 	
@@ -155,11 +162,11 @@ public class AdminController
 		
 	}
 	
-	/*void populateDateList(List<String> list)
-	{
-		List<String> dList = new ArrayList<String>();
-		dList = model.
-	}*/
+	//void populateDateList(List<String> list)
+	//{
+		//String [] dList = {};
+		//dList = model.getActivityList(uid);
+	//}
 	
 	 @SuppressWarnings("unchecked")
 	void populateList(final String [] string, int flag)
@@ -211,6 +218,10 @@ public class AdminController
 	    			public Object getElementAt(int i) 
 	    			{ return strings[i];} 
 	    		});
+	    		if(string.length == 0)
+	    		{
+	    			admin_view.textArea_activities.setText("The User has no activity");
+	    		}
 	    		break;
 	    	}
 	    }
@@ -220,17 +231,28 @@ public class AdminController
 		@Override
 		public void valueChanged(ListSelectionEvent e) 
 		{
+			if(admin_view.Datelist_activities.getSelectedValue() != null)
+			{
+				populateEditField(admin_view.Datelist_activities.getSelectedValue().toString(), 3);
+				
+			}
+			
 			if(admin_view.StaffList_edit.getSelectedValue() != null)
 			{
 				populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
 				admin_view.NewPwd_edit.setText("");
-				System.out.println(admin_view.StaffList_edit.getSelectedValue());
 			}
 			if(admin_view.StaffList_delete.getSelectedValue() != null)
 			{
 				populateEditField(admin_view.StaffList_delete.getSelectedValue().toString(), 2);
-				System.out.println(admin_view.StaffList_delete.getSelectedValue());
 			}
+			
+			
+			if(admin_view.StaffList_activities.getSelectedValue() != null)
+			{
+				populateList(model.getActivityList(admin_view.StaffList_activities.getSelectedValue().toString()), 4);
+			}
+
 		}
 	}
 	

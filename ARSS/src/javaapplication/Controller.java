@@ -54,12 +54,12 @@ public class Controller
 			{
 			case 1:
 				userID = login_view.getUserID();
-				role = model.identifyRole(login_view.getRole());
+				//role = model.identifyRole(login_view.getRole());
 				model.sessionlogs(userID, role, "System Login");
 				AdminMain adminMain = new AdminMain();
 				login_view.setVisible(false);
 				adminMain.setVisible(true);
-				new AdminController(adminMain, userID, role);
+				new AdminController(adminMain, userID);
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);

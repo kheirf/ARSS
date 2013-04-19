@@ -4,7 +4,7 @@ drop table Clerk;
 drop table Mechanic;
 drop table Car;
 drop table Customer;
-drop table LoginLog;
+drop table SessionLog;
 drop table ActivityLog;
 
 create table Administrator
@@ -47,7 +47,7 @@ create table Customer
 	Sname varchar(50) NOT NULL,
 	ContactNo varchar(30) NOT NULL,
 	EmailAddress varchar(30) NULL,
-	DateRegistered DATE NOT NULL,
+	DateRegistered DATE NOT NULL, #use curdate()
 	HomeAddress varchar(50) NOT NULL
 );
 
@@ -75,8 +75,7 @@ create table Booking
 
 create table SessionLog
 (
-	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 10000
-	logintime TIMESTAMP NOT NULL,
+	logtime TIMESTAMP PRIMARY KEY,
 	userID int(10) NOT NULL,
 	userRole varchar(15) NOT NULL,
 	description varchar(30)
@@ -84,7 +83,6 @@ create table SessionLog
 
 create table ActivityLog
 (
-	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 20000
 	activitytime TIMESTAMP NOT NULL,
 	userID int(10) NOT NULL,
 	userRole varchar(15) NOT NULL,

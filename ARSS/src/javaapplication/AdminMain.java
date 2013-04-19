@@ -883,11 +883,11 @@ public class AdminMain extends JFrame
     
     void listSelectionListener(ListSelectionListener listen)
     {
+    	Datelist_activities.addListSelectionListener(listen);
     	StaffList_edit.addListSelectionListener(listen);
     	StaffList_delete.addListSelectionListener(listen);
     	StaffList_activities.addListSelectionListener(listen);
     	StaffList_delete.addListSelectionListener(listen);
-    	Datelist_activities.addListSelectionListener(listen);
     }
  
   
