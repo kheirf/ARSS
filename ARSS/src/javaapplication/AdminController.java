@@ -189,7 +189,13 @@ public class AdminController
 			
 			if (e.getSource() == admin_view.viewActivities)
 			{
-				content.show(admin_view.ContentPanel, "card4");
+				try 
+				{
+					content.show(admin_view.ContentPanel, "card4");
+					admin_view.populateList(model.getAllstaff());
+				} catch (SQLException e1) 
+				{e1.printStackTrace();}
+				
 			}
 			
 			if (e.getSource() == admin_view.Discard_add)
@@ -228,8 +234,9 @@ public class AdminController
 					}
 					
 				}
-				//populateEditField(admin_view.StaffList_delete.getSelectedValue().toString());
 			}
+			
+			
 			
 		}//end of actionperformed
 	}//end of button class

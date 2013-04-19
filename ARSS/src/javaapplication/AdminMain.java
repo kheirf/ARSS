@@ -38,11 +38,11 @@ public class AdminMain extends JFrame
         ContentPanel = new javax.swing.JPanel();
         StaffActivities = new javax.swing.JPanel();
         jScrollPaneForStaffList2 = new javax.swing.JScrollPane();
-        StaffList2 = new javax.swing.JList();
+        StaffList_activities = new javax.swing.JList();
         StaffActivitiesPanel = new javax.swing.JPanel();
         findButton_activities = new javax.swing.JButton();
         LabelForFind1 = new javax.swing.JLabel();
-        find1 = new javax.swing.JTextField();
+        find_activities = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         DateSummary = new javax.swing.JScrollPane();
         DateList = new javax.swing.JList();
@@ -67,7 +67,7 @@ public class AdminMain extends JFrame
         deleteButton = new javax.swing.JButton();
         findButton_delete = new javax.swing.JButton();
         LabelForFind = new javax.swing.JLabel();
-        find = new javax.swing.JTextField();
+        find_delete = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         AddStaff = new javax.swing.JPanel();
         AddField = new javax.swing.JPanel();
@@ -162,17 +162,17 @@ public class AdminMain extends JFrame
         jScrollPaneForStaffList2.setPreferredSize(new java.awt.Dimension(50, 130));
         jScrollPaneForStaffList2.setRequestFocusEnabled(false);
 
-        StaffList2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        StaffList2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList2.setModel(new javax.swing.AbstractListModel() {
+        StaffList_activities.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        StaffList_activities.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        StaffList_activities.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        StaffList2.setMaximumSize(new java.awt.Dimension(100, 80));
-        StaffList2.setPreferredSize(new java.awt.Dimension(40, 80));
-        StaffList2.setVisibleRowCount(20);
-        jScrollPaneForStaffList2.setViewportView(StaffList2);
+        StaffList_activities.setMaximumSize(new java.awt.Dimension(100, 80));
+        StaffList_activities.setPreferredSize(new java.awt.Dimension(40, 80));
+        StaffList_activities.setVisibleRowCount(20);
+        jScrollPaneForStaffList2.setViewportView(StaffList_activities);
 
         StaffActivitiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Activities", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -181,7 +181,7 @@ public class AdminMain extends JFrame
         LabelForFind1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFind1.setText("Find :");
 
-        find1.addActionListener(new java.awt.event.ActionListener() {
+        find_activities.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 find1ActionPerformed(evt);
             }
@@ -215,7 +215,7 @@ public class AdminMain extends JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(StaffActivitiesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(findButton_activities, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(find1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(find_activities, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(DateSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(StaffActivitiesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +229,7 @@ public class AdminMain extends JFrame
                 .addGap(17, 17, 17)
                 .addGroup(StaffActivitiesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForFind1)
-                    .addComponent(find1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(find_activities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(findButton_activities)
@@ -319,7 +319,7 @@ public class AdminMain extends JFrame
         LabelForFind.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFind.setText("Find :");
 
-        find.addActionListener(new java.awt.event.ActionListener() {
+        find_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 findActionPerformed(evt);
             }
@@ -353,7 +353,7 @@ public class AdminMain extends JFrame
                         .addGroup(DeleteStaffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(findButton_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(DeleteStaffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(find, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(find_delete, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Fname_delete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)))
@@ -365,7 +365,7 @@ public class AdminMain extends JFrame
                 .addGap(17, 17, 17)
                 .addGroup(DeleteStaffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForFind)
-                    .addComponent(find, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(find_delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(findButton_delete)
@@ -570,7 +570,21 @@ public class AdminMain extends JFrame
 
         EditStaff.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         EditStaff.setPreferredSize(new java.awt.Dimension(602, 247));
-        EditStaff.setLayout(new java.awt.BorderLayout());
+
+        jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 130));
+        jScrollPaneForStaffList.setRequestFocusEnabled(false);
+
+        StaffList_edit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        /*StaffList_edit.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });*/
+        //StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
+        //StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
+        //StaffList_edit.setVisibleRowCount(20);
+        jScrollPaneForStaffList.setViewportView(StaffList_edit);
 
         EditField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -594,11 +608,24 @@ public class AdminMain extends JFrame
         LabelForPrevPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForPrevPwd.setText("Old Password :");
 
+        /*ID.setText("");
+
+        Fname.setText("");
+
+        Sname.setText("jTextField2");
+
+        ContactNo.setText("jTextField3");
+
+        EmailAdd.setText("jTextField4");
+
+        HomeAdd.setText("jTextField5");
+
+        OldPwd.setText("jTextField6");*/
 
         LabelForNewPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForNewPwd.setText("New Password :");
 
-        NewPwd_edit.setText("jTextField7");
+        //NewPwd_edit.setText("jTextField7");
 
         Save_edit.setText("Save");
         Save_edit.addActionListener(new java.awt.event.ActionListener() {
@@ -624,7 +651,7 @@ public class AdminMain extends JFrame
                             .addComponent(LabelForID, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ID_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ID_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Fname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Sname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ContactNo_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -657,6 +684,7 @@ public class AdminMain extends JFrame
                                 .addComponent(NewPwd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
+        
         EditFieldLayout.setVerticalGroup(
             EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditFieldLayout.createSequentialGroup()
@@ -692,7 +720,7 @@ public class AdminMain extends JFrame
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForNewPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NewPwd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Save_edit)
                     .addComponent(Discard_edit))
@@ -701,23 +729,21 @@ public class AdminMain extends JFrame
 
         LabelForEmailAdd.getAccessibleContext().setAccessibleName("Email Address");
 
-        EditStaff.add(EditField, java.awt.BorderLayout.LINE_END);
-
-        jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 40));
-        jScrollPaneForStaffList.setRequestFocusEnabled(false);
-
-        StaffList_edit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList_edit.setAutoscrolls(false);
-       // StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
-        //StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
-        //StaffList_edit.setVisibleRowCount(20);
-        //jScrollPaneForStaffList.add(StaffList_edit);
-        jScrollPaneForStaffList.setViewportView(StaffList_edit);
-        //jScrollPaneForStaffList.setEnabled(true);
-        
-
-        EditStaff.add(jScrollPaneForStaffList, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout EditStaffLayout = new javax.swing.GroupLayout(EditStaff);
+        EditStaff.setLayout(EditStaffLayout);
+        EditStaffLayout.setHorizontalGroup(
+            EditStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EditStaffLayout.createSequentialGroup()
+                .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        EditStaffLayout.setVerticalGroup(
+            EditStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         ContentPanel.add(EditStaff, "card2");
 
@@ -783,6 +809,16 @@ public class AdminMain extends JFrame
             public Object getElementAt(int i) 
             { return strings[i];} 
         });
+    	
+    	StaffList_activities.setModel(new javax.swing.AbstractListModel() 
+    	{
+            String[] strings = string;
+            public int getSize() 
+            { return strings.length; }
+            
+            public Object getElementAt(int i) 
+            { return strings[i];} 
+        });
     }
     
     void buttonListener(ActionListener listen)
@@ -803,7 +839,7 @@ public class AdminMain extends JFrame
     {
     	StaffList_edit.addListSelectionListener(listen);
     	StaffList_delete.addListSelectionListener(listen);
-    	StaffList2.addListSelectionListener(listen);
+    	StaffList_activities.addListSelectionListener(listen);
     	StaffList_delete.addListSelectionListener(listen);
     }
  
@@ -877,13 +913,13 @@ public class AdminMain extends JFrame
     @SuppressWarnings("rawtypes")
 	protected javax.swing.JList StaffList_delete;
     @SuppressWarnings("rawtypes")
-	private javax.swing.JList StaffList2;
+	private javax.swing.JList StaffList_activities;
     protected javax.swing.JButton addMember;
     protected javax.swing.JButton deleteButton;
     protected javax.swing.JButton deleteMember;
     protected javax.swing.JButton editMember;
-    protected javax.swing.JTextField find;
-    protected javax.swing.JTextField find1;
+    protected javax.swing.JTextField find_delete;
+    protected javax.swing.JTextField find_activities;
     protected javax.swing.JButton findButton_delete;
     protected javax.swing.JButton findButton_activities;
     @SuppressWarnings("rawtypes")
