@@ -59,7 +59,7 @@ public class Controller
 				AdminMain adminMain = new AdminMain();
 				login_view.setVisible(false);
 				adminMain.setVisible(true);
-				new AdminController(adminMain);
+				new AdminController(adminMain, userID, role);
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);

@@ -2,9 +2,11 @@ package javaapplication;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionListener;
@@ -12,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 public class AdminMain extends JFrame
 {
 
-    /**
+	/**
      * Creates new form SampleFrame
      */
     public AdminMain() 
@@ -45,7 +47,7 @@ public class AdminMain extends JFrame
         find_activities = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         DateSummary = new javax.swing.JScrollPane();
-        DateList = new javax.swing.JList();
+        Datelist_activities = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         textArea_activities = new javax.swing.JTextArea();
         DeleteStaff = new javax.swing.JPanel();
@@ -112,22 +114,60 @@ public class AdminMain extends JFrame
         Save_edit = new javax.swing.JButton();
         Discard_edit = new javax.swing.JButton();
         FooterPanel = new javax.swing.JPanel();
+        copyrights = new javax.swing.JLabel();
+        welcomeLabel = new javax.swing.JLabel();
+        logoutButton = new javax.swing.JButton();
+        userName = new javax.swing.JLabel();
+        currentDate = new javax.swing.JLabel();
+        StartingPanel = new javax.swing.JPanel();
+        startPanelLabel = new javax.swing.JLabel();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ARSS - Administrator");
         setMinimumSize(new java.awt.Dimension(938, 580));
+        
 
         HeaderPanel.setBackground(new java.awt.Color(255, 255, 204));
+
+        welcomeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        welcomeLabel.setText("Welcome: ");
+
+        logoutButton.setText("Logout");
+
+        userName.setText("namegoeshere");
+
+        currentDate.setText("dateandtimegoeshere");
 
         javax.swing.GroupLayout HeaderPanelLayout = new javax.swing.GroupLayout(HeaderPanel);
         HeaderPanel.setLayout(HeaderPanelLayout);
         HeaderPanelLayout.setHorizontalGroup(
             HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 803, Short.MAX_VALUE)
+            .addGroup(HeaderPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addComponent(welcomeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userName)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderPanelLayout.createSequentialGroup()
+                        .addComponent(currentDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 726, Short.MAX_VALUE)
+                        .addComponent(logoutButton)))
+                .addContainerGap())
         );
         HeaderPanelLayout.setVerticalGroup(
             HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(HeaderPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(welcomeLabel)
+                    .addComponent(userName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logoutButton)
+                    .addComponent(currentDate))
+                .addContainerGap())
         );
 
         getContentPane().add(HeaderPanel, java.awt.BorderLayout.PAGE_START);
@@ -155,6 +195,31 @@ public class AdminMain extends JFrame
         getContentPane().add(OptionPanel, java.awt.BorderLayout.LINE_START);
 
         ContentPanel.setLayout(new java.awt.CardLayout());
+        
+        StartingPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        StartingPanel.setPreferredSize(new java.awt.Dimension(602, 247));
+
+        startPanelLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        startPanelLabel.setText("Click on the buttons on the left hand side to see specific views");
+
+        javax.swing.GroupLayout StartingPanelLayout = new javax.swing.GroupLayout(StartingPanel);
+        StartingPanel.setLayout(StartingPanelLayout);
+        StartingPanelLayout.setHorizontalGroup(
+            StartingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StartingPanelLayout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addComponent(startPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
+        );
+        StartingPanelLayout.setVerticalGroup(
+            StartingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(StartingPanelLayout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(startPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(111, Short.MAX_VALUE))
+        );
+
+        ContentPanel.add(StartingPanel, "card0");
 
         StaffActivities.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         StaffActivities.setPreferredSize(new java.awt.Dimension(602, 247));
@@ -187,15 +252,15 @@ public class AdminMain extends JFrame
 
         jLabel3.setText("(ID/First Name/Surname)");
 
-        DateList.setBorder(javax.swing.BorderFactory.createTitledBorder("Date :"));
-        DateList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        DateList.setModel(new javax.swing.AbstractListModel() 
+        Datelist_activities.setBorder(javax.swing.BorderFactory.createTitledBorder("Date :"));
+        Datelist_activities.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        /*Datelist_activities.setModel(new javax.swing.AbstractListModel() 
         {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
-        });
-        DateSummary.setViewportView(DateList);
+        });*/
+        DateSummary.setViewportView(Datelist_activities);
 
         textArea_activities.setColumns(20);
         textArea_activities.setRows(5);
@@ -699,25 +764,32 @@ public class AdminMain extends JFrame
         );
 
         ContentPanel.add(EditStaff, "card2");
+        
+        
 
         getContentPane().add(ContentPanel, BorderLayout.CENTER);
 
-        FooterPanel.setBackground(new java.awt.Color(204, 204, 204));
+        copyrights.setText("Copyrights 2013, DIT E-Soft Division");
 
         javax.swing.GroupLayout FooterPanelLayout = new javax.swing.GroupLayout(FooterPanel);
         FooterPanel.setLayout(FooterPanelLayout);
         FooterPanelLayout.setHorizontalGroup(
             FooterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 803, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FooterPanelLayout.createSequentialGroup()
+                .addContainerGap(377, Short.MAX_VALUE)
+                .addComponent(copyrights)
+                .addGap(364, 364, 364))
         );
         FooterPanelLayout.setVerticalGroup(
             FooterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
+            .addGroup(FooterPanelLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(copyrights))
         );
 
-        getContentPane().add(FooterPanel, BorderLayout.PAGE_END);
-        setBounds(150, 70, 954, 618);
-
+        getContentPane().add(FooterPanel, java.awt.BorderLayout.PAGE_END);
+        setLocationRelativeTo(null);
+        setResizable(false);
         pack();
     }// </editor-fold>                        
 
@@ -739,40 +811,61 @@ public class AdminMain extends JFrame
 
     private void find1ActionPerformed(java.awt.event.ActionEvent evt) {}
     
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    //@SuppressWarnings({ "unchecked", "rawtypes" })
 	
-    void populateList(final String [] string)
+    /*
+    void populateList(final String [] string, int flag)
     {
-    	StaffList_edit.setModel(new javax.swing.AbstractListModel() 
+    	switch(flag)
     	{
-            String[] strings = string;
-            public int getSize() 
-            { return strings.length; }
+    	case 1:
+    		StaffList_edit.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+    			{ return strings.length; }
             
-            public Object getElementAt(int i) 
-            { return strings[i];} 
-        });
-    	
-    	StaffList_delete.setModel(new javax.swing.AbstractListModel() 
-    	{
-            String[] strings = string;
-            public int getSize() 
-            { return strings.length; }
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+    		break;
+    		
+    	case 2:
+    		StaffList_delete.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+    			{ return strings.length; }
             
-            public Object getElementAt(int i) 
-            { return strings[i];} 
-        });
-    	
-    	StaffList_activities.setModel(new javax.swing.AbstractListModel() 
-    	{
-            String[] strings = string;
-            public int getSize() 
-            { return strings.length; }
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+    		break;
+    		
+    	case 3:
+    		StaffList_activities.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+            	{ return strings.length; }
             
-            public Object getElementAt(int i) 
-            { return strings[i];} 
-        });
-    }
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+    		break;
+    	case 4:
+    		Datelist_activities.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+            	{ return strings.length; }
+            
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+    		break;
+    	}
+    }*/
     
     void buttonListener(ActionListener listen)
     {
@@ -794,6 +887,7 @@ public class AdminMain extends JFrame
     	StaffList_delete.addListSelectionListener(listen);
     	StaffList_activities.addListSelectionListener(listen);
     	StaffList_delete.addListSelectionListener(listen);
+    	Datelist_activities.addListSelectionListener(listen);
     }
  
   
@@ -805,7 +899,7 @@ public class AdminMain extends JFrame
     protected javax.swing.JLabel ContactNo_delete;
     protected javax.swing.JPanel ContentPanel;
     @SuppressWarnings("rawtypes")
-	protected javax.swing.JList DateList;
+	protected javax.swing.JList Datelist_activities;
     private javax.swing.JScrollPane DateSummary;
     private javax.swing.JPanel DeleteStaff;
     private javax.swing.JPanel DeleteStaffPanel;
@@ -866,7 +960,7 @@ public class AdminMain extends JFrame
     @SuppressWarnings("rawtypes")
 	protected javax.swing.JList StaffList_delete;
     @SuppressWarnings("rawtypes")
-	private javax.swing.JList StaffList_activities;
+	protected javax.swing.JList StaffList_activities;
     protected javax.swing.JButton addMember;
     protected javax.swing.JButton deleteButton;
     protected javax.swing.JButton deleteMember;
@@ -886,6 +980,13 @@ public class AdminMain extends JFrame
     private javax.swing.JScrollPane jScrollPaneForStaffList2;
     protected javax.swing.JTextArea textArea_activities;
     protected javax.swing.JButton viewActivities;
+    private javax.swing.JLabel copyrights;
+    private javax.swing.JPanel StartingPanel;
+	private javax.swing.JLabel welcomeLabel;
+	protected javax.swing.JLabel userName;
+	protected javax.swing.JLabel currentDate;
+	protected javax.swing.JButton logoutButton;
+	private javax.swing.JLabel startPanelLabel;
     // End of variables declaration   
     
 

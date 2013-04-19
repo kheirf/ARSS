@@ -98,7 +98,8 @@ public class StartPage extends JFrame implements ActionListener
         getContentPane().add(background);
         background.setBounds(0, 0, 940, 580);
 
-        setBounds(150, 70, 954, 618);        
+        setLocationRelativeTo(null);
+        setResizable(false);
         
     }                 
    

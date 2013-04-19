@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -15,18 +17,30 @@ public class AdminController
 {
 	private AdminMain admin_view;
 	private Main model;
+	private Controller main_controller;
+	private String role;
+	private String uid;
 	private static int theRole;
 	CardLayout content;
-	AdminController(AdminMain view)
+	private List<String> list;
+	AdminController(AdminMain view, String uid, String role)
 	{
-		System.out.println(System.getProperty("user.name"));
+		this.uid = uid;
+		this.role = role;
 		admin_view = view;
 		admin_view.buttonListener(new buttonListener());
 		admin_view.listSelectionListener(new valueChange());
 		content = (CardLayout) admin_view.ContentPanel.getLayout();
-		try {
+		Date d = new Date();
+		
+		try 
+		{
 			model = new Main();
-		} catch (ClassNotFoundException | SQLException e) {
+			list = model.searchForID(this.uid);
+			admin_view.userName.setText(list.get(1) + " " + list.get(2));
+			admin_view.currentDate.setText(d.toString());
+		} 
+		catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -44,7 +58,7 @@ public class AdminController
 	
 	void addData()
 	{
-		List<String> l = new ArrayList<String>();
+		list = new ArrayList<String>();
 		
 		if(!admin_view.Fname_add.getText().isEmpty())
 		{
@@ -54,16 +68,16 @@ public class AdminController
 				{
 					if(admin_view.RepeatPwd.getText().equals(admin_view.Pwd_add.getText()))
 					{
-						l.add(admin_view.DropDown_add.getSelectedItem().toString());
-						l.add(admin_view.Fname_add.getText());
-						l.add(admin_view.Sname_add.getText());
-						l.add(admin_view.ContactNo_add.getText());
-						l.add(admin_view.EmailAdd_add.getText());
-						l.add(admin_view.HomeAdd_add.getText());
-						l.add(admin_view.Pwd_add.getText());
+						list.add(admin_view.DropDown_add.getSelectedItem().toString());
+						list.add(admin_view.Fname_add.getText());
+						list.add(admin_view.Sname_add.getText());
+						list.add(admin_view.ContactNo_add.getText());
+						list.add(admin_view.EmailAdd_add.getText());
+						list.add(admin_view.HomeAdd_add.getText());
+						list.add(admin_view.Pwd_add.getText());
 						try 
 						{
-							if(model.addStaff(l) > 0)
+							if(model.addStaff(list) > 0)
 							{
 								clearDataOn();
 								JOptionPane.showMessageDialog(admin_view, "Successfully Added New Data");
@@ -91,7 +105,7 @@ public class AdminController
 	
 	private void populateEditField(String ID, int flag)
 	{
-		List<String> list = new ArrayList<String>();
+		list = new ArrayList<String>();
 		list = model.searchForID(ID);
 		switch (flag)
 		{
@@ -117,18 +131,19 @@ public class AdminController
 	
 	private void updateStaff(int role)
 	{
-		List<String> list = new ArrayList<String>();
-		list.add(admin_view.ID_edit.getText());
-		list.add(admin_view.Fname_edit.getText());
-		list.add(admin_view.Sname_edit.getText());
-		list.add(admin_view.ContactNo_edit.getText());
-		list.add(admin_view.EmailAdd_edit.getText());
-		list.add(admin_view.HomeAdd_edit.getText());
-		list.add(admin_view.NewPwd_edit.getText());
-		if(!list.get(0).toString().equals(""))
+		List<String> l = new ArrayList<String>();
+		l.add(admin_view.ID_edit.getText());
+		l.add(admin_view.Fname_edit.getText());
+		l.add(admin_view.Sname_edit.getText());
+		l.add(admin_view.ContactNo_edit.getText());
+		l.add(admin_view.EmailAdd_edit.getText());
+		l.add(admin_view.HomeAdd_edit.getText());
+		l.add(admin_view.NewPwd_edit.getText());
+		if(!l.get(0).toString().equals(""))
 		{
-			if(model.updateStaff(role, list) > 0)
+			if(model.updateStaff(role, l) > 0)
 			{
+				populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
 				JOptionPane.showMessageDialog(admin_view, "Successful");
 				admin_view.NewPwd_edit.setText("");
 			}
@@ -139,6 +154,66 @@ public class AdminController
 			JOptionPane.showMessageDialog(admin_view, "No Such Person with that ID", "Error", JOptionPane.ERROR_MESSAGE);
 		
 	}
+	
+	/*void populateDateList(List<String> list)
+	{
+		List<String> dList = new ArrayList<String>();
+		dList = model.
+	}*/
+	
+	 @SuppressWarnings("unchecked")
+	void populateList(final String [] string, int flag)
+	    {
+	    	switch(flag)
+	    	{
+	    	case 1:
+	    		admin_view.StaffList_edit.setModel(new javax.swing.AbstractListModel() 
+	    		{
+	    			String[] strings = string;
+	    			public int getSize() 
+	    			{ return strings.length; }
+	            
+	    			public Object getElementAt(int i) 
+	    			{ return strings[i];} 
+	    		});
+	    		break;
+	    		
+	    	case 2:
+	    		admin_view.StaffList_delete.setModel(new javax.swing.AbstractListModel() 
+	    		{
+	    			String[] strings = string;
+	    			public int getSize() 
+	    			{ return strings.length; }
+	            
+	    			public Object getElementAt(int i) 
+	    			{ return strings[i];} 
+	    		});
+	    		break;
+	    		
+	    	case 3:
+	    		admin_view.StaffList_activities.setModel(new javax.swing.AbstractListModel() 
+	    		{
+	    			String[] strings = string;
+	    			public int getSize() 
+	            	{ return strings.length; }
+	            
+	    			public Object getElementAt(int i) 
+	    			{ return strings[i];} 
+	    		});
+	    		break;
+	    	case 4:
+	    		admin_view.Datelist_activities.setModel(new javax.swing.AbstractListModel() 
+	    		{
+	    			String[] strings = string;
+	    			public int getSize() 
+	            	{ return strings.length; }
+	            
+	    			public Object getElementAt(int i) 
+	    			{ return strings[i];} 
+	    		});
+	    		break;
+	    	}
+	    }
 	
 	class valueChange implements ListSelectionListener
 	{
@@ -174,7 +249,7 @@ public class AdminController
 				try 
 				{
 					content.show(admin_view.ContentPanel, "card2");
-					admin_view.populateList(model.getAllstaff());
+					populateList(model.getContentsList(), 1);
 				} catch (SQLException e1) {e1.printStackTrace();}
 				
 			}
@@ -184,7 +259,7 @@ public class AdminController
 				try 
 				{
 					content.show(admin_view.ContentPanel, "card3");
-					admin_view.populateList(model.getAllstaff());
+					populateList(model.getContentsList(), 2);
 				} catch (SQLException e1) {e1.printStackTrace();}
 			}
 			
@@ -193,7 +268,7 @@ public class AdminController
 				try 
 				{
 					content.show(admin_view.ContentPanel, "card4");
-					admin_view.populateList(model.getAllstaff());
+					populateList(model.getContentsList(), 3);
 				} catch (SQLException e1) 
 				{e1.printStackTrace();}
 				
@@ -227,7 +302,7 @@ public class AdminController
 				if ((model.deleteStaff(theRole, admin_view.ID1_delete.getText())) > 0)
 				{
 					try {
-						admin_view.populateList(model.getAllstaff());
+						populateList(model.getContentsList(), 2);
 						JOptionPane.showMessageDialog(admin_view, "Successfully Deleted");
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block

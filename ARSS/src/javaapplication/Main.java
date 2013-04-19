@@ -39,7 +39,7 @@ public class Main
 		}
 		return Role;
 	}
-	
+	//Search for login
 	protected int search(String uname, char [] password, int role) throws SQLException
 	{
 		String getPass;
@@ -65,7 +65,45 @@ public class Main
 		return returnThis;
 	}
 	
-	String[] getAllstaff()throws SQLException
+	
+	/*List<String> getActivityList(String uid)
+	{
+		String [] thisList1;
+		ArrayList<String> thisList2 = new ArrayList<String>();
+		ResultSet rs;
+		
+		try 
+		{
+			openConnection();
+			rs = stm.executeQuery("SELECT * FROM sessionlog WHERE ID = " + uid);
+			rs.last();
+			int lastRow = rs.getRow();
+			rs.first();
+			thisList1[0] = rs.getString(1);
+			thisList1[1] = rs.getString(2);
+			thisList1[2] = rs.getString(3);
+			thisList1[3] = rs.getString(4);
+			thisList1[4] = rs.getString(5);
+			
+			for(int i = 1; i < lastRow; i++)
+			{
+				if(rs.next())
+				{
+					for(int j = 1; j < 6; j++)
+					{
+						thisList1.add(rs.getString(i));
+					}
+				}
+				thisList2.add(thisList1);
+			}
+			
+		} 
+		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();} 
+			
+		return null;
+	}*/
+	
+	String[] getContentsList()throws SQLException
 	{
 		ResultSet rs = null;
 		String[] list = null;
@@ -136,6 +174,8 @@ public class Main
 
 		return list;	
 	}
+	
+	
 	
 	//update rows in staff
 	int updateStaff(int role, List<String> list)
