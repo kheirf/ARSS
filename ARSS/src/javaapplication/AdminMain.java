@@ -271,9 +271,9 @@ public class AdminMain extends JFrame
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        StaffList_delete.setMaximumSize(new java.awt.Dimension(100, 80));
-        StaffList_delete.setPreferredSize(new java.awt.Dimension(40, 80));
-        StaffList_delete.setVisibleRowCount(20);
+        //StaffList_delete.setMaximumSize(new java.awt.Dimension(100, 80));
+        //StaffList_delete.setPreferredSize(new java.awt.Dimension(40, 80));
+        //StaffList_delete.setVisibleRowCount(20);
         jScrollPaneForStaffList1.setViewportView(StaffList_delete);
 
         DeleteStaffPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delete Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -571,24 +571,6 @@ public class AdminMain extends JFrame
         EditStaff.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         EditStaff.setPreferredSize(new java.awt.Dimension(602, 247));
         EditStaff.setLayout(new java.awt.BorderLayout());
-        
-        jScrollPaneForStaffList.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 40));
-        jScrollPaneForStaffList.setRequestFocusEnabled(false);
-
-        StaffList_edit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        /*StaffList_edit.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });*/
-        StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 40));
-        StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 40));
-        StaffList_edit.setVisibleRowCount(15);
-        //StaffList_edit.addListSelectionListener(this);
-        
-        jScrollPaneForStaffList.setViewportView(StaffList_edit);
 
         EditField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -612,20 +594,21 @@ public class AdminMain extends JFrame
         LabelForPrevPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForPrevPwd.setText("Old Password :");
 
+
         LabelForNewPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForNewPwd.setText("New Password :");
 
+        NewPwd_edit.setText("jTextField7");
 
         Save_edit.setText("Save");
-        /*Save_edit.addActionListener(new java.awt.event.ActionListener() {
+        Save_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
             }
-        });*/
+        });
 
         Discard_edit.setText("Discard");
-        
-        
+
         javax.swing.GroupLayout EditFieldLayout = new javax.swing.GroupLayout(EditField);
         EditField.setLayout(EditFieldLayout);
         EditFieldLayout.setHorizontalGroup(
@@ -641,7 +624,7 @@ public class AdminMain extends JFrame
                             .addComponent(LabelForID, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ID_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ID_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Fname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Sname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ContactNo_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -674,7 +657,6 @@ public class AdminMain extends JFrame
                                 .addComponent(NewPwd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
-        
         EditFieldLayout.setVerticalGroup(
             EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditFieldLayout.createSequentialGroup()
@@ -710,7 +692,7 @@ public class AdminMain extends JFrame
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForNewPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NewPwd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Save_edit)
                     .addComponent(Discard_edit))
@@ -719,21 +701,23 @@ public class AdminMain extends JFrame
 
         LabelForEmailAdd.getAccessibleContext().setAccessibleName("Email Address");
 
-        javax.swing.GroupLayout EditStaffLayout = new javax.swing.GroupLayout(EditStaff);
-        EditStaff.setLayout(EditStaffLayout);
-        EditStaffLayout.setHorizontalGroup(
-            EditStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EditStaffLayout.createSequentialGroup()
-                .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        EditStaffLayout.setVerticalGroup(
-            EditStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-            .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        EditStaff.add(EditField, java.awt.BorderLayout.LINE_END);
+
+        jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 40));
+        jScrollPaneForStaffList.setRequestFocusEnabled(false);
+
+        StaffList_edit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        StaffList_edit.setAutoscrolls(false);
+       // StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
+        //StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
+        //StaffList_edit.setVisibleRowCount(20);
+        //jScrollPaneForStaffList.add(StaffList_edit);
+        jScrollPaneForStaffList.setViewportView(StaffList_edit);
+        //jScrollPaneForStaffList.setEnabled(true);
+        
+
+        EditStaff.add(jScrollPaneForStaffList, java.awt.BorderLayout.CENTER);
 
         ContentPanel.add(EditStaff, "card2");
 
