@@ -169,9 +169,7 @@ public class AdminMain extends JFrame
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        StaffList_activities.setMaximumSize(new java.awt.Dimension(100, 80));
-        StaffList_activities.setPreferredSize(new java.awt.Dimension(40, 80));
-        StaffList_activities.setVisibleRowCount(20);
+
         jScrollPaneForStaffList2.setViewportView(StaffList_activities);
 
         StaffActivitiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Activities", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -271,9 +269,6 @@ public class AdminMain extends JFrame
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        //StaffList_delete.setMaximumSize(new java.awt.Dimension(100, 80));
-        //StaffList_delete.setPreferredSize(new java.awt.Dimension(40, 80));
-        //StaffList_delete.setVisibleRowCount(20);
         jScrollPaneForStaffList1.setViewportView(StaffList_delete);
 
         DeleteStaffPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delete Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -294,18 +289,6 @@ public class AdminMain extends JFrame
 
         LabelForHomeAdd_delete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForHomeAdd_delete.setText("Home Address :");
-
-        //Sname_delete.addActionListener(new java.awt.event.ActionListener() {
-           // public void actionPerformed(java.awt.event.ActionEvent evt) {
-            //    Sname2ActionPerformed(evt);
-          //  }
-       // });
-
-       // EmailAdd_delete.addActionListener(new java.awt.event.ActionListener() {
-           // public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // EmailAdd_deleteActionPerformed(evt);
-           // }
-       // });
 
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -439,12 +422,6 @@ public class AdminMain extends JFrame
         LabelForPrevPwd_add.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForPrevPwd_add.setText("Password :");
 
-        ContactNo_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ContactNo_addActionPerformed(evt);
-            }
-        });
-
         LabelForNewPwd_add.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForNewPwd_add.setText("Repeat Password :");
 
@@ -576,14 +553,6 @@ public class AdminMain extends JFrame
 
         StaffList_edit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        /*StaffList_edit.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });*/
-        //StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
-        //StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
-        //StaffList_edit.setVisibleRowCount(20);
         jScrollPaneForStaffList.setViewportView(StaffList_edit);
 
         EditField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -608,24 +577,8 @@ public class AdminMain extends JFrame
         LabelForPrevPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForPrevPwd.setText("Old Password :");
 
-        /*ID.setText("");
-
-        Fname.setText("");
-
-        Sname.setText("jTextField2");
-
-        ContactNo.setText("jTextField3");
-
-        EmailAdd.setText("jTextField4");
-
-        HomeAdd.setText("jTextField5");
-
-        OldPwd.setText("jTextField6");*/
-
         LabelForNewPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForNewPwd.setText("New Password :");
-
-        //NewPwd_edit.setText("jTextField7");
 
         Save_edit.setText("Save");
         Save_edit.addActionListener(new java.awt.event.ActionListener() {

@@ -4,10 +4,12 @@ drop table Clerk;
 drop table Mechanic;
 drop table Car;
 drop table Customer;
+drop table LoginLog;
+drop table ActivityLog;
 
 create table Administrator
 (
-	ID int(10) PRIMARY KEY AUTO_INCREMENT,
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 1000
 	Fname varchar(50)NOT NULL,
 	Sname varchar(50) NOT NULL,
 	ContactNo varchar(30) NULL,
@@ -18,7 +20,7 @@ create table Administrator
 
 create table Clerk
 (
-   	ID int(10) PRIMARY KEY AUTO_INCREMENT,
+   	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 2000
    	Fname varchar(50)NOT NULL,
    	Sname varchar(50) NOT NULL,
    	ContactNo varchar(30) NULL,
@@ -29,7 +31,7 @@ create table Clerk
 
 create table Mechanic
 (
-   	ID int(10) PRIMARY KEY AUTO_INCREMENT,
+   	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 3000
    	Fname varchar(50)NOT NULL,
    	Sname varchar(50) NOT NULL,
    	ContactNo varchar(30) NULL,
@@ -40,7 +42,7 @@ create table Mechanic
 
 create table Customer
 (
-	CustomerID int(10) PRIMARY KEY AUTO_INCREMENT,
+	CustomerID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 4000
 	Fname varchar(50) NOT NULL,
 	Sname varchar(50) NOT NULL,
 	ContactNo varchar(30) NOT NULL,
@@ -51,7 +53,7 @@ create table Customer
 
 create table Car
 (
-	CarID int(10) PRIMARY KEY AUTO_INCREMENT,
+	CarID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 6000
 	CarRegNo varchar(50) UNIQUE KEY,
 	Make varchar(50) NOT NULL,
 	Model varchar(50) NULL,
@@ -60,7 +62,7 @@ create table Car
 
 create table Booking
 (
-	ID int(10) PRIMARY KEY AUTO_INCREMENT,
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 8000
 	ClerkID int(10) NOT NULL,
 	CustomerID int(10) NOT NULL,
 	CarID int(10) NOT NULL,
@@ -69,6 +71,25 @@ create table Booking
 	FOREIGN KEY (ClerkID) REFERENCES Clerk(ID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (CarID) REFERENCES Car(CarID)
+);
+
+create table SessionLog
+(
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 10000
+	logintime TIMESTAMP NOT NULL,
+	userID int(10) NOT NULL,
+	userRole varchar(15) NOT NULL,
+	description varchar(30)
+);
+
+create table ActivityLog
+(
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 20000
+	activitytime TIMESTAMP NOT NULL,
+	userID int(10) NOT NULL,
+	userRole varchar(15) NOT NULL,
+	op varchar(8) NOT NULL,
+	tablename varchar(15) NOT NULL
 );
 
 
@@ -95,6 +116,7 @@ select * from mechanic;
 select * from customer;
 select * from car;
 select * from booking;
+select * from sessionlog;
 
 select * from administrator
 union

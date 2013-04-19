@@ -173,6 +173,7 @@ public class Main
 		return returnThis;
 	}
 	
+	//adding staff
 	int addStaff(List<String> list) throws SQLException
 	{
 		System.out.println(list.get(0));
@@ -201,6 +202,24 @@ public class Main
 		return -1;
 	}
 	
+	
+	void sessionlogs(String uid, String role, String descr)
+	{
+		try
+		{
+			openConnection();
+			stm.executeUpdate("INSERT INTO sessionlog(logintime, userid, userrole, description) " +
+								"VALUES( NOW(), " + uid + ", \"" + role + "\", \"" + descr + "\");");
+			closeConnection();
+		} 
+		catch (SQLException e) {e.printStackTrace();} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//closing connection
 	void closeConnection() throws SQLException
 	{
 		stm.close();

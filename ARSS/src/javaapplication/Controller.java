@@ -9,8 +9,9 @@ import javax.swing.JOptionPane;
 public class Controller 
 {
 	private Login login_view;
-	//private AdminMain admin_view;
 	private Main model;
+	protected String userID;
+	protected String role;
 	
 	Controller(Login view)
 	{
@@ -25,21 +26,15 @@ public class Controller
 		public void actionPerformed(ActionEvent e) 
 		{
 			if (e.getSource() == login_view.Login) 
-	    	 {
+	    	 {	
 	    		 try
 	    		 {
 	    			model = new Main();
 					checkLogin(model.search(login_view.getUserID(), login_view.getPassword(), login_view.getRole()));
 				 } 
-	    		 catch (SQLException e1) 
-	    		 {
-					e1.printStackTrace();
-				 } 
+	    		 catch (SQLException e1){e1.printStackTrace();} 
 	    		 catch (ClassNotFoundException e1) 
-	    		 {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+	    		 {e1.printStackTrace();}
 	    		
 	    	 }
 			
@@ -58,6 +53,9 @@ public class Controller
 			switch (check) 
 			{
 			case 1:
+				userID = login_view.getUserID();
+				role = model.identifyRole(login_view.getRole());
+				model.sessionlogs(userID, role, "System Login");
 				AdminMain adminMain = new AdminMain();
 				login_view.setVisible(false);
 				adminMain.setVisible(true);

@@ -19,6 +19,7 @@ public class AdminController
 	CardLayout content;
 	AdminController(AdminMain view)
 	{
+		System.out.println(System.getProperty("user.name"));
 		admin_view = view;
 		admin_view.buttonListener(new buttonListener());
 		admin_view.listSelectionListener(new valueChange());
