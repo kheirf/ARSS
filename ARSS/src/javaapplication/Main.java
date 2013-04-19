@@ -1,6 +1,7 @@
 package javaapplication;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main 
@@ -11,12 +12,33 @@ public class Main
 	
 	Main() throws ClassNotFoundException, SQLException
 	{
+		openConnection();
+	}
+	
+	void openConnection() throws SQLException, ClassNotFoundException
+	{
 		Class.forName(jdbcdriver);
 		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
 		stm = con.createStatement();
 	}
 	
-	
+	String identifyRole(int role)
+	{
+		String Role = null;
+		switch(role)
+		{
+		case 1:
+			Role = "Administrator";
+			break;
+		case 2:
+			Role = "Clerk";
+			break;
+		case 3:
+			Role = "Mechanic";
+			break;
+		}
+		return Role;
+	}
 	
 	protected int search(String uname, char [] password, int role) throws SQLException
 	{
@@ -25,48 +47,164 @@ public class Main
 		ResultSet rs = null;
 		int returnThis;
 		
-		switch(role)
-		{
-		case 1:
-			rs = stm.executeQuery("SELECT password FROM administrator WHERE ID = '" + uname + "'");
-			break;
-		case 2:
-			rs = stm.executeQuery("SELECT password FROM clerk WHERE ID = '" + uname + "'");
-			break;
-		case 3:
-			rs = stm.executeQuery("SELECT password FROM mechanic WHERE ID = '" + uname + "'");
-			break;
-		}
+		rs = stm.executeQuery("SELECT password FROM " + identifyRole(role) + " WHERE ID = '" + uname + "'");
 		
 		if(rs.next())
 		{
 			getPass = rs.getString(1);
 			if(convertedPass.equals(getPass))
-			{
-				System.out.println("Correct");
 				returnThis = 1;
-			}
 			else
-			{
-				System.out.println("Incorect");
-			returnThis = 2;
-			}
+				returnThis = 2;
 		}
-		else
-		{
-			System.out.println("No data found");			
+		else			
 		    returnThis = 3;		    
-		}
 		
 		rs.close();
-		stm.close();
-		con.close();
+		closeConnection();
 		return returnThis;
 	}
 	
-	void addStaff(List<String> list)
+	String[] getAllstaff()throws SQLException
 	{
+		ResultSet rs = null;
+		String[] list = null;
+		try {
+			openConnection();
+			rs = stm.executeQuery("SELECT * FROM administrator UNION SELECT * FROM clerk UNION SELECT * FROM Mechanic");
+			
+			rs.last();
+			int lastRow = rs.getRow();
+			list = new String[lastRow];
+			rs.first();
+			list[0] = rs.getString(1);
+			for(int i = 1; i < lastRow; i++)
+			{
+				if(rs.next())
+					list[i] = rs.getString(1);
+			}
+			rs.close();
+			//closeConnection();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		
+	
+		
+		
+		return list;
+	}
+	
+	List<String> searchForID(String ID)
+	{
+		ResultSet rs;
+		List<String> list = new ArrayList<String>();
+		try 
+		{
+			openConnection();
+			if((rs = stm.executeQuery("SELECT * FROM administrator WHERE ID = " + ID)).next())
+			{
+				for (int i = 1; i <= 7; i++)
+				{
+					list.add(rs.getString(i));
+				}
+				list.add("1");
+			}
+			else
+				if((rs = stm.executeQuery("SELECT * FROM clerk WHERE ID = " + ID)).next())
+				{
+					for (int i = 1; i <= 7; i++)
+					{
+						list.add(rs.getString(i));
+					}
+					list.add("2");
+				}
+				else
+					if((rs = stm.executeQuery("SELECT * FROM mechanic WHERE ID = " + ID)).next())
+					{
+						for (int i = 1; i <= 7; i++)
+						{
+							list.add(rs.getString(i));
+						}
+						list.add("3");
+					}
+			rs.close();
+			closeConnection();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{e.printStackTrace();}
+
+		return list;	
+	}
+	
+	//update rows in staff
+	int updateStaff(int role, List<String> list)
+	{
+		int returnThis = -1;
+		String Role = identifyRole(role);
+		try 
+		{
+			openConnection();
+			returnThis = stm.executeUpdate("UPDATE " + Role + " SET fname = \"" + list.get(1) + "\", sname = \"" + list.get(2) + "\", contactno = \""
+									+ list.get(3) + "\", emailaddress = \"" + list.get(4) + "\", homeaddress = \"" + list.get(5) + 
+											"\", password = \"" + list.get(6) + "\" WHERE ID = " + list.get(0));
+			closeConnection();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{e.printStackTrace();}
+		
+		
+		return returnThis;
+	}
+	
+	//For Deleting Staff
+	int deleteStaff(int role, String ID)
+	{
+		int returnThis = -1;
+		String Role = identifyRole(role);
+		try 
+		{
+			openConnection();
+			returnThis = stm.executeUpdate("DELETE FROM " + Role + " WHERE ID = " + ID);
+			closeConnection();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{e.printStackTrace();}
+		return returnThis;
+	}
+	
+	int addStaff(List<String> list) throws SQLException
+	{
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
+		
+		if(list.get(0) == "Administrator")
+		{
+			return stm.executeUpdate("INSERT INTO administrator(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
+										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
+											+ list.get(5) + "\", \"" + list.get(6) + "\");");
+		}
+		if(list.get(0) == "Clerk")
+		{
+			return stm.executeUpdate("INSERT INTO clerk(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
+										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
+											+ list.get(5) + "\", \"" + list.get(6) + "\");");
+		}
+		if(list.get(0) == "Mechanic")
+		{
+			return stm.executeUpdate("INSERT INTO mechanic(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
+										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
+											+ list.get(5) + "\", \"" + list.get(6) + "\");");
+		}
+		
+		 closeConnection();
+		return -1;
+	}
+	
+	void closeConnection() throws SQLException
+	{
+		stm.close();
+		con.close();
 	}
 	
 }

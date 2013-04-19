@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionListener;
 
 public class AdminMain extends JFrame
 {
@@ -48,7 +50,7 @@ public class AdminMain extends JFrame
         textArea_activities = new javax.swing.JTextArea();
         DeleteStaff = new javax.swing.JPanel();
         jScrollPaneForStaffList1 = new javax.swing.JScrollPane();
-        StaffList1 = new javax.swing.JList();
+        StaffList_delete = new javax.swing.JList();
         DeleteStaffPanel = new javax.swing.JPanel();
         LabelForFName2 = new javax.swing.JLabel();
         LabelForSName2 = new javax.swing.JLabel();
@@ -56,12 +58,12 @@ public class AdminMain extends JFrame
         LabelForID1 = new javax.swing.JLabel();
         LabelForEmailAdd_delete = new javax.swing.JLabel();
         LabelForHomeAdd_delete = new javax.swing.JLabel();
-        ID1_delete = new javax.swing.JTextField();
-        Fname_delete = new javax.swing.JTextField();
-        Sname_delete = new javax.swing.JTextField();
-        ContactNo_delete = new javax.swing.JTextField();
-        EmailAdd_delete = new javax.swing.JTextField();
-        HomeAdd_delete = new javax.swing.JTextField();
+        ID1_delete = new javax.swing.JLabel();
+        Fname_delete = new javax.swing.JLabel();
+        Sname_delete = new javax.swing.JLabel();
+        ContactNo_delete = new javax.swing.JLabel();
+        EmailAdd_delete = new javax.swing.JLabel();
+        HomeAdd_delete = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
         findButton_delete = new javax.swing.JButton();
         LabelForFind = new javax.swing.JLabel();
@@ -89,7 +91,7 @@ public class AdminMain extends JFrame
         jLabel1 = new javax.swing.JLabel();
         EditStaff = new javax.swing.JPanel();
         jScrollPaneForStaffList = new javax.swing.JScrollPane();
-        StaffList = new javax.swing.JList();
+        StaffList_edit = new javax.swing.JList();
         EditField = new javax.swing.JPanel();
         LabelForFName = new javax.swing.JLabel();
         LabelForSName = new javax.swing.JLabel();
@@ -98,22 +100,19 @@ public class AdminMain extends JFrame
         LabelForEmailAdd = new javax.swing.JLabel();
         LabelForHomeAdd = new javax.swing.JLabel();
         LabelForPrevPwd = new javax.swing.JLabel();
-        ID_edit = new javax.swing.JTextField();
+        ID_edit = new javax.swing.JLabel();
         Fname_edit = new javax.swing.JTextField();
         Sname_edit = new javax.swing.JTextField();
         ContactNo_edit = new javax.swing.JTextField();
         EmailAdd_edit = new javax.swing.JTextField();
         HomeAdd_edit = new javax.swing.JTextField();
-        OldPwd_edit = new javax.swing.JTextField();
+        OldPwd_edit = new javax.swing.JLabel();
         LabelForNewPwd = new javax.swing.JLabel();
         NewPwd_edit = new javax.swing.JTextField();
         Save_edit = new javax.swing.JButton();
         Discard_edit = new javax.swing.JButton();
         FooterPanel = new javax.swing.JPanel();
-        MenuBar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ARSS - Administrator");
         setMinimumSize(new java.awt.Dimension(938, 580));
@@ -143,19 +142,15 @@ public class AdminMain extends JFrame
 
         addMember.setText("Add Member");
         OptionPanel.add(addMember);
-        //addMember.addActionListener(this);
 
         editMember.setText("Edit Member");
         OptionPanel.add(editMember);
-       // editMember.addActionListener(this);
         
         deleteMember.setText("Delete Member");
         OptionPanel.add(deleteMember);
-        //deleteMember.addActionListener(this);
 
         viewActivities.setText("View Activities");
         OptionPanel.add(viewActivities);
-        //viewActivities.addActionListener(this);
 
         getContentPane().add(OptionPanel, java.awt.BorderLayout.LINE_START);
 
@@ -266,20 +261,20 @@ public class AdminMain extends JFrame
         DeleteStaff.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         DeleteStaff.setPreferredSize(new java.awt.Dimension(602, 247));
 
-        jScrollPaneForStaffList1.setPreferredSize(new java.awt.Dimension(50, 130));
+        jScrollPaneForStaffList1.setPreferredSize(new java.awt.Dimension(50, 40));
         jScrollPaneForStaffList1.setRequestFocusEnabled(false);
 
-        StaffList1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        StaffList1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList1.setModel(new javax.swing.AbstractListModel() {
+        StaffList_delete.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        StaffList_delete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        StaffList_delete.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        StaffList1.setMaximumSize(new java.awt.Dimension(100, 80));
-        StaffList1.setPreferredSize(new java.awt.Dimension(40, 80));
-        StaffList1.setVisibleRowCount(20);
-        jScrollPaneForStaffList1.setViewportView(StaffList1);
+        StaffList_delete.setMaximumSize(new java.awt.Dimension(100, 80));
+        StaffList_delete.setPreferredSize(new java.awt.Dimension(40, 80));
+        StaffList_delete.setVisibleRowCount(20);
+        jScrollPaneForStaffList1.setViewportView(StaffList_delete);
 
         DeleteStaffPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delete Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -300,17 +295,17 @@ public class AdminMain extends JFrame
         LabelForHomeAdd_delete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForHomeAdd_delete.setText("Home Address :");
 
-        Sname_delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Sname2ActionPerformed(evt);
-            }
-        });
+        //Sname_delete.addActionListener(new java.awt.event.ActionListener() {
+           // public void actionPerformed(java.awt.event.ActionEvent evt) {
+            //    Sname2ActionPerformed(evt);
+          //  }
+       // });
 
-        EmailAdd_delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailAdd_deleteActionPerformed(evt);
-            }
-        });
+       // EmailAdd_delete.addActionListener(new java.awt.event.ActionListener() {
+           // public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // EmailAdd_deleteActionPerformed(evt);
+           // }
+       // });
 
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -575,21 +570,25 @@ public class AdminMain extends JFrame
 
         EditStaff.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         EditStaff.setPreferredSize(new java.awt.Dimension(602, 247));
-
-        jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 130));
+        EditStaff.setLayout(new java.awt.BorderLayout());
+        
+        jScrollPaneForStaffList.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 40));
         jScrollPaneForStaffList.setRequestFocusEnabled(false);
 
-        StaffList.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        StaffList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList.setModel(new javax.swing.AbstractListModel() {
+        StaffList_edit.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        /*StaffList_edit.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
-        });
-        StaffList.setMaximumSize(new java.awt.Dimension(100, 80));
-        StaffList.setPreferredSize(new java.awt.Dimension(40, 80));
-        StaffList.setVisibleRowCount(20);
-        jScrollPaneForStaffList.setViewportView(StaffList);
+        });*/
+        StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 40));
+        StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 40));
+        StaffList_edit.setVisibleRowCount(15);
+        //StaffList_edit.addListSelectionListener(this);
+        
+        jScrollPaneForStaffList.setViewportView(StaffList_edit);
 
         EditField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -613,34 +612,20 @@ public class AdminMain extends JFrame
         LabelForPrevPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForPrevPwd.setText("Old Password :");
 
-        /*ID.setText("");
-
-        Fname.setText("");
-
-        Sname.setText("jTextField2");
-
-        ContactNo.setText("jTextField3");
-
-        EmailAdd.setText("jTextField4");
-
-        HomeAdd.setText("jTextField5");
-
-        OldPwd.setText("jTextField6");*/
-
         LabelForNewPwd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForNewPwd.setText("New Password :");
 
-        //NewPwd_edit.setText("jTextField7");
 
         Save_edit.setText("Save");
-        Save_edit.addActionListener(new java.awt.event.ActionListener() {
+        /*Save_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
             }
-        });
+        });*/
 
         Discard_edit.setText("Discard");
-
+        
+        
         javax.swing.GroupLayout EditFieldLayout = new javax.swing.GroupLayout(EditField);
         EditField.setLayout(EditFieldLayout);
         EditFieldLayout.setHorizontalGroup(
@@ -746,7 +731,7 @@ public class AdminMain extends JFrame
         );
         EditStaffLayout.setVerticalGroup(
             EditStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
             .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -770,133 +755,104 @@ public class AdminMain extends JFrame
         getContentPane().add(FooterPanel, BorderLayout.PAGE_END);
         setBounds(150, 70, 954, 618);
 
-        jMenu1.setText("File");
-        MenuBar.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        MenuBar.add(jMenu2);
-
-        setJMenuBar(MenuBar);
-
         pack();
     }// </editor-fold>                        
 
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {}                                    
 
-    private void Save_addActionPerformed(java.awt.event.ActionEvent evt) {                                      
-        // TODO add your handling code here:
-    }                                     
+    private void Save_addActionPerformed(java.awt.event.ActionEvent evt) {}                                     
 
-    private void DropDown_addActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+    private void DropDown_addActionPerformed(java.awt.event.ActionEvent evt) {}                                          
 
-    private void ContactNo_addActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+    private void ContactNo_addActionPerformed(java.awt.event.ActionEvent evt) {}                                          
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {}                                            
 
-    private void findActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        // TODO add your handling code here:
-    }                                    
+    private void findActionPerformed(java.awt.event.ActionEvent evt) {}                                    
 
-    private void Sname2ActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
-    }                                      
+    private void Sname2ActionPerformed(java.awt.event.ActionEvent evt) {}                                      
 
-    private void EmailAdd_deleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
+    private void EmailAdd_deleteActionPerformed(java.awt.event.ActionEvent evt) {}                                         
 
-    private void find1ActionPerformed(java.awt.event.ActionEvent evt) {                                      
-        // TODO add your handling code here:
+    private void find1ActionPerformed(java.awt.event.ActionEvent evt) {}
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	
+    void populateList(final String [] string)
+    {
+    	StaffList_edit.setModel(new javax.swing.AbstractListModel() 
+    	{
+            String[] strings = string;
+            public int getSize() 
+            { return strings.length; }
+            
+            public Object getElementAt(int i) 
+            { return strings[i];} 
+        });
+    	
+    	StaffList_delete.setModel(new javax.swing.AbstractListModel() 
+    	{
+            String[] strings = string;
+            public int getSize() 
+            { return strings.length; }
+            
+            public Object getElementAt(int i) 
+            { return strings[i];} 
+        });
     }
     
-    void addMemberBListener(ActionListener listen)
+    void buttonListener(ActionListener listen)
     {
     	addMember.addActionListener(listen);
-    }
-    
-    void editMemberBListener(ActionListener listen)
-    {
-    	editMember.addActionListener(listen);
-    }
-    
-    void deleteMemberBListener(ActionListener listen)
-    {
+    	Save_add.addActionListener(listen);
+    	Discard_add.addActionListener(listen);
     	deleteMember.addActionListener(listen);
+    	viewActivities.addActionListener(listen);
+    	editMember.addActionListener(listen);
+    	Save_edit.addActionListener(listen);
+    	Discard_edit.addActionListener(listen);
+    	deleteButton.addActionListener(listen);
+    	
     }
     
-    void viewBListener(ActionListener listen)
+    void listSelectionListener(ListSelectionListener listen)
     {
-    	viewActivities.addActionListener(listen);
+    	StaffList_edit.addListSelectionListener(listen);
+    	StaffList_delete.addListSelectionListener(listen);
+    	StaffList2.addListSelectionListener(listen);
+    	StaffList_delete.addListSelectionListener(listen);
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    /*
-    public static void main(String args[]) {
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminMain().setVisible(true);
-            }
-        });
-        
-    }*/
+ 
+  
     // Variables declaration - do not modify                     
     private javax.swing.JPanel AddField;
     private javax.swing.JPanel AddStaff;
-    private javax.swing.JTextField ContactNo_edit;
-    private javax.swing.JTextField ContactNo_add;
-    private javax.swing.JTextField ContactNo_delete;
+    protected javax.swing.JTextField ContactNo_edit;
+    protected javax.swing.JTextField ContactNo_add;
+    protected javax.swing.JLabel ContactNo_delete;
     protected javax.swing.JPanel ContentPanel;
-    private javax.swing.JList DateList;
+    @SuppressWarnings("rawtypes")
+	protected javax.swing.JList DateList;
     private javax.swing.JScrollPane DateSummary;
     private javax.swing.JPanel DeleteStaff;
     private javax.swing.JPanel DeleteStaffPanel;
-    private javax.swing.JButton Discard_edit;
-    private javax.swing.JButton Discard_add;
+    protected javax.swing.JButton Discard_edit;
+    protected javax.swing.JButton Discard_add;
     private javax.swing.JPanel EditField;
     private javax.swing.JPanel EditStaff;
-    private javax.swing.JTextField EmailAdd_edit;
-    private javax.swing.JTextField EmailAdd_add;
-    private javax.swing.JTextField EmailAdd_delete;
-    private javax.swing.JTextField Fname_edit;
-    private javax.swing.JTextField Fname_add;
-    private javax.swing.JTextField Fname_delete;
+    protected javax.swing.JTextField EmailAdd_edit;
+    protected javax.swing.JTextField EmailAdd_add;
+    protected javax.swing.JLabel EmailAdd_delete;
+    protected javax.swing.JTextField Fname_edit;
+    protected javax.swing.JTextField Fname_add;
+    protected javax.swing.JLabel Fname_delete;
     private javax.swing.JPanel FooterPanel;
     private javax.swing.JPanel HeaderPanel;
-    private javax.swing.JTextField HomeAdd_edit;
-    private javax.swing.JTextField HomeAdd_add;
-    private javax.swing.JTextField HomeAdd_delete;
-    private javax.swing.JTextField ID_edit;
-    private javax.swing.JTextField ID1_delete;
+    protected javax.swing.JTextField HomeAdd_edit;
+    protected javax.swing.JTextField HomeAdd_add;
+    protected javax.swing.JLabel HomeAdd_delete;
+    protected javax.swing.JLabel ID_edit;
+    protected javax.swing.JLabel ID1_delete;
     private javax.swing.JLabel LabelForConNumber;
     private javax.swing.JLabel LabelForConNumber1;
     private javax.swing.JLabel LabelForConNumber2;
@@ -920,22 +876,24 @@ public class AdminMain extends JFrame
     private javax.swing.JLabel LabelForSName;
     private javax.swing.JLabel LabelForSname_add;
     private javax.swing.JLabel LabelForSName2;
-    private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JTextField NewPwd_edit;
-    private javax.swing.JTextField OldPwd_edit;
+    protected javax.swing.JTextField NewPwd_edit;
+    protected javax.swing.JLabel OldPwd_edit;
     private javax.swing.JPanel OptionPanel;
-    private javax.swing.JTextField Pwd_add;
-    private javax.swing.JTextField RepeatPwd;
-    private javax.swing.JButton Save_edit;
-    private javax.swing.JButton Save_add;
-    private javax.swing.JTextField Sname_edit;
-    private javax.swing.JTextField Sname_add;
-    private javax.swing.JTextField Sname_delete;
+    protected javax.swing.JTextField Pwd_add;
+    protected javax.swing.JTextField RepeatPwd;
+    protected javax.swing.JButton Save_edit;
+    protected javax.swing.JButton Save_add;
+    protected javax.swing.JTextField Sname_edit;
+    protected javax.swing.JTextField Sname_add;
+    protected javax.swing.JLabel Sname_delete;
     private javax.swing.JPanel StaffActivities;
     private javax.swing.JPanel StaffActivitiesPanel;
-    private javax.swing.JList StaffList;
-    private javax.swing.JList StaffList1;
-    private javax.swing.JList StaffList2;
+    @SuppressWarnings("rawtypes")
+	protected javax.swing.JList StaffList_edit;
+    @SuppressWarnings("rawtypes")
+	protected javax.swing.JList StaffList_delete;
+    @SuppressWarnings("rawtypes")
+	private javax.swing.JList StaffList2;
     protected javax.swing.JButton addMember;
     protected javax.swing.JButton deleteButton;
     protected javax.swing.JButton deleteMember;
@@ -944,44 +902,18 @@ public class AdminMain extends JFrame
     protected javax.swing.JTextField find1;
     protected javax.swing.JButton findButton_delete;
     protected javax.swing.JButton findButton_activities;
-    private javax.swing.JComboBox DropDown_add;
+    @SuppressWarnings("rawtypes")
+	protected javax.swing.JComboBox DropDown_add;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneForStaffList;
     private javax.swing.JScrollPane jScrollPaneForStaffList1;
     private javax.swing.JScrollPane jScrollPaneForStaffList2;
-    private javax.swing.JTextArea textArea_activities;
+    protected javax.swing.JTextArea textArea_activities;
     protected javax.swing.JButton viewActivities;
     // End of variables declaration   
     
-    /*
-	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		CardLayout content = (CardLayout) ContentPanel.getLayout();
-		if(e.getSource() == addMember)
-		{
-			content.show(ContentPanel, "card1");
-		}
-		
-		if(e.getSource() == editMember)
-		{
-			content.show(ContentPanel, "card2");
-		}
-		
-		if(e.getSource() == deleteMember)
-		{
-			content.show(ContentPanel, "card3");
-		}
-		
-		if(e.getSource() == viewActivities)
-		{
-			content.show(ContentPanel, "card4");
-		}
-		
-	}*/
+
 }

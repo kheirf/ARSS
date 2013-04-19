@@ -96,6 +96,12 @@ select * from customer;
 select * from car;
 select * from booking;
 
+select * from administrator
+union
+select * from clerk
+union
+select * from mechanic;
+
 drop * from customer where customerID = 1;
 
 select fname from booking

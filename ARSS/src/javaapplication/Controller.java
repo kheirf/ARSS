@@ -53,25 +53,62 @@ public class Controller
 	
 	void checkLogin(int check)
 	{
-		switch (check) 
-		
+		if(login_view.getRole() == 1)
 		{
-		case 1:
+			switch (check) 
+			{
+			case 1:
 				AdminMain adminMain = new AdminMain();
 				login_view.setVisible(false);
-			  	adminMain.setVisible(true);
-			    new AdminController(adminMain);
-			  	break;
-		case 2:
-			  	JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
-                login_view.Password.setText("");
-                break;
-		case 3:
-		      	JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);
-                login_view.User_ID.setText("");
-                login_view.Password.setText("");
-                break;
+				adminMain.setVisible(true);
+				new AdminController(adminMain);
+				break;
+			case 2:
+				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
+				login_view.Password.setText("");
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);
+				login_view.User_ID.setText("");
+				login_view.Password.setText("");
+				break;
+			}
+		}
+
+		if(login_view.getRole() == 2)
+		{
+			switch (check) 
+			{
+			case 1:
+				JOptionPane.showMessageDialog(login_view, "This should get to clerk main", "Warning", JOptionPane.ERROR_MESSAGE);
+				break;
+			case 2:
+				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);
+				login_view.User_ID.setText("");
+				login_view.Password.setText("");
+				break;
+			}
 		}
 		
+		if(login_view.getRole() == 3)
+		{
+			switch (check) 
+			{
+			case 1:
+				JOptionPane.showMessageDialog(login_view, "This should get to mechanic main", "Warning", JOptionPane.ERROR_MESSAGE);
+				break;
+			case 2:
+				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);
+				login_view.User_ID.setText("");
+				login_view.Password.setText("");
+				break;
+			}
+		}
 	}
 }
