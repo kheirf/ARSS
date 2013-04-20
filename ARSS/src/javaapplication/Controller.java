@@ -103,7 +103,14 @@ public class Controller
 			switch (check) 
 			{
 			case 1:
-				JOptionPane.showMessageDialog(login_view, "This should get to mechanic main", "Warning", JOptionPane.ERROR_MESSAGE);
+				userID = login_view.getUserID();
+				role = model.identifyRole(login_view.getRole());
+				model.sessionlogs(userID, role, "System Login");
+				MechanicMain mechanicMain = new MechanicMain();
+				login_view.setVisible(false);
+				mechanicMain.setVisible(true);
+				new MechanicController(mechanicMain, userID);
+				//JOptionPane.showMessageDialog(login_view, "This should get to mechanic main", "Warning", JOptionPane.ERROR_MESSAGE);
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);

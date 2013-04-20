@@ -3,6 +3,8 @@ package javaapplication;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JScrollBar;
 import javax.swing.event.ListSelectionListener;
 
@@ -17,6 +19,8 @@ public class ClerkMain extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel2;
 	protected javax.swing.JLabel registered_edit;
 	private javax.swing.JLabel LabelForRegistered;
+	private javax.swing.JLabel jLabel1;
+	protected javax.swing.JComboBox carOwner_add;
 	/**
      * Creates new form ClerkMain
      */
@@ -115,6 +119,8 @@ public class ClerkMain extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         registered_edit = new javax.swing.JLabel();
         LabelForRegistered = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        carOwner_add = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(938, 580));
@@ -377,9 +383,26 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForConNumber1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForConNumber1.setText("Contact No :");
 
+       // ContactNo_add.addActionListener(new java.awt.event.ActionListener() {
+           // public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // ContactNo_addActionPerformed(evt);
+           // }//
+       // });
+
+       // Fname_add.addActionListener(new java.awt.event.ActionListener() {
+            //public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //Fname_addActionPerformed(evt);
+            //}
+       // });
+
         discardCustomer_add.setText("Discard");
 
         addCustomer_add.setText("Save");
+        //addCustomer_add.addActionListener(new java.awt.event.ActionListener() {
+            //public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // addCustomer_addActionPerformed(evt);
+           // }
+       // });
 
         LabelForFName1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFName1.setText("First Name :");
@@ -453,6 +476,18 @@ public class ClerkMain extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Car"));
 
+        //Model_add.addActionListener(new java.awt.event.ActionListener() {
+            //public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //Model_addActionPerformed(evt);
+           // }
+       // });
+
+       // Make_add.addActionListener(new java.awt.event.ActionListener() {
+            //public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // Make_addActionPerformed(evt);
+            //}
+        //});
+
         LabelForFName4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFName4.setText("Model :");
 
@@ -465,29 +500,50 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForFName5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFName5.setText("Registration No :");
 
+        //Year_add.addActionListener(new java.awt.event.ActionListener() {
+           // public void actionPerformed(java.awt.event.ActionEvent evt) {
+            //    Year_addActionPerformed(evt);
+           // }
+       // });
+
         addCar_add.setText("Save");
+       // addCar_add.addActionListener(new java.awt.event.ActionListener() {
+            //public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // addCar_addActionPerformed(evt);
+            //}
+       // });
 
         discardCar_add.setText("Discard");
 
+        //Regno_add.addActionListener(new java.awt.event.ActionListener() {
+            //public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //Regno_addActionPerformed(evt);
+            //}
+        //});
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Owner :");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(LabelForFName6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(LabelForFName4))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(58, 58, 58)
+                            .addComponent(LabelForFName6))
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(55, 55, 55)
-                            .addComponent(LabelForFName3))
-                        .addComponent(LabelForFName5, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGap(51, 51, 51)
+                            .addComponent(LabelForFName4))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(LabelForFName3))
+                            .addComponent(LabelForFName5, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Make_add)
@@ -498,13 +554,14 @@ public class ClerkMain extends javax.swing.JFrame {
                         .addGap(0, 30, Short.MAX_VALUE)
                         .addComponent(addCar_add, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(discardCar_add)))
+                        .addComponent(discardCar_add))
+                    .addComponent(carOwner_add, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForFName3)
                     .addComponent(Make_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -516,7 +573,11 @@ public class ClerkMain extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForFName5)
                     .addComponent(Regno_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(carOwner_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForFName6)
                     .addComponent(Year_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -535,7 +596,7 @@ public class ClerkMain extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AddFieldLayout.setVerticalGroup(
             AddFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,7 +605,7 @@ public class ClerkMain extends javax.swing.JFrame {
                 .addGroup(AddFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout AddCustomerLayout = new javax.swing.GroupLayout(AddCustomer);
@@ -553,8 +614,7 @@ public class ClerkMain extends javax.swing.JFrame {
             AddCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddCustomerLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(AddField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(AddField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AddCustomerLayout.setVerticalGroup(
             AddCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,6 +799,10 @@ public class ClerkMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+    void carOwnerCombo(String [] list)
+    {
+    	carOwner_add.setModel(new DefaultComboBoxModel<>(list));
+    }
 
     void buttonListener(ActionListener listen)
     {
@@ -758,6 +822,7 @@ public class ClerkMain extends javax.swing.JFrame {
     	logoutButton.addActionListener(listen);
     	Delete_edit.addActionListener(listen);
     	view_booking.addActionListener(listen);
+    	carOwner_add.addActionListener(listen);
     }
     
     void listSelectionListener(ListSelectionListener listen)

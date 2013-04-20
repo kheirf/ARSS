@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -62,10 +63,23 @@ public class ClerkController
 					JOptionPane.showMessageDialog(clerk_view, "Car Registration number cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
 				else
 				{
+					ResultSet rs = model.getBatchResult("Customer");
+					String carOwnerID = null;
+					try 
+					{
+						if(rs.next())
+						{
+							rs.absolute(clerk_view.carOwner_add.getSelectedIndex());
+							carOwnerID = rs.getString(1);
+						}
+					} 
+					catch (SQLException e) {e.printStackTrace();}
+					
 					List<String> list = new ArrayList<String>();
 					list.add(clerk_view.Regno_add.getText());
 					list.add(clerk_view.Make_add.getText());
 					list.add(clerk_view.Model_add.getText());
+					list.add(carOwnerID);
 					list.add(clerk_view.Year_add.getText());
 	
 					if((model.addCarCustomerBooking(list, 2)) > 0)
@@ -245,6 +259,9 @@ public class ClerkController
     		});
 			
 		}
+		else
+			clerk_view.CustomerList_booking.setListData(new String[0]);
+		
 		rs = model.getBatchResult("Car");
 		if(rs.next())
 		{
@@ -267,6 +284,9 @@ public class ClerkController
     		});
 			
 		}
+		else
+			clerk_view.CarList_booking.setListData(new String[0]);
+		
 		rs = model.getBatchResult("Booking");
 		if(rs.next())
 		{
@@ -277,6 +297,9 @@ public class ClerkController
 			for (int i = 0; i < lastRow; i++)
 				if (rs.next())
 					string[i] = rs.getString(1);
+				else
+					break;
+			
 			
 			clerk_view.BookingList_booking.setModel(new javax.swing.AbstractListModel() 
     		{
@@ -287,8 +310,9 @@ public class ClerkController
     			public Object getElementAt(int i) 
     			{ return strings[i];} 
     		});
-			
 		}
+		else
+			clerk_view.BookingList_booking.setListData(new String[0]);
 	}
 	
 	//Method to add booking
@@ -347,7 +371,7 @@ public class ClerkController
 		rs.absolute(position + 1);
 		String disp = "Booking ID: " + rs.getString(1) + "\nClerk ID: " + rs.getString(2) + "\nCustomer ID: " 
 						+ rs.getString(3) + "\nCar ID: " + rs.getString(4) + "\nDate booked: " + rs.getString(5)
-						+ "\nProblem: " + rs.getString(6);
+						+ "\nProblem: " + rs.getString(6) + "\nStatus: " + rs.getString(7);
 		
 		Object[] options = {"Delete this booking", "Go back"};
 		int i = JOptionPane.showOptionDialog(clerk_view, disp, rs.getString(1), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[1]);
@@ -378,6 +402,30 @@ public class ClerkController
 			backTo.setVisible(true);
 			new Controller(backTo);
 		}
+	}
+	
+	//method to update combobox
+	@SuppressWarnings("unchecked")
+	private void updateComboBox() throws SQLException
+	{
+		ResultSet rs = model.getBatchResult("Customer");
+		String [] forComboBox;
+		if(rs.next())
+		{
+			rs.last();
+			int lastRow = rs.getRow();
+			forComboBox = new String[lastRow];
+			rs.beforeFirst();
+			for(int i = 0; i < lastRow; i++)
+				if(rs.next())
+					forComboBox[i] = rs.getString(2) + rs.getString(3);
+		}
+		else
+			forComboBox = new String[0];
+		
+		clerk_view.carOwnerCombo(forComboBox);
+		//final DefaultComboBoxModel m = new DefaultComboBoxModel(forComboBox);
+		
 	}
 	
 	class valueChange implements ListSelectionListener
@@ -461,6 +509,11 @@ public class ClerkController
 			if(e.getSource() == clerk_view.addCustomer)
 			{
 				content.show(clerk_view.ContentPanel, "card1");
+				try 
+				{
+					updateComboBox();
+				} 
+				catch (SQLException e1) {e1.printStackTrace();}
 			}
 			
 			if(e.getSource() == clerk_view.booking)

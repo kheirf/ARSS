@@ -56,6 +56,7 @@ create table Car
 	CarRegNo varchar(50) PRIMARY KEY,
 	Make varchar(50) NOT NULL,
 	Model varchar(50) NULL,
+	owner int(10),
 	Year varchar(5) NULL,
 	Date_Registered DATE NOT NULL #use curdate()
 );
@@ -68,6 +69,7 @@ create table Booking
 	CarID varchar(50) NOT NULL,
 	bookingDate TIMESTAMP NOT NULL,
 	Problem varchar(100),
+	status varchar(50) DEFAULT 'OPEN',
 	FOREIGN KEY (ClerkID) REFERENCES Clerk(ID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
 	FOREIGN KEY (CarID) REFERENCES Car(CarRegno)
@@ -88,6 +90,42 @@ create table ActivityLog
 	userRole varchar(15) NOT NULL,
 	op varchar(8) NOT NULL,
 	tablename varchar(15) NOT NULL
+);
+
+
+create table orders
+(
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 9000
+	partID int(10) NOT NULL,
+	quantity int(5) NOT NULL,
+	price decimal(5,2) NOT NULL,
+	description varchar(100),
+	FOREIGN KEY (partID) REFERENCES parts(id)
+);
+
+create table parts
+(
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #8000
+	classification varchar(50) NOT NULL, #body parts, brake parts, cooling/heating, electrical, exhaust, engine, hydraulics, transmission, fluids
+	productNumber varchar(30) NOT NULL,
+	description varchar(100),
+	price decimal(5,2) DEFAULT '0.0',
+	quantity int(5) DEFAULT '0'
+);
+
+
+create table Repair
+(
+	repairID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 10000
+	bookingID int(10) NULL,
+	carID varchar(50) NULL,
+	partID int(10) NULL,
+	totalCharge decimal(5, 2) NULL,
+	status varchar(20) DEFAULT 'IN PROGRESS',
+	repairLength decimal(4,2) DEFAULT '0.0',
+	FOREIGN KEY (bookingID) REFERENCES booking(id),
+	FOREIGN KEY (carID) REFERENCES car(carregno),
+	FOREIGN KEY (partID) REFERENCES parts(id)
 );
 
 
@@ -126,3 +164,13 @@ drop * from customer where customerID = 1;
 
 select fname from booking
 join customer using (CustomerID);
+
+
+
+
+create table test
+(
+	d decimal(5,2) DEFAULT '50.20'
+);
+insert into test values();
+select * from test;

@@ -65,9 +65,9 @@ public class Main
 		    returnThis = 3;		    
 		
 		rs.close();
-		//closeConnection();
 		return returnThis;
 	}
+	
 	
 	//this method is used for activity list
 	String [] getActivityList(String uid)
@@ -77,22 +77,17 @@ public class Main
 		
 		try 
 		{
-			//openConnection();
 			if((rs = stm.executeQuery("SELECT * FROM sessionlog WHERE userID = " + uid)).next())
 			{
-			rs.last();
-			int lastRow = rs.getRow();
-			thisList1 = new String[lastRow];
-			rs.first();
-			thisList1[0] = rs.getString(1);
+				rs.last();
+				int lastRow = rs.getRow();
+				thisList1 = new String[lastRow];
+				rs.first();
+				thisList1[0] = rs.getString(1);
 			
-			for(int i = 1; i < lastRow; i++)
-			{
-				if(rs.next())
-				{
-					thisList1[i] = rs.getString(1);
-				}
-			}
+				for(int i = 1; i < lastRow; i++)
+					if(rs.next())
+						thisList1[i] = rs.getString(1);
 			}
 			
 			rs.close();
@@ -105,7 +100,6 @@ public class Main
 	
 	ResultSet getBatchResult(String tablename)
 	{
-		//ResultSet rs = null;
 		try 
 		{
 			openConnection();
@@ -117,14 +111,12 @@ public class Main
 				else
 					if(tablename.equals("Booking"))
 						return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY ID");
-					//else
-						//if(tablename.equals("All Staff"))
-							//return stm.executeQuery("SELECT * FROM administrator UNION SELECT * FROM clerk UNION SELECT * FROM Mechanic ORDER BY ID");
 		} 
 		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
 		
 		return null;
 	}
+	
 	
 	//this method is used to get all the staff
 	String[] getContentsList()throws SQLException
@@ -146,7 +138,6 @@ public class Main
 					list[i] = rs.getString(1);
 			}
 			rs.close();
-			//closeConnection();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -165,62 +156,47 @@ public class Main
 			try 
 			{
 				list = new ArrayList<String>();
-		
-				//openConnection();
+
 				if((rs = stm.executeQuery("SELECT * FROM administrator WHERE ID = " + ID)).next())
 				{
 					for (int i = 1; i <= 7; i++)
-					{
 						list.add(rs.getString(i));
-					}
+	
 					list.add("1");
 				}
 				else
 					if((rs = stm.executeQuery("SELECT * FROM clerk WHERE ID = " + ID)).next())
 					{
 						for (int i = 1; i <= 7; i++)
-						{
 							list.add(rs.getString(i));
-						}
+			
 						list.add("2");
 					}
 					else
 						if((rs = stm.executeQuery("SELECT * FROM mechanic WHERE ID = " + ID)).next())
 						{
 							for (int i = 1; i <= 7; i++)
-							{
 								list.add(rs.getString(i));
-							}	
+
 							list.add("3");
 						}
 				rs.close();
-				//closeConnection();
 				} 
-			catch (SQLException e) 
-			{e.printStackTrace();}
+				catch (SQLException e) {e.printStackTrace();}
 			break;
 
 		case 2:
 			list = new ArrayList<String>();
 			try 
 			{
-				//openConnection();
 				rs = stm.executeQuery("SELECT * FROM sessionlog WHERE logtime = '" + ID + "'");
 				if(rs.next())
-				{
 					for (int i = 1; i < 5; i++)
-					{
 						list.add(rs.getString(i));
-					}
-				}
 				else
 					if((rs = stm.executeQuery("SELECT * FROM activitylog WHERE activitytime = '" + ID + "'")).next())
-					{
 						for (int i = 1; i < 6; i++)
-						{
 							list.add(rs.getString(i));
-						}
-					}
 					else
 						rs.close();
 			}
@@ -241,11 +217,9 @@ public class Main
 			String Role = identifyRole(Integer.parseInt(list.get(0)));
 			try 
 			{
-				//openConnection();
 				returnThis = stm.executeUpdate("UPDATE " + Role + " SET fname = \"" + list.get(2) + "\", sname = \"" + list.get(3) + "\", contactno = \""
 									+ list.get(4) + "\", emailaddress = \"" + list.get(5) + "\", homeaddress = \"" + list.get(6) + 
 											"\", password = \"" + list.get(7) + "\" WHERE ID = " + list.get(1));
-				//closeConnection();
 			} 
 			catch (SQLException e){e.printStackTrace();}
 		}
@@ -254,13 +228,13 @@ public class Main
 			{
 				try 
 				{
-					//openConnection();
 					returnThis = stm.executeUpdate("UPDATE customer SET fname = \"" + list.get(2) + "\", sname = \""
 											+ list.get(3) + "\", contactno = \"" + list.get(4) + "\", emailaddress = \""
 											+ list.get(5) + "\", homeaddress = \"" + list.get(6) + "\" WHERE customerid = " + list.get(1));
 				} 
 				catch (SQLException e) {e.printStackTrace();}
 			}
+		
 		return returnThis;
 	}
 	
@@ -271,7 +245,6 @@ public class Main
 		String Role = identifyRole(role);
 		try 
 		{
-			//openConnection();
 			if (role == 1 || role == 2 || role == 3)
 				returnThis = stm.executeUpdate("DELETE FROM " + Role + " WHERE ID = " + ID);
 			else
@@ -280,10 +253,9 @@ public class Main
 				else
 					if(role == 5)
 						returnThis = stm.executeUpdate("DELETE FROM booking WHERE ID = " + ID);
-			//closeConnection();
 		} 
-		catch (SQLException e) 
-		{e.printStackTrace();}
+		catch (SQLException e) {e.printStackTrace();}
+		
 		return returnThis;
 	}
 	
@@ -292,7 +264,6 @@ public class Main
 	{
 		try 
 		{
-			//openConnection();
 			if(flag == 1)
 				return stm.executeUpdate("INSERT INTO customer(fname, sname, contactno, emailaddress, homeaddress, dateregistered) " +
 					"VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3)
@@ -300,14 +271,11 @@ public class Main
 			else
 				if(flag == 2)
 					return stm.executeUpdate("INSERT INTO car VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) 
-								+ "\", \"" + list.get(3) + "\", CURDATE())");
+								+ "\", \"" + list.get(3) + "\", " + list.get(4) + ", CURDATE())");
 				else
 					if(flag == 3)
-					{
 						return stm.executeUpdate("INSERT INTO booking ( clerkid, customerid, carid, bookingdate, problem ) " +
 								"VALUES ( " + list.get(0) + ", " + list.get(1) + ", \"" + list.get(2) + "\", NOW(), \"" + list.get(3) + "\" )");
-					}
-			//closeConnection();
 		} 
 		catch (SQLException e) {e.printStackTrace();}
 	
@@ -317,25 +285,18 @@ public class Main
 	//adding staff
 	int addStaff(List<String> list) throws SQLException
 	{
-		//openConnection();
 		if(list.get(0) == "Administrator")
-		{
 			return stm.executeUpdate("INSERT INTO administrator(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
 										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
 											+ list.get(5) + "\", \"" + list.get(6) + "\");");
-		}
 		if(list.get(0) == "Clerk")
-		{
 			return stm.executeUpdate("INSERT INTO clerk(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
 										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
 											+ list.get(5) + "\", \"" + list.get(6) + "\");");
-		}
 		if(list.get(0) == "Mechanic")
-		{
 			return stm.executeUpdate("INSERT INTO mechanic(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
 										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
 											+ list.get(5) + "\", \"" + list.get(6) + "\");");
-		}
 		
 		
 		return -1;
@@ -347,11 +308,9 @@ public class Main
 	{
 		try
 		{
-			//openConnection();
 			stm.executeUpdate("INSERT INTO sessionlog " +
 								"VALUES( NOW(), " + uid + ", \"" 
 								+ role + "\", \"" + descr + "\");");
-			//closeConnection();
 		} 
 		catch (SQLException e) {e.printStackTrace();}
 	}
