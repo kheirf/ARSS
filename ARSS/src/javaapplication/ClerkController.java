@@ -67,7 +67,7 @@ public class ClerkController
 					list.add(clerk_view.Model_add.getText());
 					list.add(clerk_view.Year_add.getText());
 	
-					if((model.addCarCustomer(list, 2)) > 0)
+					if((model.addCarCustomerBooking(list, 2)) > 0)
 					{
 						clerk_view.Regno_add.setText("");
 						clerk_view.Make_add.setText("");
@@ -106,7 +106,7 @@ public class ClerkController
 						list.add(clerk_view.EmailAdd_add.getText());
 						list.add(clerk_view.HomeAdd_add.getText());
 		
-						if((model.addCarCustomer(list, 1)) > 0)
+						if((model.addCarCustomerBooking(list, 1)) > 0)
 						{
 							clerk_view.Fname_add.setText("");
 							clerk_view.Sname_add.setText("");
@@ -219,7 +219,7 @@ public class ClerkController
 
 	@SuppressWarnings("unchecked")
 	//method used to populate the list on booking tab
-	void populateAllListOnPanel() throws SQLException
+	private void populateAllListOnPanel() throws SQLException
 	{
 		ResultSet rs;
 		rs = model.getBatchResult("Customer");
@@ -290,12 +290,87 @@ public class ClerkController
 		}
 	}
 	
+	//Method to add booking
+	private void addBooking()
+	{
+		list = new ArrayList<String>();
+		list.add(uid);
+		list.add(clerk_view.customerID_booking.getText());
+		list.add(clerk_view.carID_booking.getText());
+		list.add(clerk_view.problem_booking.getText());
+		if((model.addCarCustomerBooking(list, 3)) > 0)
+		{
+			try 
+			{
+				populateAllListOnPanel();
+			}
+			catch (SQLException e) {e.printStackTrace();}
+			JOptionPane.showMessageDialog(clerk_view, "Booking Successful");
+		}
+		else
+			JOptionPane.showMessageDialog(clerk_view, "There was a problem in booking\nContact Customer Support", "Error", 
+					JOptionPane.ERROR_MESSAGE);
+	}
+	
+	
+	
+	
+	//Sets up the customer id text field in Booking panel
+	@SuppressWarnings("unchecked")
+	private void addValues_booking(int flag) throws SQLException
+	{
+		ResultSet rs = null;
+		switch (flag)
+		{
+		case 1:
+			rs = model.getBatchResult("Customer");
+			if(rs.next())
+			{
+				rs.absolute(clerk_view.CustomerList_booking.getSelectedIndex() + 1);
+				clerk_view.customerID_booking.setText(rs.getString(1));
+				rs.close();
+			}
+			break;
+			
+		case 2:
+				clerk_view.carID_booking.setText(clerk_view.CarList_booking.getSelectedValue().toString());
+			break;
+		}
+		
+	}
+	
+	//When view on booking panel is clicked
+	private void popUpBooking(int position) throws SQLException
+	{
+		ResultSet rs = model.getBatchResult("Booking");
+		rs.absolute(position + 1);
+		String disp = "Booking ID: " + rs.getString(1) + "\nClerk ID: " + rs.getString(2) + "\nCustomer ID: " 
+						+ rs.getString(3) + "\nCar ID: " + rs.getString(4) + "\nDate booked: " + rs.getString(5)
+						+ "\nProblem: " + rs.getString(6);
+		JOptionPane.showMessageDialog(clerk_view, disp, rs.getString(1), JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	
 	class valueChange implements ListSelectionListener
 	{
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) 
 		{
+			if(e.getSource() == clerk_view.CustomerList_booking)
+			{
+				if(clerk_view.CustomerList_booking.getSelectedIndex() < 0)
+				{
+					
+				}
+			}
+			
+			if(e.getSource() == clerk_view.CarList_booking)
+			{
+				if(clerk_view.CarList_booking.getSelectedIndex() < 0)
+				{}
+			}
+			
 			if(e.getSource() == clerk_view.CustomerList_edit)
 			{
 				if(clerk_view.CustomerList_edit.getSelectedValue() != null)
@@ -307,6 +382,8 @@ public class ClerkController
 					catch (SQLException e1) {e1.printStackTrace();}
 				}
 			}
+			
+			
 		}
 		
 	}
@@ -317,6 +394,36 @@ public class ClerkController
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+			if(e.getSource() == clerk_view.add1_booking)
+			{
+				if(clerk_view.CustomerList_booking.getSelectedIndex() >= 0)
+				{
+					try 
+					{
+						addValues_booking(1);
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+				}
+				else
+					JOptionPane.showMessageDialog(clerk_view, "Choose customer", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+			}
+			
+			if(e.getSource() == clerk_view.add2_booking)
+			{
+				if(clerk_view.CarList_booking.getSelectedIndex() >= 0)
+				{
+					try 
+					{
+						addValues_booking(2);
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+				}
+				else
+					JOptionPane.showMessageDialog(clerk_view, "Choose a car", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+			}
+			
 			if(e.getSource() == clerk_view.addCar_add)
 			{
 				addCar();
@@ -333,6 +440,9 @@ public class ClerkController
 				try 
 				{
 					populateAllListOnPanel();
+					clerk_view.carID_booking.setText("");
+					clerk_view.customerID_booking.setText("");
+					clerk_view.problem_booking.setText("");
 				} 
 				catch (SQLException e1) {e1.printStackTrace();}
 			}
@@ -360,8 +470,28 @@ public class ClerkController
 			if(e.getSource() == clerk_view.Delete_edit)
 			{
 				deleteCustomer();
-				
 			}
+			
+			if(e.getSource() == clerk_view.Save_booking)
+			{
+				addBooking();
+			}
+			
+			if(e.getSource() == clerk_view.view_booking)
+			{
+				if(clerk_view.BookingList_booking.getSelectedIndex() >= 0)
+				{
+					try 
+					{
+						popUpBooking(clerk_view.BookingList_booking.getSelectedIndex());
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+				}
+				else
+					JOptionPane.showMessageDialog(clerk_view, "Select on the list", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+			}
+			
 			
 		}
 

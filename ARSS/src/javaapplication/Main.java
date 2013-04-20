@@ -116,9 +116,10 @@ public class Main
 					return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY Make");
 				else
 					if(tablename.equals("Booking"))
-					{
 						return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY ID");
-					}
+					//else
+						//if(tablename.equals("All Staff"))
+							//return stm.executeQuery("SELECT * FROM administrator UNION SELECT * FROM clerk UNION SELECT * FROM Mechanic ORDER BY ID");
 		} 
 		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
 		
@@ -132,7 +133,7 @@ public class Main
 		String[] list = {};
 		try {
 			openConnection();
-			rs = stm.executeQuery("SELECT * FROM administrator UNION SELECT * FROM clerk UNION SELECT * FROM Mechanic");
+			rs = stm.executeQuery("SELECT * FROM administrator UNION SELECT * FROM clerk UNION SELECT * FROM Mechanic ORDER BY ID");
 			
 			rs.last();
 			int lastRow = rs.getRow();
@@ -283,30 +284,29 @@ public class Main
 	}
 	
 	//add customer
-	int addCarCustomer(List<String> list, int flag)
+	int addCarCustomerBooking(List<String> list, int flag)
 	{
-		switch(flag)
+		try 
 		{
-		case 1:
-			try 
-			{
-				openConnection();
+			openConnection();
+			if(flag == 1)
 				return stm.executeUpdate("INSERT INTO customer(fname, sname, contactno, emailaddress, homeaddress, dateregistered) " +
-						"VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3)
-						+ "\", \"" + list.get(4) + "\", CURDATE())");
-			} 
-			catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
-			break;
-		case 2:
-			try 
-			{
-				openConnection();
-				return stm.executeUpdate("INSERT INTO car VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) 
-						+ "\", \"" + list.get(3) + "\", CURDATE())");
-			} 
-			catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
-			break;
-		}
+					"VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3)
+					+ "\", \"" + list.get(4) + "\", CURDATE())");
+			else
+				if(flag == 2)
+					return stm.executeUpdate("INSERT INTO car VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) 
+								+ "\", \"" + list.get(3) + "\", CURDATE())");
+				else
+					if(flag == 3)
+					{
+						return stm.executeUpdate("INSERT INTO booking ( clerkid, customerid, carid, bookingdate, problem ) " +
+								"VALUES ( " + list.get(0) + ", " + list.get(1) + ", \"" + list.get(2) + "\", NOW(), \"" + list.get(3) + "\" )");
+					}
+			closeConnection();
+		} 
+		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+	
 		return 0;
 	}
 	

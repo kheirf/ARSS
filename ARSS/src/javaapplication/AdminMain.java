@@ -222,11 +222,11 @@ public class AdminMain extends JFrame
 
         StaffList_activities.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         StaffList_activities.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList_activities.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        //StaffList_activities.setModel(new javax.swing.AbstractListModel() {
+          //  String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+           // public int getSize() { return strings.length; }
+           // public Object getElementAt(int i) { return strings[i]; }
+        //});
 
         jScrollPaneForStaffList2.setViewportView(StaffList_activities);
 
@@ -243,7 +243,7 @@ public class AdminMain extends JFrame
             }
         });
 
-        jLabel3.setText("(ID/First Name/Surname)");
+        jLabel3.setText("(ID)");
 
         Datelist_activities.setBorder(javax.swing.BorderFactory.createTitledBorder("Date :"));
         Datelist_activities.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -316,11 +316,11 @@ public class AdminMain extends JFrame
 
         StaffList_delete.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         StaffList_delete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList_delete.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+       // StaffList_delete.setModel(new javax.swing.AbstractListModel() {
+         //   String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+           // public int getSize() { return strings.length; }
+            //public Object getElementAt(int i) { return strings[i]; }
+        //});
         jScrollPaneForStaffList1.setViewportView(StaffList_delete);
 
         DeleteStaffPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delete Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -343,24 +343,24 @@ public class AdminMain extends JFrame
         LabelForHomeAdd_delete.setText("Home Address :");
 
         deleteButton.setText("Delete");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-        });
+        //deleteButton.addActionListener(new java.awt.event.ActionListener() {
+          //  public void actionPerformed(java.awt.event.ActionEvent evt) {
+            //    deleteButtonActionPerformed(evt);
+           // }
+        //});
 
         findButton_delete.setText("Find");
 
         LabelForFind.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFind.setText("Find :");
 
-        find_delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findActionPerformed(evt);
-            }
-        });
+        //find_delete.addActionListener(new java.awt.event.ActionListener() {
+          //  public void actionPerformed(java.awt.event.ActionEvent evt) {
+           //     findActionPerformed(evt);
+           // }
+        //});
 
-        jLabel2.setText("(ID/First Name/Surname)");
+        jLabel2.setText("(ID)");
 
         javax.swing.GroupLayout DeleteStaffPanelLayout = new javax.swing.GroupLayout(DeleteStaffPanel);
         DeleteStaffPanel.setLayout(DeleteStaffPanelLayout);
@@ -806,7 +806,8 @@ public class AdminMain extends JFrame
     	Save_edit.addActionListener(listen);
     	Discard_edit.addActionListener(listen);
     	deleteButton.addActionListener(listen);
-    	
+    	findButton_delete.addActionListener(listen);
+    	findButton_activities.addActionListener(listen);
     }
     
     void listSelectionListener(ListSelectionListener listen)

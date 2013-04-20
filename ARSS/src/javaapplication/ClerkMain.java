@@ -189,7 +189,7 @@ public class ClerkMain extends javax.swing.JFrame {
 
         //----------------------------------------------------------------Content panel starts here...------------------------------------------------//
         ContentPanel.setLayout(new java.awt.CardLayout());
-        ContentPanel.setBackground(new java.awt.Color(255, 255, 204));
+        
         //----------------------------------------------------Starting panel starts here...------------------------------------------------------//
         StartingPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         StartingPanel.setPreferredSize(new java.awt.Dimension(602, 247));
@@ -231,18 +231,9 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForID1.setText("Customer ID :");
 
         customerID_booking.setEditable(false);
-        customerID_booking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customerID_bookingActionPerformed(evt);
-            }
-        });
+        carID_booking.setEditable(false);
 
         Save_booking.setText("Save");
-        Save_booking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Save_bookingActionPerformed(evt);
-            }
-        });
 
         Discard_booking.setText("Discard");
 
@@ -319,11 +310,6 @@ public class ClerkMain extends javax.swing.JFrame {
         jScrollPaneForStaffList1.setRequestFocusEnabled(false);
 
         CustomerList_booking.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        //CustomerList_booking.setAutoscrolls(false);
-        //CustomerList_booking.setMaximumSize(new java.awt.Dimension(100, 80));
-        //CustomerList_booking.setPreferredSize(new java.awt.Dimension(40, 80));
-        //CustomerList_booking.setSelectionBackground(new java.awt.Color(255, 255, 51));
-        //CustomerList_booking.setVisibleRowCount(20);
         jScrollPaneForStaffList1.setViewportView(CustomerList_booking);
 
         AllListPanel.add(jScrollPaneForStaffList1);
@@ -391,26 +377,9 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForConNumber1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForConNumber1.setText("Contact No :");
 
-        ContactNo_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ContactNo_addActionPerformed(evt);
-            }
-        });
-
-        Fname_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Fname_addActionPerformed(evt);
-            }
-        });
-
         discardCustomer_add.setText("Discard");
 
         addCustomer_add.setText("Save");
-        addCustomer_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCustomer_addActionPerformed(evt);
-            }
-        });
 
         LabelForFName1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFName1.setText("First Name :");
@@ -484,18 +453,6 @@ public class ClerkMain extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Car"));
 
-        Model_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Model_addActionPerformed(evt);
-            }
-        });
-
-        Make_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Make_addActionPerformed(evt);
-            }
-        });
-
         LabelForFName4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFName4.setText("Model :");
 
@@ -508,26 +465,10 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForFName5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFName5.setText("Registration No :");
 
-        Year_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Year_addActionPerformed(evt);
-            }
-        });
-
         addCar_add.setText("Save");
-        addCar_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCar_addActionPerformed(evt);
-            }
-        });
 
         discardCar_add.setText("Discard");
 
-        Regno_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Regno_addActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -646,27 +587,12 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForHomeAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForHomeAdd.setText("Home Address :");
 
-        EmailAdd_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailAdd_editActionPerformed(evt);
-            }
-        });
 
         Save_edit.setText("Save");
-        Save_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Save_editActionPerformed(evt);
-            }
-        });
 
         Discard_edit.setText("Discard");
 
         Delete_edit.setText("Delete");
-        Delete_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Delete_editActionPerformed(evt);
-            }
-        });
 
         ID_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -765,11 +691,6 @@ public class ClerkMain extends javax.swing.JFrame {
         jScrollPaneForStaffList.setRequestFocusEnabled(false);
 
         CustomerList_edit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        //CustomerList_edit.setAutoscrolls(false);
-        //CustomerList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
-        //CustomerList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
-        //CustomerList_edit.setSelectionBackground(new java.awt.Color(255, 255, 51));
-        //CustomerList_edit.setVisibleRowCount(20);
         jScrollPaneForStaffList.setViewportView(CustomerList_edit);
 
         javax.swing.GroupLayout EditCustomerLayout = new javax.swing.GroupLayout(EditCustomer);
@@ -818,61 +739,6 @@ public class ClerkMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void Fname_addActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void ContactNo_addActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void addCustomer_addActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
-
-    private void Save_editActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void Make_addActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void Model_addActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void Regno_addActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void Year_addActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void addCar_addActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void ID_editActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
-    private void EmailAdd_editActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void Delete_editActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
-    private void customerID_bookingActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }                                                  
-
-    private void Save_bookingActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
 
     void buttonListener(ActionListener listen)
     {
@@ -891,6 +757,7 @@ public class ClerkMain extends javax.swing.JFrame {
     	booking.addActionListener(listen);
     	logoutButton.addActionListener(listen);
     	Delete_edit.addActionListener(listen);
+    	view_booking.addActionListener(listen);
     }
     
     void listSelectionListener(ListSelectionListener listen)

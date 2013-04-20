@@ -163,13 +163,7 @@ public class AdminController
 			JOptionPane.showMessageDialog(admin_view, "No Such Person with that ID", "Error", JOptionPane.ERROR_MESSAGE);
 		
 	}
-	
-	//void populateDateList(List<String> list)
-	//{
-		//String [] dList = {};
-		//dList = model.getActivityList(uid);
-	//}
-	
+
 	 @SuppressWarnings("unchecked")
 	void populateList(final String [] string, int flag)
 	    {
@@ -227,6 +221,23 @@ public class AdminController
 	    		break;
 	    	}
 	    }
+	 
+	 //this method is used to find ID
+	 private int findTheID(String findID) throws SQLException
+	 {
+		 String [] list = model.getContentsList();
+		 int position = -1;
+		 for(int i = 0; i < list.length; i++)
+		 {
+			 if(list[i].equals(findID))
+			 {
+				 position = i;
+				 break;
+			 }
+		 }
+		 
+		 return position;
+	 }
 	
 	class valueChange implements ListSelectionListener
 	{
@@ -252,7 +263,7 @@ public class AdminController
 			{
 				populateList(model.getActivityList(admin_view.StaffList_activities.getSelectedValue().toString()), 4);
 			}
-
+			
 		}
 	}
 	
@@ -321,16 +332,55 @@ public class AdminController
 			
 			if(e.getSource() == admin_view.deleteButton)
 			{
-				if ((model.deletePerson(theRole, admin_view.ID1_delete.getText())) > 0)
-				{
-					try {
-						populateList(model.getContentsList(), 2);
-						JOptionPane.showMessageDialog(admin_view, "Successfully Deleted");
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+				if (admin_view.StaffList_delete.getSelectedIndex() >= 0)
+				{	
+					int i = JOptionPane.showConfirmDialog(null, "Do you really wish to delete this person?", "Confirm",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (i == JOptionPane.YES_OPTION)
+					{
+						if ((model.deletePerson(theRole, admin_view.ID1_delete.getText())) > 0)
+						{
+							try 
+							{
+								populateList(model.getContentsList(), 2);
+								JOptionPane.showMessageDialog(admin_view, "Successfully Deleted");
+							} 
+							catch (SQLException e1) {e1.printStackTrace();}
+						}
 					}
-					
+				}
+			}
+			
+			
+			if (e.getSource() == admin_view.findButton_delete)
+			{
+				if(!admin_view.find_delete.getText().isEmpty())
+				{
+					try 
+					{
+						int pos = findTheID(admin_view.find_delete.getText());
+						if(pos < 0)
+							JOptionPane.showMessageDialog(admin_view, "No Data Found", "Error", JOptionPane.ERROR_MESSAGE);
+							 else
+								 admin_view.StaffList_delete.setSelectedIndex(pos);
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+				}
+			}
+			
+			if(e.getSource() == admin_view.findButton_activities)
+			{
+				if(!admin_view.find_activities.getText().isEmpty())
+				{
+					try 
+					{
+						int pos = findTheID(admin_view.find_activities.getText());
+						if(pos < 0)
+							JOptionPane.showMessageDialog(admin_view, "No Data Found", "Error", JOptionPane.ERROR_MESSAGE);
+							 else
+								 admin_view.StaffList_activities.setSelectedIndex(pos);
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
 				}
 			}
 			
