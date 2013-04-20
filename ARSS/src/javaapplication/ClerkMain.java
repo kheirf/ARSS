@@ -3,6 +3,7 @@ package javaapplication;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
+import javax.swing.JScrollBar;
 import javax.swing.event.ListSelectionListener;
 
 /**
@@ -14,7 +15,7 @@ public class ClerkMain extends javax.swing.JFrame {
     protected javax.swing.JButton view_booking;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel2;
-	private javax.swing.JLabel registered_edit;
+	protected javax.swing.JLabel registered_edit;
 	private javax.swing.JLabel LabelForRegistered;
 	/**
      * Creates new form ClerkMain
@@ -106,7 +107,7 @@ public class ClerkMain extends javax.swing.JFrame {
         Discard_edit = new javax.swing.JButton();
         Delete_edit = new javax.swing.JButton();
         jScrollPaneForStaffList = new javax.swing.JScrollPane();
-        StaffList_edit = new javax.swing.JList();
+        CustomerList_edit = new javax.swing.JList();
         FooterPanel = new javax.swing.JPanel();
         copyrights = new javax.swing.JLabel();
         view_booking = new javax.swing.JButton();
@@ -188,7 +189,7 @@ public class ClerkMain extends javax.swing.JFrame {
 
         //----------------------------------------------------------------Content panel starts here...------------------------------------------------//
         ContentPanel.setLayout(new java.awt.CardLayout());
-
+        ContentPanel.setBackground(new java.awt.Color(255, 255, 204));
         //----------------------------------------------------Starting panel starts here...------------------------------------------------------//
         StartingPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         StartingPanel.setPreferredSize(new java.awt.Dimension(602, 247));
@@ -280,7 +281,7 @@ public class ClerkMain extends javax.swing.JFrame {
                         .addComponent(LabelForID1)
                         .addGap(18, 18, 18)
                         .addComponent(customerID_booking, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BookingFieldLayout.setVerticalGroup(
             BookingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +300,7 @@ public class ClerkMain extends javax.swing.JFrame {
                         .addGroup(BookingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LabelForSName2)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                         .addGroup(BookingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Save_booking)
                             .addComponent(Discard_booking))
@@ -313,6 +314,20 @@ public class ClerkMain extends javax.swing.JFrame {
 
         AllListPanel.setLayout(new java.awt.GridLayout(2, 1));
 
+        jScrollPaneForStaffList1.setBorder(javax.swing.BorderFactory.createTitledBorder("All Customer List"));
+        jScrollPaneForStaffList1.setPreferredSize(new java.awt.Dimension(50, 130));
+        jScrollPaneForStaffList1.setRequestFocusEnabled(false);
+
+        CustomerList_booking.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        //CustomerList_booking.setAutoscrolls(false);
+        //CustomerList_booking.setMaximumSize(new java.awt.Dimension(100, 80));
+        //CustomerList_booking.setPreferredSize(new java.awt.Dimension(40, 80));
+        //CustomerList_booking.setSelectionBackground(new java.awt.Color(255, 255, 51));
+        //CustomerList_booking.setVisibleRowCount(20);
+        jScrollPaneForStaffList1.setViewportView(CustomerList_booking);
+
+        AllListPanel.add(jScrollPaneForStaffList1);
+
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("All Car List"));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(100, 50));
 
@@ -320,20 +335,6 @@ public class ClerkMain extends javax.swing.JFrame {
         jScrollPane1.setViewportView(CarList_booking);
 
         AllListPanel.add(jScrollPane1);
-
-        jScrollPaneForStaffList1.setBorder(javax.swing.BorderFactory.createTitledBorder("All Customer List"));
-        jScrollPaneForStaffList1.setPreferredSize(new java.awt.Dimension(50, 130));
-        jScrollPaneForStaffList1.setRequestFocusEnabled(false);
-
-        CustomerList_booking.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        CustomerList_booking.setAutoscrolls(false);
-        CustomerList_booking.setMaximumSize(new java.awt.Dimension(100, 80));
-        CustomerList_booking.setPreferredSize(new java.awt.Dimension(40, 80));
-        CustomerList_booking.setSelectionBackground(new java.awt.Color(255, 255, 51));
-        CustomerList_booking.setVisibleRowCount(20);
-        jScrollPaneForStaffList1.setViewportView(CustomerList_booking);
-
-        AllListPanel.add(jScrollPaneForStaffList1);
 
         jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("Booking List"));
 
@@ -346,27 +347,25 @@ public class ClerkMain extends javax.swing.JFrame {
         BookingPanelLayout.setHorizontalGroup(
             BookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BookingPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AllListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AllListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BookingField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(view_booking, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(BookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(view_booking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
         BookingPanelLayout.setVerticalGroup(
             BookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookingPanelLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(BookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BookingField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AllListPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookingPanelLayout.createSequentialGroup()
+                .addGroup(BookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(BookingPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(view_booking)))
+                        .addComponent(view_booking))
+                    .addComponent(AllListPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BookingField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -670,7 +669,6 @@ public class ClerkMain extends javax.swing.JFrame {
         });
 
         ID_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        //ID_edit.setText("jLabel1");
 
         LabelForRegistered.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForRegistered.setText("Registered :");
@@ -681,110 +679,113 @@ public class ClerkMain extends javax.swing.JFrame {
         EditField.setLayout(EditFieldLayout);
         EditFieldLayout.setHorizontalGroup(
             EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditFieldLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+            .addGroup(EditFieldLayout.createSequentialGroup()
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EditFieldLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LabelForConNumber)
-                            .addComponent(LabelForSName)
-                            .addComponent(LabelForFName)
-                            .addComponent(LabelForID, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Fname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Sname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ContactNo_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(EditFieldLayout.createSequentialGroup()
-                                .addComponent(ID_edit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(LabelForRegistered)))
-                        .addGap(18, 18, 18)
-                        .addComponent(registered_edit))
-                    .addGroup(EditFieldLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(LabelForEmailAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(EmailAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(EditFieldLayout.createSequentialGroup()
-                        .addComponent(LabelForHomeAdd)
-                        .addGap(18, 18, 18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditFieldLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(EditFieldLayout.createSequentialGroup()
-                                .addComponent(Save_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Discard_edit)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(Delete_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)
+                                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(LabelForConNumber)
+                                    .addComponent(LabelForSName)
+                                    .addComponent(LabelForFName)
+                                    .addComponent(LabelForID, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(EditFieldLayout.createSequentialGroup()
+                                        .addComponent(ID_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(83, 83, 83)
+                                        .addComponent(LabelForRegistered)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(registered_edit, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                                    .addComponent(Fname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Sname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ContactNo_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(EditFieldLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(LabelForEmailAdd)
+                                .addGap(18, 18, 18)
+                                .addComponent(EmailAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(EditFieldLayout.createSequentialGroup()
+                                .addComponent(LabelForHomeAdd)
+                                .addGap(18, 18, 18)
+                                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(EditFieldLayout.createSequentialGroup()
+                                        .addComponent(Save_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Discard_edit))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditFieldLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Delete_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         EditFieldLayout.setVerticalGroup(
             EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditFieldLayout.createSequentialGroup()
-                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Delete_edit)
-                    .addGroup(EditFieldLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelForID)
-                            .addComponent(ID_edit)
-                            .addComponent(LabelForRegistered)
-                            .addComponent(registered_edit))
-                        .addGap(18, 18, 18)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelForFName)
-                            .addComponent(Fname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelForSName)
-                            .addComponent(Sname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelForConNumber)
-                            .addComponent(ContactNo_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelForEmailAdd)
-                            .addComponent(EmailAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LabelForHomeAdd)
-                            .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap()
+                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(LabelForID)
+                        .addComponent(LabelForRegistered)
+                        .addComponent(registered_edit, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                    .addComponent(ID_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelForFName)
+                    .addComponent(Fname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelForSName)
+                    .addComponent(Sname_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelForConNumber)
+                    .addComponent(ContactNo_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelForEmailAdd)
+                    .addComponent(EmailAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelForHomeAdd)
+                    .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Discard_edit)
                     .addComponent(Save_edit))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Delete_edit)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jScrollPaneForStaffList.setBorder(javax.swing.BorderFactory.createTitledBorder("All Customer List"));
         jScrollPaneForStaffList.setPreferredSize(new java.awt.Dimension(50, 130));
         jScrollPaneForStaffList.setRequestFocusEnabled(false);
 
-        StaffList_edit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        StaffList_edit.setAutoscrolls(false);
-        //StaffList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
-        //StaffList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
-       // StaffList_edit.setSelectionBackground(new java.awt.Color(255, 255, 51));
-        //StaffList_edit.setVisibleRowCount(20);
-        jScrollPaneForStaffList.setViewportView(StaffList_edit);
+        CustomerList_edit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        //CustomerList_edit.setAutoscrolls(false);
+        //CustomerList_edit.setMaximumSize(new java.awt.Dimension(100, 80));
+        //CustomerList_edit.setPreferredSize(new java.awt.Dimension(40, 80));
+        //CustomerList_edit.setSelectionBackground(new java.awt.Color(255, 255, 51));
+        //CustomerList_edit.setVisibleRowCount(20);
+        jScrollPaneForStaffList.setViewportView(CustomerList_edit);
 
         javax.swing.GroupLayout EditCustomerLayout = new javax.swing.GroupLayout(EditCustomer);
         EditCustomer.setLayout(EditCustomerLayout);
         EditCustomerLayout.setHorizontalGroup(
             EditCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditCustomerLayout.createSequentialGroup()
-                .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         EditCustomerLayout.setVerticalGroup(
             EditCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPaneForStaffList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(EditField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         ContentPanel.add(EditCustomer, "card2");
@@ -889,6 +890,7 @@ public class ClerkMain extends javax.swing.JFrame {
     	editCustomer.addActionListener(listen);
     	booking.addActionListener(listen);
     	logoutButton.addActionListener(listen);
+    	Delete_edit.addActionListener(listen);
     }
     
     void listSelectionListener(ListSelectionListener listen)
@@ -896,7 +898,7 @@ public class ClerkMain extends javax.swing.JFrame {
     	CarList_booking.addListSelectionListener(listen);
     	CustomerList_booking.addListSelectionListener(listen);
     	BookingList_booking.addListSelectionListener(listen);
-    	StaffList_edit.addListSelectionListener(listen);
+    	CustomerList_edit.addListSelectionListener(listen);
     }
     
     // Variables declaration - do not modify                     
@@ -951,7 +953,7 @@ public class ClerkMain extends javax.swing.JFrame {
     protected javax.swing.JButton Save_edit;
     protected javax.swing.JTextField Sname_add;
     protected javax.swing.JTextField Sname_edit;
-    protected javax.swing.JList StaffList_edit;
+    protected javax.swing.JList CustomerList_edit;
     private javax.swing.JPanel StartingPanel;
     protected javax.swing.JTextField Year_add;
     protected javax.swing.JButton add1_booking;

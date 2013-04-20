@@ -62,15 +62,15 @@ create table Car
 
 create table Booking
 (
-	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 8000
+	ID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 6000
 	ClerkID int(10) NOT NULL,
 	CustomerID int(10) NOT NULL,
-	CarID int(10) NOT NULL,
+	CarID varchar(50) NOT NULL,
 	bookingDate TIMESTAMP NOT NULL,
 	Problem varchar(100),
 	FOREIGN KEY (ClerkID) REFERENCES Clerk(ID),
 	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
-	FOREIGN KEY (CarID) REFERENCES Car(CarID)
+	FOREIGN KEY (CarID) REFERENCES Car(CarRegno)
 );
 
 create table SessionLog

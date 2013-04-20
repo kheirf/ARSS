@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -24,6 +25,7 @@ public class ClerkController
 	private String role;
 	private static int theRole;
 	private List<String> list;
+	private String selectedCustomerID;
 	CardLayout content;
 	
 	public ClerkController(ClerkMain view, String uid)
@@ -124,7 +126,7 @@ public class ClerkController
 	private void populateCustomerList() throws SQLException 
 	{
 		ResultSet rs;
-		rs = model.getCustomers();
+		rs = model.getBatchResult("Customer");
 		if(rs.next())
 		{
 			rs.last();
@@ -135,7 +137,7 @@ public class ClerkController
 				if (rs.next())
 					string[i] = rs.getString(3) + ", " + rs.getString(2);
 			
-			clerk_view.StaffList_edit.setModel(new javax.swing.AbstractListModel() 
+			clerk_view.CustomerList_edit.setModel(new javax.swing.AbstractListModel() 
     		{
     			String[] strings = string;
     			public int getSize() 
@@ -151,27 +153,141 @@ public class ClerkController
 	void showCustomerDetails(int position) throws SQLException
 	{
 		ResultSet rs;
-		rs = model.getCustomers();
-		
-		rs.absolute(position + 1);
-		clerk_view.ID_edit.setText(rs.getString(1));
-		clerk_view.Fname_edit.setText(rs.getString(2));
-		clerk_view.Sname_edit.setText(rs.getString(3));
-		clerk_view.ContactNo_edit.setText(rs.getString(4));
-		clerk_view.EmailAdd_edit.setText(rs.getString(5));
-		clerk_view.HomeAdd_edit.setText(rs.getString(6));
+		rs = model.getBatchResult("Customer");
+		if (position >= 0)
+		{
+			rs.absolute(position + 1);
+			clerk_view.ID_edit.setText(rs.getString(1));
+			clerk_view.Fname_edit.setText(rs.getString(2));
+			clerk_view.Sname_edit.setText(rs.getString(3));
+			clerk_view.ContactNo_edit.setText(rs.getString(4));
+			clerk_view.EmailAdd_edit.setText(rs.getString(5));
+			clerk_view.HomeAdd_edit.setText(rs.getString(6));
+			clerk_view.registered_edit.setText(rs.getString(7));
+			selectedCustomerID = rs.getString(1);
+		}
+		else
+		{
+			clerk_view.ID_edit.setText("");
+			clerk_view.Fname_edit.setText("");
+			clerk_view.Sname_edit.setText("");
+			clerk_view.ContactNo_edit.setText("");
+			clerk_view.EmailAdd_edit.setText("");
+			clerk_view.HomeAdd_edit.setText("");
+			clerk_view.registered_edit.setText("");
+			//selectedCustomerID = rs.getString(1);
+		}
+			
 	}
 	
 	private void updateCustomer() 
 	{
 		list = new ArrayList<String>();
 		list.add("Customer");
+		list.add(clerk_view.ID_edit.getText());
 		list.add(clerk_view.Fname_edit.getText());
 		list.add(clerk_view.Sname_edit.getText());
 		list.add(clerk_view.ContactNo_edit.getText());
 		list.add(clerk_view.EmailAdd_edit.getText());
 		list.add(clerk_view.HomeAdd_edit.getText());
-		
+		if((model.updateStaff(list)) > 0)
+			JOptionPane.showMessageDialog(clerk_view, "Update Successful");
+	}
+	
+	//method to delete customer from database
+	private void deleteCustomer() 
+	{
+		int i = JOptionPane.showConfirmDialog(null, "Do you really wish to delete this person?", "Confirm",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (i == JOptionPane.YES_OPTION)
+		{
+			if ((model.deletePerson(4, selectedCustomerID)) > 0)
+			{
+				JOptionPane.showMessageDialog(clerk_view, "Delete Successful");
+				try 
+				{
+					populateCustomerList();
+					showCustomerDetails(-1);
+				} 
+				catch (SQLException e) {e.printStackTrace();}
+			}
+			else
+				JOptionPane.showMessageDialog(clerk_view, "There was a problem deleting a customer \nContact Customer Support", "Error", 
+						JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	//method used to populate the list on booking tab
+	void populateAllListOnPanel() throws SQLException
+	{
+		ResultSet rs;
+		rs = model.getBatchResult("Customer");
+		if(rs.next())
+		{
+			rs.last();
+			int lastRow = rs.getRow();
+			final String[] string = new String[lastRow];
+			rs.beforeFirst();
+			for (int i = 0; i < lastRow; i++)
+				if (rs.next())
+					string[i] = rs.getString(3) + ", " + rs.getString(2);
+			
+			clerk_view.CustomerList_booking.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+    			{ return strings.length; }
+            
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+			
+		}
+		rs = model.getBatchResult("Car");
+		if(rs.next())
+		{
+			rs.last();
+			int lastRow = rs.getRow();
+			final String[] string = new String[lastRow];
+			rs.beforeFirst();
+			for (int i = 0; i < lastRow; i++)
+				if (rs.next())
+					string[i] = rs.getString(1);
+			
+			clerk_view.CarList_booking.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+    			{ return strings.length; }
+            
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+			
+		}
+		rs = model.getBatchResult("Booking");
+		if(rs.next())
+		{
+			rs.last();
+			int lastRow = rs.getRow();
+			final String[] string = new String[lastRow];
+			rs.beforeFirst();
+			for (int i = 0; i < lastRow; i++)
+				if (rs.next())
+					string[i] = rs.getString(1);
+			
+			clerk_view.BookingList_booking.setModel(new javax.swing.AbstractListModel() 
+    		{
+    			String[] strings = string;
+    			public int getSize() 
+    			{ return strings.length; }
+            
+    			public Object getElementAt(int i) 
+    			{ return strings[i];} 
+    		});
+			
+		}
 	}
 	
 	class valueChange implements ListSelectionListener
@@ -180,13 +296,16 @@ public class ClerkController
 		@Override
 		public void valueChanged(ListSelectionEvent e) 
 		{
-			if(e.getSource() == clerk_view.StaffList_edit)
+			if(e.getSource() == clerk_view.CustomerList_edit)
 			{
-				try 
+				if(clerk_view.CustomerList_edit.getSelectedValue() != null)
 				{
-					showCustomerDetails(clerk_view.StaffList_edit.getSelectedIndex());
-				} 
-				catch (SQLException e1) {e1.printStackTrace();}
+					try 
+					{
+						showCustomerDetails(clerk_view.CustomerList_edit.getSelectedIndex());
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+				}
 			}
 		}
 		
@@ -211,6 +330,11 @@ public class ClerkController
 			if(e.getSource() == clerk_view.booking)
 			{
 				content.show(clerk_view.ContentPanel, "card3");
+				try 
+				{
+					populateAllListOnPanel();
+				} 
+				catch (SQLException e1) {e1.printStackTrace();}
 			}
 			
 			if(e.getSource() == clerk_view.editCustomer)
@@ -233,11 +357,14 @@ public class ClerkController
 				updateCustomer();
 			}
 			
+			if(e.getSource() == clerk_view.Delete_edit)
+			{
+				deleteCustomer();
+				
+			}
 			
 		}
 
-		
-		
 		
 	}
 }

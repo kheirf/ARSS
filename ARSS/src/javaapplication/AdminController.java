@@ -139,6 +139,7 @@ public class AdminController
 	private void updateStaff(int role)
 	{
 		List<String> l = new ArrayList<String>();
+		l.add("" + role);
 		l.add(admin_view.ID_edit.getText());
 		l.add(admin_view.Fname_edit.getText());
 		l.add(admin_view.Sname_edit.getText());
@@ -146,9 +147,10 @@ public class AdminController
 		l.add(admin_view.EmailAdd_edit.getText());
 		l.add(admin_view.HomeAdd_edit.getText());
 		l.add(admin_view.NewPwd_edit.getText());
-		if(!l.get(0).toString().equals(""))
+		
+		if(!l.get(1).toString().equals(""))
 		{
-			if(model.updateStaff(role, l) > 0)
+			if(model.updateStaff(l) > 0)
 			{
 				populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
 				JOptionPane.showMessageDialog(admin_view, "Successful");
@@ -319,7 +321,7 @@ public class AdminController
 			
 			if(e.getSource() == admin_view.deleteButton)
 			{
-				if ((model.deleteStaff(theRole, admin_view.ID1_delete.getText())) > 0)
+				if ((model.deletePerson(theRole, admin_view.ID1_delete.getText())) > 0)
 				{
 					try {
 						populateList(model.getContentsList(), 2);

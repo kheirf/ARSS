@@ -36,6 +36,9 @@ public class Main
 		case 3:
 			Role = "Mechanic";
 			break;
+		case 4:
+			Role = "Customer";
+			break;
 		}
 		return Role;
 	}
@@ -100,13 +103,22 @@ public class Main
 	}
 	
 	
-	ResultSet getCustomers()
+	ResultSet getBatchResult(String tablename)
 	{
 		//ResultSet rs = null;
 		try 
 		{
 			openConnection();
-			return stm.executeQuery("SELECT * FROM customer ORDER BY sname");
+			if(tablename.equals("Customer"))
+				return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY sname");
+			else
+				if(tablename.equals("Car"))
+					return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY Make");
+				else
+					if(tablename.equals("Booking"))
+					{
+						return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY ID");
+					}
 		} 
 		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
 		
@@ -219,34 +231,50 @@ public class Main
 	}
 	
 	//update rows in staff
-	int updateStaff(int role, List<String> list)
+	int updateStaff(List<String> list)
 	{
 		int returnThis = -1;
-		String Role = identifyRole(role);
-		try 
+		if(list.get(0).equals("1") || list.get(0).equals("2") || list.get(0).equals("3"))
 		{
-			openConnection();
-			returnThis = stm.executeUpdate("UPDATE " + Role + " SET fname = \"" + list.get(1) + "\", sname = \"" + list.get(2) + "\", contactno = \""
-									+ list.get(3) + "\", emailaddress = \"" + list.get(4) + "\", homeaddress = \"" + list.get(5) + 
-											"\", password = \"" + list.get(6) + "\" WHERE ID = " + list.get(0));
-			closeConnection();
-		} 
-		catch (ClassNotFoundException | SQLException e) 
-		{e.printStackTrace();}
-		
-		
+			String Role = identifyRole(Integer.parseInt(list.get(0)));
+			try 
+			{
+				openConnection();
+				returnThis = stm.executeUpdate("UPDATE " + Role + " SET fname = \"" + list.get(2) + "\", sname = \"" + list.get(3) + "\", contactno = \""
+									+ list.get(4) + "\", emailaddress = \"" + list.get(5) + "\", homeaddress = \"" + list.get(6) + 
+											"\", password = \"" + list.get(7) + "\" WHERE ID = " + list.get(1));
+				closeConnection();
+			} 
+			catch (ClassNotFoundException | SQLException e){e.printStackTrace();}
+		}
+		else
+			if(list.get(0).equals("Customer"))
+			{
+				try 
+				{
+					openConnection();
+					returnThis = stm.executeUpdate("UPDATE customer SET fname = \"" + list.get(2) + "\", sname = \""
+											+ list.get(3) + "\", contactno = \"" + list.get(4) + "\", emailaddress = \""
+											+ list.get(5) + "\", homeaddress = \"" + list.get(6) + "\" WHERE customerid = " + list.get(1));
+				} 
+				catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+			}
 		return returnThis;
 	}
 	
 	//For Deleting Staff
-	int deleteStaff(int role, String ID)
+	int deletePerson(int role, String ID)
 	{
 		int returnThis = -1;
 		String Role = identifyRole(role);
 		try 
 		{
 			openConnection();
-			returnThis = stm.executeUpdate("DELETE FROM " + Role + " WHERE ID = " + ID);
+			if (role == 1 || role == 2 || role == 3)
+				returnThis = stm.executeUpdate("DELETE FROM " + Role + " WHERE ID = " + ID);
+			else
+				if(role == 4)
+					returnThis = stm.executeUpdate("DELETE FROM " + Role + " WHERE customerID = " + ID);
 			closeConnection();
 		} 
 		catch (ClassNotFoundException | SQLException e) 
