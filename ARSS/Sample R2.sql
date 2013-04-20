@@ -47,17 +47,17 @@ create table Customer
 	Sname varchar(50) NOT NULL,
 	ContactNo varchar(30) NOT NULL,
 	EmailAddress varchar(30) NULL,
-	DateRegistered DATE NOT NULL, #use curdate()
-	HomeAddress varchar(50) NOT NULL
+	HomeAddress varchar(50) NOT NULL,
+	DateRegistered DATE NOT NULL #use curdate()
 );
 
 create table Car
 (
-	CarID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 6000
-	CarRegNo varchar(50) UNIQUE KEY,
+	CarRegNo varchar(50) PRIMARY KEY,
 	Make varchar(50) NOT NULL,
 	Model varchar(50) NULL,
-	Year varchar(5) NULL
+	Year varchar(5) NULL,
+	Date_Registered DATE NOT NULL #use curdate()
 );
 
 create table Booking

@@ -234,7 +234,6 @@ public class AdminController
 			if(admin_view.Datelist_activities.getSelectedValue() != null)
 			{
 				populateEditField(admin_view.Datelist_activities.getSelectedValue().toString(), 3);
-				
 			}
 			
 			if(admin_view.StaffList_edit.getSelectedValue() != null)
@@ -246,7 +245,6 @@ public class AdminController
 			{
 				populateEditField(admin_view.StaffList_delete.getSelectedValue().toString(), 2);
 			}
-			
 			
 			if(admin_view.StaffList_activities.getSelectedValue() != null)
 			{

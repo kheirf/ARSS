@@ -54,7 +54,7 @@ public class Controller
 			{
 			case 1:
 				userID = login_view.getUserID();
-				//role = model.identifyRole(login_view.getRole());
+				role = model.identifyRole(login_view.getRole());
 				model.sessionlogs(userID, role, "System Login");
 				AdminMain adminMain = new AdminMain();
 				login_view.setVisible(false);
@@ -78,7 +78,14 @@ public class Controller
 			switch (check) 
 			{
 			case 1:
-				JOptionPane.showMessageDialog(login_view, "This should get to clerk main", "Warning", JOptionPane.ERROR_MESSAGE);
+				userID = login_view.getUserID();
+				role = model.identifyRole(login_view.getRole());
+				model.sessionlogs(userID, role, "System Login");
+				ClerkMain clerkMain = new ClerkMain();
+				login_view.setVisible(false);
+				clerkMain.setVisible(true);
+				new ClerkController(clerkMain, userID);
+				//JOptionPane.showMessageDialog(login_view, "This should get to clerk main", "Warning", JOptionPane.ERROR_MESSAGE);
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);

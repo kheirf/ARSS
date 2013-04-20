@@ -39,6 +39,7 @@ public class Main
 		}
 		return Role;
 	}
+	
 	//Search for login
 	protected int search(String uname, char [] password, int role) throws SQLException
 	{
@@ -65,7 +66,7 @@ public class Main
 		return returnThis;
 	}
 	
-	
+	//this method is used for activity list
 	String [] getActivityList(String uid)
 	{
 		String [] thisList1 = {};
@@ -98,6 +99,21 @@ public class Main
 		return thisList1;
 	}
 	
+	
+	ResultSet getCustomers()
+	{
+		//ResultSet rs = null;
+		try 
+		{
+			openConnection();
+			return stm.executeQuery("SELECT * FROM customer ORDER BY sname");
+		} 
+		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+		
+		return null;
+	}
+	
+	//this method is used to get all the staff
 	String[] getContentsList()throws SQLException
 	{
 		ResultSet rs = null;
@@ -202,50 +218,6 @@ public class Main
 		return list;	
 	}
 	
-	/*
-	List<String> searchForID(String ID)
-	{
-		ResultSet rs;
-		List<String> list = new ArrayList<String>();
-		try 
-		{
-			openConnection();
-			if((rs = stm.executeQuery("SELECT * FROM administrator WHERE ID = " + ID)).next())
-			{
-				for (int i = 1; i <= 7; i++;
-				{
-					list.add(rs.getString(i));
-				}
-				list.add("1");
-			}
-			else
-				if((rs = stm.executeQuery("SELECT * FROM clerk WHERE ID = " + ID)).next())
-				{
-					for (int i = 1; i <= 7; i++)
-					{
-						list.add(rs.getString(i));
-					}
-					list.add("2");
-				}
-				else
-					if((rs = stm.executeQuery("SELECT * FROM mechanic WHERE ID = " + ID)).next())
-					{
-						for (int i = 1; i <= 7; i++)
-						{
-							list.add(rs.getString(i));
-						}
-						list.add("3");
-					}
-			rs.close();
-			closeConnection();
-		} 
-		catch (ClassNotFoundException | SQLException e) 
-		{e.printStackTrace();}
-
-		return list;	
-	}
-	*/
-	
 	//update rows in staff
 	int updateStaff(int role, List<String> list)
 	{
@@ -282,32 +254,64 @@ public class Main
 		return returnThis;
 	}
 	
+	//add customer
+	int addCarCustomer(List<String> list, int flag)
+	{
+		switch(flag)
+		{
+		case 1:
+			try 
+			{
+				openConnection();
+				return stm.executeUpdate("INSERT INTO customer(fname, sname, contactno, emailaddress, homeaddress, dateregistered) " +
+						"VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3)
+						+ "\", \"" + list.get(4) + "\", CURDATE())");
+			} 
+			catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+			break;
+		case 2:
+			try 
+			{
+				openConnection();
+				return stm.executeUpdate("INSERT INTO car VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) 
+						+ "\", \"" + list.get(3) + "\", CURDATE())");
+			} 
+			catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+			break;
+		}
+		return 0;
+	}
+	
 	//adding staff
 	int addStaff(List<String> list) throws SQLException
 	{
-		System.out.println(list.get(0));
-		System.out.println(list.get(1));
+		try 
+		{
+			openConnection();
+			if(list.get(0) == "Administrator")
+			{
+				return stm.executeUpdate("INSERT INTO administrator(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
+											+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
+												+ list.get(5) + "\", \"" + list.get(6) + "\");");
+			}
+			if(list.get(0) == "Clerk")
+			{
+				return stm.executeUpdate("INSERT INTO clerk(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
+											+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
+												+ list.get(5) + "\", \"" + list.get(6) + "\");");
+			}
+			if(list.get(0) == "Mechanic")
+			{
+				return stm.executeUpdate("INSERT INTO mechanic(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
+											+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
+												+ list.get(5) + "\", \"" + list.get(6) + "\");");
+			}
+			
+			closeConnection();
+		} 
+		catch (ClassNotFoundException e) {e.printStackTrace();}
 		
-		if(list.get(0) == "Administrator")
-		{
-			return stm.executeUpdate("INSERT INTO administrator(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
-										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
-											+ list.get(5) + "\", \"" + list.get(6) + "\");");
-		}
-		if(list.get(0) == "Clerk")
-		{
-			return stm.executeUpdate("INSERT INTO clerk(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
-										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
-											+ list.get(5) + "\", \"" + list.get(6) + "\");");
-		}
-		if(list.get(0) == "Mechanic")
-		{
-			return stm.executeUpdate("INSERT INTO mechanic(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
-										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
-											+ list.get(5) + "\", \"" + list.get(6) + "\");");
-		}
 		
-		 closeConnection();
 		return -1;
 	}
 	
