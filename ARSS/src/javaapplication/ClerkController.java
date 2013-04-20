@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.mysql.jdbc.ResultSetMetaData;
+import com.mysql.jdbc.interceptors.SessionAssociationInterceptor;
 
 public class ClerkController 
 {
@@ -347,9 +348,37 @@ public class ClerkController
 		String disp = "Booking ID: " + rs.getString(1) + "\nClerk ID: " + rs.getString(2) + "\nCustomer ID: " 
 						+ rs.getString(3) + "\nCar ID: " + rs.getString(4) + "\nDate booked: " + rs.getString(5)
 						+ "\nProblem: " + rs.getString(6);
-		JOptionPane.showMessageDialog(clerk_view, disp, rs.getString(1), JOptionPane.PLAIN_MESSAGE);
+		
+		Object[] options = {"Delete this booking", "Go back"};
+		int i = JOptionPane.showOptionDialog(clerk_view, disp, rs.getString(1), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[1]);
+		if(i == JOptionPane.YES_OPTION)
+		{
+			int j = JOptionPane.showConfirmDialog(clerk_view, "Do you really want to delete this booking?", "Confirmation", JOptionPane.YES_NO_OPTION);
+			if(j == JOptionPane.YES_OPTION)
+				if((model.deletePerson(5, rs.getString(1))) > 0)
+				{
+					populateAllListOnPanel();
+					JOptionPane.showMessageDialog(clerk_view, "Booking successfully removed");
+				}
+				else
+					JOptionPane.showMessageDialog(clerk_view, "Encountered some errors while deleting\nContact Customer Support", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
+	//this method is used when the user wants to log out
+	private void userLogout() throws SQLException
+	{
+		int i = JOptionPane.showConfirmDialog(clerk_view, "Log out?", "Please Confirm", JOptionPane.YES_NO_OPTION);
+		if (i == JOptionPane.YES_OPTION)
+		{
+			model.closeConnection();
+			clerk_view.setVisible(false);
+			Login backTo = new Login(2);
+			backTo.setVisible(true);
+			new Controller(backTo);
+		}
+	}
 	
 	class valueChange implements ListSelectionListener
 	{
@@ -492,6 +521,14 @@ public class ClerkController
 							JOptionPane.ERROR_MESSAGE);
 			}
 			
+			if(e.getSource() == clerk_view.logoutButton)
+			{
+				try 
+				{
+					userLogout();
+				} 
+				catch (SQLException e1){e1.printStackTrace();}
+			}
 			
 		}
 

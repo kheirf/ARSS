@@ -108,30 +108,39 @@ public class AdminController
 		{
 		case 1:
 			list = model.searchForID(ID, 1);
-			admin_view.ID_edit.setText(list.get(0));
-			admin_view.Fname_edit.setText(list.get(1));
-			admin_view.Sname_edit.setText(list.get(2));
-			admin_view.ContactNo_edit.setText(list.get(3));
-			admin_view.EmailAdd_edit.setText(list.get(4));
-			admin_view.HomeAdd_edit.setText(list.get(5));
-			admin_view.OldPwd_edit.setText(list.get(6));
-			theRole = Integer.parseInt(list.get(7));
+			if(!list.isEmpty())
+			{
+				admin_view.ID_edit.setText(list.get(0));
+				admin_view.Fname_edit.setText(list.get(1));
+				admin_view.Sname_edit.setText(list.get(2));
+				admin_view.ContactNo_edit.setText(list.get(3));
+				admin_view.EmailAdd_edit.setText(list.get(4));
+				admin_view.HomeAdd_edit.setText(list.get(5));
+				admin_view.OldPwd_edit.setText(list.get(6));
+				theRole = Integer.parseInt(list.get(7));
+			}
 			break;
 		case 2:
 			list = model.searchForID(ID, 1);
-			admin_view.ID1_delete.setText(list.get(0));
-			admin_view.Fname_delete.setText(list.get(1));
-			admin_view.Sname_delete.setText(list.get(2));
-			admin_view.ContactNo_delete.setText(list.get(3));
-			admin_view.EmailAdd_delete.setText(list.get(4));
-			admin_view.HomeAdd_delete.setText(list.get(5));
-			theRole = Integer.parseInt(list.get(7));
+			if(!list.isEmpty())
+			{
+				admin_view.ID1_delete.setText(list.get(0));
+				admin_view.Fname_delete.setText(list.get(1));
+				admin_view.Sname_delete.setText(list.get(2));
+				admin_view.ContactNo_delete.setText(list.get(3));
+				admin_view.EmailAdd_delete.setText(list.get(4));
+				admin_view.HomeAdd_delete.setText(list.get(5));
+				theRole = Integer.parseInt(list.get(7));
+			}
 			break;
 		case 3:
 			list = model.searchForID(ID, 2);
-			admin_view.textArea_activities.setText("Time: " +list.get(0) 
+			if(!list.isEmpty())
+			{
+				admin_view.textArea_activities.setText("Time: " +list.get(0) 
 					+ "\nUser ID: " + list.get(1) + "\nRole: " + list.get(2) +
 					"\nDescription: " + list.get(3));
+			}
 			break;
 		}
 	}
@@ -267,6 +276,20 @@ public class AdminController
 		}
 	}
 	
+	//this method is used when the user wants to log out
+		private void userLogout() throws SQLException
+		{
+			int i = JOptionPane.showConfirmDialog(admin_view, "Log out?", "Please Confirm", JOptionPane.YES_NO_OPTION);
+			if (i == JOptionPane.YES_OPTION)
+			{
+				model.closeConnection();
+				admin_view.setVisible(false);
+				Login backTo = new Login(1);
+				backTo.setVisible(true);
+				new Controller(backTo);
+			}
+		}
+	
 	class buttonListener implements ActionListener
 	{
 		@Override
@@ -384,7 +407,14 @@ public class AdminController
 				}
 			}
 			
-			
+			if(e.getSource() == admin_view.logoutButton)
+			{
+				try 
+				{
+					userLogout();
+				} 
+				catch (SQLException e1) {e1.printStackTrace();}
+			}
 			
 		}//end of actionperformed
 	}//end of button class

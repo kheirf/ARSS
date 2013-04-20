@@ -222,11 +222,6 @@ public class AdminMain extends JFrame
 
         StaffList_activities.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         StaffList_activities.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        //StaffList_activities.setModel(new javax.swing.AbstractListModel() {
-          //  String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-           // public int getSize() { return strings.length; }
-           // public Object getElementAt(int i) { return strings[i]; }
-        //});
 
         jScrollPaneForStaffList2.setViewportView(StaffList_activities);
 
@@ -237,11 +232,6 @@ public class AdminMain extends JFrame
         LabelForFind1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFind1.setText("Find :");
 
-        find_activities.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                find1ActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("(ID)");
 
@@ -316,11 +306,6 @@ public class AdminMain extends JFrame
 
         StaffList_delete.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "All Staff List", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         StaffList_delete.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-       // StaffList_delete.setModel(new javax.swing.AbstractListModel() {
-         //   String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-           // public int getSize() { return strings.length; }
-            //public Object getElementAt(int i) { return strings[i]; }
-        //});
         jScrollPaneForStaffList1.setViewportView(StaffList_delete);
 
         DeleteStaffPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Delete Staff", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -343,22 +328,11 @@ public class AdminMain extends JFrame
         LabelForHomeAdd_delete.setText("Home Address :");
 
         deleteButton.setText("Delete");
-        //deleteButton.addActionListener(new java.awt.event.ActionListener() {
-          //  public void actionPerformed(java.awt.event.ActionEvent evt) {
-            //    deleteButtonActionPerformed(evt);
-           // }
-        //});
 
         findButton_delete.setText("Find");
 
         LabelForFind.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LabelForFind.setText("Find :");
-
-        //find_delete.addActionListener(new java.awt.event.ActionListener() {
-          //  public void actionPerformed(java.awt.event.ActionEvent evt) {
-           //     findActionPerformed(evt);
-           // }
-        //});
 
         jLabel2.setText("(ID)");
 
@@ -478,20 +452,11 @@ public class AdminMain extends JFrame
         LabelForNewPwd_add.setText("Repeat Password :");
 
         Save_add.setText("Save");
-        Save_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Save_addActionPerformed(evt);
-            }
-        });
+        
 
         Discard_add.setText("Discard");
 
         DropDown_add.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrator", "Clerk", "Mechanic" }));
-        DropDown_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DropDown_addActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Role :");
 
@@ -633,11 +598,6 @@ public class AdminMain extends JFrame
         LabelForNewPwd.setText("New Password :");
 
         Save_edit.setText("Save");
-        Save_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
-            }
-        });
 
         Discard_edit.setText("Discard");
 
@@ -780,20 +740,6 @@ public class AdminMain extends JFrame
         pack();
     }// </editor-fold>                        
 
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {}                                    
-
-    private void Save_addActionPerformed(java.awt.event.ActionEvent evt) {}                                     
-
-    private void DropDown_addActionPerformed(java.awt.event.ActionEvent evt) {}                                          
-
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {}                                            
-
-    private void findActionPerformed(java.awt.event.ActionEvent evt) {}                                    
-
-    private void find1ActionPerformed(java.awt.event.ActionEvent evt) {}
-    
-    //@SuppressWarnings({ "unchecked", "rawtypes" })
-	
     
     void buttonListener(ActionListener listen)
     {
@@ -808,6 +754,7 @@ public class AdminMain extends JFrame
     	deleteButton.addActionListener(listen);
     	findButton_delete.addActionListener(listen);
     	findButton_activities.addActionListener(listen);
+    	logoutButton.addActionListener(listen);
     }
     
     void listSelectionListener(ListSelectionListener listen)
