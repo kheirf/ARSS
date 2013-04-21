@@ -1,4 +1,9 @@
+drop trigger partQuantity_ai;
+
 drop table Booking;
+drop table repair;
+drop table orders;
+drop table parts;
 drop table Administrator;
 drop table Clerk;
 drop table Mechanic;
@@ -117,15 +122,18 @@ create table parts
 create table Repair
 (
 	repairID int(10) PRIMARY KEY AUTO_INCREMENT, #starts at 10000
+	mechanicID int(10) NOT NULL,
 	bookingID int(10) NULL,
 	carID varchar(50) NULL,
 	partID int(10) NULL,
-	totalCharge decimal(5, 2) NULL,
+	totalCharge decimal(5, 2) NULL DEFAULT '0.0',
 	status varchar(20) DEFAULT 'IN PROGRESS',
 	repairLength decimal(4,2) DEFAULT '0.0',
+	StartDate TIMESTAMP NOT NULL DEFAULT NOW(),
+	EndDate TIMESTAMP NULL,
 	FOREIGN KEY (bookingID) REFERENCES booking(id),
-	FOREIGN KEY (carID) REFERENCES car(carregno),
-	FOREIGN KEY (partID) REFERENCES parts(id)
+	FOREIGN KEY (partID) REFERENCES parts(id),
+	FOREIGN KEY (mechanicID) REFERENCES mechanic(id)
 );
 
 
@@ -144,7 +152,9 @@ insert into customer(fname, sname, contactno, emailaddress, dateregistered, home
 insert into car(carregno, make, model, year) values ("04D1234", "Toyota", "Vios", "2004" );
 insert into car(carregno, make, model, year) values ("0501D12", "Nissan", "Primera", "2005");
 
-insert into booking(clerkid, customerid, carid, bookingDate, problem ) values (2000, 4000, 6000, CURDATE(), "No engine found");
+insert into booking(clerkid, customerid, carid, bookingDate, problem, status ) values (2001, 4000, "aaa", CURDATE(), "No engine found", "CLOSED");
+
+insert into repair(bookingid, partid) values (null, 8000);
 
 select * from administrator;
 select * from clerk;
@@ -153,6 +163,9 @@ select * from customer;
 select * from car;
 select * from booking;
 select * from sessionlog;
+select * from parts;
+select * from orders;
+select * from repair;
 
 select * from administrator
 union
@@ -165,12 +178,33 @@ drop * from customer where customerID = 1;
 select fname from booking
 join customer using (CustomerID);
 
+select booking.id, customer.fname from booking
+join customer using(customerID);
+
+select booking.id, car.make from booking, car where booking.carid = car.carregno;
+
+delimiter $$
+create trigger ai_test
+after insert on test
+for each row
+begin
+	insert into dummy values(0.0);
+end $$
+
+drop trigger ai_test;
 
 
+
+create table dummy
+(
+	price decimal(5,2)
+);
 
 create table test
 (
 	d decimal(5,2) DEFAULT '50.20'
 );
-insert into test values();
+
+insert into test values(90.1);
 select * from test;
+select * from dummy;

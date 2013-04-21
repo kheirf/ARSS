@@ -74,7 +74,7 @@ public class AdminController
 						list.add(admin_view.Pwd_add.getText());
 						try 
 						{
-							if(model.addStaff(list) > 0)
+							if(model.addTo(list) > 0)
 							{
 								clearDataOn();
 								JOptionPane.showMessageDialog(admin_view, "Successfully Added New Data");
@@ -162,7 +162,7 @@ public class AdminController
 			if(model.updateStaff(l) > 0)
 			{
 				populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
-				JOptionPane.showMessageDialog(admin_view, "Successful");
+				JOptionPane.showMessageDialog(admin_view, "Update Successful");
 				admin_view.NewPwd_edit.setText("");
 			}
 			else

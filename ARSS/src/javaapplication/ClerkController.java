@@ -1,6 +1,7 @@
 package javaapplication;
 
 import java.awt.CardLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Array;
@@ -69,36 +70,43 @@ public class ClerkController
 					{
 						if(rs.next())
 						{
-							rs.absolute(clerk_view.carOwner_add.getSelectedIndex());
+							rs.absolute(clerk_view.carOwner_add.getSelectedIndex() + 1);
 							carOwnerID = rs.getString(1);
 						}
 					} 
 					catch (SQLException e) {e.printStackTrace();}
 					
 					List<String> list = new ArrayList<String>();
+					list.add("Car");
 					list.add(clerk_view.Regno_add.getText());
 					list.add(clerk_view.Make_add.getText());
 					list.add(clerk_view.Model_add.getText());
 					list.add(carOwnerID);
 					list.add(clerk_view.Year_add.getText());
 	
-					if((model.addCarCustomerBooking(list, 2)) > 0)
-					{
-						clerk_view.Regno_add.setText("");
-						clerk_view.Make_add.setText("");
-						clerk_view.Model_add.setText("");
-						clerk_view.Year_add.setText("");
-						JOptionPane.showMessageDialog(clerk_view, "Successfully Added");
+					try {
+						if((model.addTo(list)) > 0)
+						{
+							clerk_view.Regno_add.setText("");
+							clerk_view.Make_add.setText("");
+							clerk_view.Model_add.setText("");
+							clerk_view.Year_add.setText("");
+							JOptionPane.showMessageDialog(clerk_view, "Successfully Added");
+						}
+						else
+							JOptionPane.showMessageDialog(clerk_view, "There was a problem adding car \nContact Customer Support", "Error", JOptionPane.ERROR_MESSAGE);
+					} 
+					catch (HeadlessException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					else
-						JOptionPane.showMessageDialog(clerk_view, "There was a problem adding car \nContact Customer Support", "Error", JOptionPane.ERROR_MESSAGE);
 	
 				}
 			
 	}
 	
 	//method to add customer
-	private void addCustomer() 
+	private void addCustomer() throws HeadlessException, SQLException 
 	{
 		if(clerk_view.Fname_add.getText().isEmpty())
 			JOptionPane.showMessageDialog(clerk_view, "First Name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
@@ -115,13 +123,14 @@ public class ClerkController
 					{
 		
 						List<String> list = new ArrayList<String>();
+						list.add("Customer");
 						list.add(clerk_view.Fname_add.getText());
 						list.add(clerk_view.Sname_add.getText());
 						list.add(clerk_view.ContactNo_add.getText());
 						list.add(clerk_view.EmailAdd_add.getText());
 						list.add(clerk_view.HomeAdd_add.getText());
 		
-						if((model.addCarCustomerBooking(list, 1)) > 0)
+						if((model.addTo(list)) > 0)
 						{
 							clerk_view.Fname_add.setText("");
 							clerk_view.Sname_add.setText("");
@@ -316,14 +325,15 @@ public class ClerkController
 	}
 	
 	//Method to add booking
-	private void addBooking()
+	private void addBooking() throws HeadlessException, SQLException
 	{
 		list = new ArrayList<String>();
+		list.add("Booking");
 		list.add(uid);
 		list.add(clerk_view.customerID_booking.getText());
 		list.add(clerk_view.carID_booking.getText());
 		list.add(clerk_view.problem_booking.getText());
-		if((model.addCarCustomerBooking(list, 3)) > 0)
+		if((model.addTo(list)) > 0)
 		{
 			try 
 			{
@@ -418,7 +428,7 @@ public class ClerkController
 			rs.beforeFirst();
 			for(int i = 0; i < lastRow; i++)
 				if(rs.next())
-					forComboBox[i] = rs.getString(2) + rs.getString(3);
+					forComboBox[i] = rs.getString(2) + " " + rs.getString(3);
 		}
 		else
 			forComboBox = new String[0];
@@ -541,7 +551,14 @@ public class ClerkController
 			
 			if(e.getSource() == clerk_view.addCustomer_add)
 			{
-				addCustomer();
+				try 
+				{
+					addCustomer();
+				} 
+				catch (HeadlessException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			
 			if(e.getSource() == clerk_view.Save_edit)
@@ -556,7 +573,11 @@ public class ClerkController
 			
 			if(e.getSource() == clerk_view.Save_booking)
 			{
-				addBooking();
+				try 
+				{
+					addBooking();
+				} 
+				catch (HeadlessException | SQLException e1) {e1.printStackTrace();}
 			}
 			
 			if(e.getSource() == clerk_view.view_booking)
@@ -583,6 +604,31 @@ public class ClerkController
 				catch (SQLException e1){e1.printStackTrace();}
 			}
 			
+			if(e.getSource() == clerk_view.discardCar_add)
+			{
+				clerk_view.Model_add.setText("");
+				clerk_view.Make_add.setText("");
+				clerk_view.Year_add.setText("");
+				clerk_view.Regno_add.setText("");
+			}
+			
+			if(e.getSource() == clerk_view.discardCustomer_add)
+			{
+				clerk_view.Fname_add.setText("");
+				clerk_view.Sname_add.setText("");
+				clerk_view.ContactNo_add.setText("");
+				clerk_view.EmailAdd_add.setText("");
+				clerk_view.HomeAdd_add.setText("");
+			}
+			
+			if(e.getSource() == clerk_view.Discard_edit)
+			{
+				try 
+				{
+					showCustomerDetails(clerk_view.CustomerList_edit.getSelectedIndex());
+				} 
+				catch (SQLException e1) {e1.printStackTrace();}
+			}
 		}
 
 		

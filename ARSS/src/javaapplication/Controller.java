@@ -110,7 +110,6 @@ public class Controller
 				login_view.setVisible(false);
 				mechanicMain.setVisible(true);
 				new MechanicController(mechanicMain, userID);
-				//JOptionPane.showMessageDialog(login_view, "This should get to mechanic main", "Warning", JOptionPane.ERROR_MESSAGE);
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);

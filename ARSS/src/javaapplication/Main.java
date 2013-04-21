@@ -97,22 +97,50 @@ public class Main
 		return thisList1;
 	}
 	
+	//method used to execute the statemnent, point to the specified column and return with a single data
+	String returnSingleData(String statement, int column)
+	{
+		try 
+		{
+			ResultSet rs = stm.executeQuery(statement);
+			if(rs.next())
+			{
+				return rs.getString(column);
+			}
+		} 
+		catch (SQLException e) {e.printStackTrace();}
+		return null;
+	}
 	
+	//returns result set from specified query
+	ResultSet getQueryResult(String statement)
+	{
+		try 
+		{
+			return stm.executeQuery(statement);
+		} catch (SQLException e) {e.printStackTrace();}
+		return null;
+	}
+	
+	//Returns result set from query
 	ResultSet getBatchResult(String tablename)
 	{
 		try 
 		{
-			openConnection();
+			//openConnection();
 			if(tablename.equals("Customer"))
 				return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY sname");
-			else
-				if(tablename.equals("Car"))
-					return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY Make");
-				else
-					if(tablename.equals("Booking"))
-						return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY ID");
+				
+			if(tablename.equals("Car"))
+				return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY Make");
+				
+			if(tablename.equals("Booking"))
+				return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY ID");
+			
+			if(tablename.equals("Parts"))
+				return stm.executeQuery("SELECT * FROM " + tablename + " ORDER BY ID");
 		} 
-		catch (ClassNotFoundException | SQLException e) {e.printStackTrace();}
+		catch (SQLException e) {e.printStackTrace();}
 		
 		return null;
 	}
@@ -144,6 +172,7 @@ public class Main
 		
 		return list;
 	}
+	
 	
 	List<String> searchForID(String ID, int flag)
 	{
@@ -260,7 +289,7 @@ public class Main
 	}
 	
 	//add customer
-	int addCarCustomerBooking(List<String> list, int flag)
+	/*int addCarCustomerBooking(List<String> list, int flag)
 	{
 		try 
 		{
@@ -280,10 +309,10 @@ public class Main
 		catch (SQLException e) {e.printStackTrace();}
 	
 		return 0;
-	}
+	}*/
 	
 	//adding staff
-	int addStaff(List<String> list) throws SQLException
+	int addTo(List<String> list) throws SQLException
 	{
 		if(list.get(0) == "Administrator")
 			return stm.executeUpdate("INSERT INTO administrator(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
@@ -293,11 +322,37 @@ public class Main
 			return stm.executeUpdate("INSERT INTO clerk(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
 										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
 											+ list.get(5) + "\", \"" + list.get(6) + "\");");
+		
 		if(list.get(0) == "Mechanic")
 			return stm.executeUpdate("INSERT INTO mechanic(fname, sname, contactno, emailaddress, homeaddress, password) values(\"" 
 										+ list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4) + "\", \"" 
 											+ list.get(5) + "\", \"" + list.get(6) + "\");");
 		
+		if(list.get(0) == "Car")
+			return stm.executeUpdate("INSERT INTO car VALUES (\"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) 
+					+ "\", \"" + list.get(4) + "\", \"" + list.get(5) + "\", CURDATE())");
+		
+		if(list.get(0) == "Booking")
+			return stm.executeUpdate("INSERT INTO booking ( clerkid, customerid, carid, bookingdate, problem ) " +
+					"VALUES ( " + list.get(1) + ", " + list.get(2) + ", \"" + list.get(3) + "\", NOW(), \"" + list.get(4) + "\" )");
+		
+		if(list.get(0) == "Customer")
+			return stm.executeUpdate("INSERT INTO customer(fname, sname, contactno, emailaddress, homeaddress, dateregistered) " +
+					"VALUES (\"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", \"" + list.get(4)
+					+ "\", \"" + list.get(5) + "\", CURDATE())");
+		
+		if(list.get(0) == "Parts")
+			return stm.executeUpdate("INSERT INTO parts(classification, productnumber, description, price) " +
+					"VALUES (\"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3) + "\", "
+						+ list.get(4) + ")");
+		
+		if(list.get(0) == "Repair")
+			return stm.executeUpdate("INSERT INTO repair(mechanicid, bookingid, carid, partid, startdate) VALUES ( " + list.get(1) + ", " + list.get(2) + ", \"" + list.get(3)
+						+ "\", " + list.get(4) + ", NOW())");
+		
+		if(list.get(0) == "Orders")
+			return stm.executeUpdate("INSERT INTO orders(partid, quantity, price, description) VALUES (" 
+					+ list.get(1) + ", " + list.get(2) + ", " + list.get(3) + ", \"" + list.get(4) + "\")" );
 		
 		return -1;
 	}
@@ -317,10 +372,14 @@ public class Main
 	
 	
 	//closing connection
-	void closeConnection() throws SQLException
+	void closeConnection() 
 	{
-		stm.close();
-		con.close();
+		try 
+		{
+			stm.close();
+			con.close();
+		} 
+		catch (SQLException e) {e.printStackTrace();}
 	}
 	
 }
