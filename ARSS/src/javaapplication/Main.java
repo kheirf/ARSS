@@ -288,28 +288,18 @@ public class Main
 		return returnThis;
 	}
 	
-	//add customer
-	/*int addCarCustomerBooking(List<String> list, int flag)
+	
+	//updating a table using specified statement
+	int updateStatement(String statement)
 	{
 		try 
 		{
-			if(flag == 1)
-				return stm.executeUpdate("INSERT INTO customer(fname, sname, contactno, emailaddress, homeaddress, dateregistered) " +
-					"VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) + "\", \"" + list.get(3)
-					+ "\", \"" + list.get(4) + "\", CURDATE())");
-			else
-				if(flag == 2)
-					return stm.executeUpdate("INSERT INTO car VALUES (\"" + list.get(0) + "\", \"" + list.get(1) + "\", \"" + list.get(2) 
-								+ "\", \"" + list.get(3) + "\", " + list.get(4) + ", CURDATE())");
-				else
-					if(flag == 3)
-						return stm.executeUpdate("INSERT INTO booking ( clerkid, customerid, carid, bookingdate, problem ) " +
-								"VALUES ( " + list.get(0) + ", " + list.get(1) + ", \"" + list.get(2) + "\", NOW(), \"" + list.get(3) + "\" )");
+			return stm.executeUpdate(statement);
 		} 
 		catch (SQLException e) {e.printStackTrace();}
-	
-		return 0;
-	}*/
+		
+		return -1;
+	}
 	
 	//adding staff
 	int addTo(List<String> list) throws SQLException

@@ -338,6 +338,9 @@ public class ClerkController
 			try 
 			{
 				populateAllListOnPanel();
+				clerk_view.customerID_booking.setText("");
+				clerk_view.carID_booking.setText("");
+				clerk_view.problem_booking.setText("");
 			}
 			catch (SQLException e) {e.printStackTrace();}
 			JOptionPane.showMessageDialog(clerk_view, "Booking Successful");
@@ -628,6 +631,13 @@ public class ClerkController
 					showCustomerDetails(clerk_view.CustomerList_edit.getSelectedIndex());
 				} 
 				catch (SQLException e1) {e1.printStackTrace();}
+			}
+			
+			if(e.getSource() == clerk_view.Discard_booking)
+			{
+				clerk_view.customerID_booking.setText("");
+				clerk_view.carID_booking.setText("");
+				clerk_view.problem_booking.setText("");
 			}
 		}
 

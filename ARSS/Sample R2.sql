@@ -128,7 +128,7 @@ create table Repair
 	partID int(10) NULL,
 	totalCharge decimal(5, 2) NULL DEFAULT '0.0',
 	status varchar(20) DEFAULT 'IN PROGRESS',
-	repairLength decimal(4,2) DEFAULT '0.0',
+	repairLength decimal(10, 2) NULL,
 	StartDate TIMESTAMP NOT NULL DEFAULT NOW(),
 	EndDate TIMESTAMP NULL,
 	FOREIGN KEY (bookingID) REFERENCES booking(id),
@@ -167,7 +167,7 @@ select * from parts;
 select * from orders;
 select * from repair;
 
-select * from administrator
+select * from administrator                        
 union
 select * from clerk
 union
@@ -181,7 +181,43 @@ join customer using (CustomerID);
 select booking.id, customer.fname from booking
 join customer using(customerID);
 
-select booking.id, car.make from booking, car where booking.carid = car.carregno;
+select booking.id, car.make, car.model 
+from booking join car 
+on booking.carid = car.carregno 
+where booking.carid = car.carregno 
+and booking.status = 'OPEN'
+order by booking.id;
+
+
+create trigger orders_ai
+after insert on orders
+for each row
+begin
+update parts join orders 
+on parts.id = orders.partid 
+set parts.quantity = parts.quantity + new.quantity 
+where parts.id = orders.partID;
+end;
+
+
+create trigger repairs_ai
+after insert on repair
+for each row
+begin
+	update parts join repair
+	on parts.id = repair.partid
+	set parts.quantity = parts. quantity - 1
+	where parts.id = new.partid
+	
+	update booking join repair
+	on booking.id = repair.bookingid
+	set booking.status = 'PROCESSED'
+	where booking.id = new.bookingid;
+end;
+
+
+
+select parts.id, orders.id from parts, orders where parts.id = orders.partid;
 
 delimiter $$
 create trigger ai_test
@@ -194,17 +230,53 @@ end $$
 drop trigger ai_test;
 
 
+select TIME_FORMAT(TIMEDIFF('2013-02-02 14:00:00.00', '2013-02-02 13:00:00.11'), '%H.%i');
+select TIME_FORMAT(NOW(), '%H.%i');
 
+update dummy, dummy2 
+join test on (dummy.testid = test.id)
+join dummy2 on ()dummy.id = dummy2.dummyid)
+set dummy.price = test.d, dummy2.price = test.d;
+
+
+drop table dummy3;
+create table dummy3
+(
+	t timestamp
+);
+insert into dummy3 values(2.1);
+insert into dummy3 values(now());
+select * from dummy3;
+select timestampdiff(MINUTE, '2013-04-21 14:52:00', now()) from dummy3;
+
+select price from parts join 
+repair on parts.id = repair.partid;
+
+drop table dummy2;
+create table dummy2
+(
+	id int(3) PRIMARY KEY,
+	dummyid int(3),
+	price decimal(5,2),
+	FOREIGN KEY (dummyid) REFERENCES dummy(id)
+);
+drop table dummy;
 create table dummy
 (
-	price decimal(5,2)
+	id int(3) PRIMARY KEY,
+	testID int(3),
+	price decimal(5,2),
+	FOREIGN KEY (testid) REFERENCES test(id)
 );
-
+drop table test;
 create table test
 (
+	id int(3) PRIMARY KEY,
 	d decimal(5,2) DEFAULT '50.20'
 );
 
-insert into test values(90.1);
+insert into test values(101, 5);
+insert into dummy values(200, 100, 2.2);
+insert into dummy2 values(300, 200, 30.30)
 select * from test;
 select * from dummy;
