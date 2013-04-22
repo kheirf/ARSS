@@ -77,7 +77,9 @@ public class Main
 		
 		try 
 		{
-			if((rs = stm.executeQuery("SELECT * FROM sessionlog WHERE userID = " + uid)).next())
+			if((rs = stm.executeQuery("SELECT logtime FROM sessionlog WHERE userID = " + uid + 
+					" UNION SELECT activitytime from activitylog WHERE userID = " + uid + 
+					" ORDER BY logtime")).next())
 			{
 				rs.last();
 				int lastRow = rs.getRow();
@@ -360,6 +362,16 @@ public class Main
 		catch (SQLException e) {e.printStackTrace();}
 	}
 	
+	//insert activity log.. could not do it as trigger so doing it as a method..
+	void activitylogs(String uid, String role, String op, String tablename)
+	{
+		try 
+		{
+			stm.executeUpdate("INSERT INTO activitylog VALUES (NOW(), " + uid + ", \"" + role + "\", \"" 
+							+ op + "\", \"" + tablename + "\")");
+		} 
+		catch (SQLException e) {e.printStackTrace();}
+	}
 	
 	//closing connection
 	void closeConnection() 

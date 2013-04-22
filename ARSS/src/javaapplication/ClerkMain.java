@@ -21,6 +21,7 @@ public class ClerkMain extends javax.swing.JFrame {
 	private javax.swing.JLabel LabelForRegistered;
 	private javax.swing.JLabel jLabel1;
 	protected javax.swing.JComboBox carOwner_add;
+	private javax.swing.JLabel jLabel4;
 	/**
      * Creates new form ClerkMain
      */
@@ -121,10 +122,12 @@ public class ClerkMain extends javax.swing.JFrame {
         LabelForRegistered = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         carOwner_add = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(938, 580));
         setPreferredSize(new java.awt.Dimension(916, 421));
+        setTitle("ARSS - Clerk");
         setResizable(false);
 
         //------------------------------------------------------------------Header panel starts here...-----------------------------------------------//
@@ -139,6 +142,10 @@ public class ClerkMain extends javax.swing.JFrame {
 
         currentDate.setText("dateandtimegoeshere");
 
+        jLabel4.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel4.setText("Clerk");
+
         javax.swing.GroupLayout HeaderPanelLayout = new javax.swing.GroupLayout(HeaderPanel);
         HeaderPanel.setLayout(HeaderPanelLayout);
         HeaderPanelLayout.setHorizontalGroup(
@@ -147,24 +154,28 @@ public class ClerkMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addComponent(currentDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutButton)
+                        .addContainerGap())
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
                         .addComponent(welcomeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userName)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderPanelLayout.createSequentialGroup()
-                        .addComponent(currentDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 748, Short.MAX_VALUE)
-                        .addComponent(logoutButton)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 544, Short.MAX_VALUE)
+                        .addComponent(jLabel4))))
         );
         HeaderPanelLayout.setVerticalGroup(
             HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(welcomeLabel)
-                    .addComponent(userName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(welcomeLabel)
+                            .addComponent(userName)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logoutButton)
                     .addComponent(currentDate))
@@ -697,7 +708,7 @@ public class ClerkMain extends javax.swing.JFrame {
                                 .addComponent(LabelForHomeAdd)
                                 .addGap(18, 18, 18)
                                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(EditFieldLayout.createSequentialGroup()
                                         .addComponent(Save_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -736,7 +747,7 @@ public class ClerkMain extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelForHomeAdd)
-                    .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(HomeAdd_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(EditFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Discard_edit)

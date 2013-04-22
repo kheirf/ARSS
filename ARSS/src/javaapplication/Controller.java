@@ -89,6 +89,7 @@ public class Controller
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
+				login_view.Password.setText("");
 				break;
 			case 3:
 				JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);
@@ -113,6 +114,7 @@ public class Controller
 				break;
 			case 2:
 				JOptionPane.showMessageDialog(login_view, "Incorrect Password.", "Warning", JOptionPane.ERROR_MESSAGE);
+				login_view.Password.setText("");
 				break;
 			case 3:
 				JOptionPane.showMessageDialog(login_view, "No Data Found.", "Warning", JOptionPane.ERROR_MESSAGE);

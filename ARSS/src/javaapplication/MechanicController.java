@@ -50,6 +50,7 @@ public class MechanicController
 		int i = JOptionPane.showConfirmDialog(mechanic_view, "Log out?", "Please Confirm", JOptionPane.YES_NO_OPTION);
 		if (i == JOptionPane.YES_OPTION)
 		{
+			model.sessionlogs(uid, "Mechanic", "System Logout");
 			model.closeConnection();
 			mechanic_view.setVisible(false);
 			Login backTo = new Login(3);
@@ -61,7 +62,7 @@ public class MechanicController
 	
 	//This method is used to populate all list on add panel
 	@SuppressWarnings("unchecked")
-	private void populateList(int flag, JList jList) throws SQLException 
+	private void populateList(int flag, JList jList)
 	{
 		switch(flag)
 		{
@@ -71,87 +72,102 @@ public class MechanicController
 			//String statement = "SELECT booking.id, car.make, car.model FROM booking, car WHERE booking.carid = car.carregno AND booking.status = 'OPEN' ORDER BY booking.id";
 			String statement = "SELECT id FROM booking WHERE status = 'OPEN'";
 			rs = model.getQueryResult(statement);
-			if(rs.next())
-			{
-				rs.last();
-				int lastRow = rs.getRow();
-				final String[] string = new String[lastRow];
-				rs.beforeFirst();
-				for (int i = 0; i < lastRow; i++)
-					if (rs.next())
-						string[i] = rs.getString(1);
-					else
-						break;
-			
-				jList.setModel(new javax.swing.AbstractListModel() 
+			try {
+				if(rs.next())
 				{
-					String[] strings = string;
-					public int getSize() 
-					{ return strings.length; }
-            
-					public Object getElementAt(int i) 
-					{ return strings[i];} 
-				});
+					rs.last();
+					int lastRow = rs.getRow();
+					final String[] string = new String[lastRow];
+					rs.beforeFirst();
+					for (int i = 0; i < lastRow; i++)
+						if (rs.next())
+							string[i] = rs.getString(1);
+						else
+							break;
+				
+					jList.setModel(new javax.swing.AbstractListModel() 
+					{
+						String[] strings = string;
+						public int getSize() 
+						{ return strings.length; }
+				
+						public Object getElementAt(int i) 
+						{ return strings[i];} 
+					});
+				}
+				else
+					jList.setModel(new javax.swing.AbstractListModel() 
+					{
+						String[] strings = {};
+						public int getSize() 
+						{ return strings.length; }
+				
+						public Object getElementAt(int i) 
+						{ return strings[i];} 
+					});
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else
-				jList.setModel(new javax.swing.AbstractListModel() 
-				{
-					String[] strings = {};
-					public int getSize() 
-					{ return strings.length; }
-            
-					public Object getElementAt(int i) 
-					{ return strings[i];} 
-				});
 			break;
 			
 		case 2:
 			rs = model.getBatchResult("Parts");
-			if(rs.next())
-			{
-				rs.last();
-				int lastRow = rs.getRow();
-				final String[] string = new String[lastRow];
-				rs.beforeFirst();
-				for (int i = 0; i < lastRow; i++)
-					if (rs.next())
-						string[i] = rs.getString(1) + ": " + rs.getString(2);
-					else
-						break;
-			
-				jList.setModel(new javax.swing.AbstractListModel() 
+			try {
+				if(rs.next())
 				{
-					String[] strings = string;
-					public int getSize() 
-					{ return strings.length; }
-            
-					public Object getElementAt(int i) 
-					{ return strings[i];} 
-				});
+					rs.last();
+					int lastRow = rs.getRow();
+					final String[] string = new String[lastRow];
+					rs.beforeFirst();
+					for (int i = 0; i < lastRow; i++)
+						if (rs.next())
+							string[i] = rs.getString(1) + ": " + rs.getString(2);
+						else
+							break;
+				
+					jList.setModel(new javax.swing.AbstractListModel() 
+					{
+						String[] strings = string;
+						public int getSize() 
+						{ return strings.length; }
+				
+						public Object getElementAt(int i) 
+						{ return strings[i];} 
+					});
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			break;
 			
 		case 3:
 			rs = model.getQueryResult("SELECT * FROM repair WHERE mechanicid = " + uid);
-			if(rs.next())
-			{
-				rs.last();
-				int lastRow = rs.getRow();
-				final String [] string = new String[lastRow];
-				rs.beforeFirst();
-				for(int i = 0; i < lastRow; i++)
-					if(rs.next())
-						string[i] = rs.getString(1) + ": " + rs.getString(7);
-					else
-						break;
-				
-				jList.setModel(new javax.swing.AbstractListModel(){
-					String[] strings = string;
-					public int getSize()
-					{ return strings.length; }
-					public Object getElementAt(int i)
-					{ return strings[i];}
-				});
+			try {
+				if(rs.next())
+				{
+					rs.last();
+					int lastRow = rs.getRow();
+					final String [] string = new String[lastRow];
+					rs.beforeFirst();
+					for(int i = 0; i < lastRow; i++)
+						if(rs.next())
+							string[i] = rs.getString(1) + ": " + rs.getString(7);
+						else
+							break;
+					
+					jList.setModel(new javax.swing.AbstractListModel(){
+						String[] strings = string;
+						public int getSize()
+						{ return strings.length; }
+						public Object getElementAt(int i)
+						{ return strings[i];}
+					});
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			break;
 		}
@@ -177,11 +193,13 @@ public class MechanicController
 			{
 				if((model.addTo(list)) > 0)
 				{
+					model.activitylogs(uid, "Mechanic", "INSERT", "Parts");
 					mechanic_view.productNoAdd_order.setText("");
 					mechanic_view.descriptionAdd_order.setText("");
 					mechanic_view.priceAdd_order.setText("");
 					mechanic_view.typeAdd_order.setSelectedIndex(0);
 					JOptionPane.showMessageDialog(mechanic_view, "New part successfully added!");
+					populateList(2, mechanic_view.PartsList_order);
 				}
 				else
 					JOptionPane.showMessageDialog(mechanic_view, "System experienced some errors \nContact customer service!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -301,6 +319,7 @@ public class MechanicController
 		{
 			if((model.addTo(list)) > 0)
 			{
+				model.activitylogs(uid, "Mechanic", "INSERT", "Repair");
 				mechanic_view.bookingID_add.setText("");
 				mechanic_view.partsID_add.setText("");
 				mechanic_view.carID_add.setText("");
@@ -372,7 +391,11 @@ public class MechanicController
 						
 						
 						if((model.addTo(l)) > 0)
+						{
+							model.activitylogs(uid, "Mechanic", "INSERT", "Orders");
+							model.activitylogs(uid, "Mechanic", "UPDATE", "Parts");
 							JOptionPane.showMessageDialog(mechanic_view, "Order processed successfully");
+						}
 						else
 							JOptionPane.showMessageDialog(mechanic_view, "Encountered some errors\nPlease contact Customer Support", "Error", 
 									JOptionPane.ERROR_MESSAGE);
@@ -405,6 +428,11 @@ public class MechanicController
 				mechanic_view.repairLength_view.setText(rs.getString(8));
 				mechanic_view.startDate_view.setText(rs.getString(9));
 				mechanic_view.endDate_view.setText(rs.getString(10));
+				
+				if(rs.getString(7).equals("IN PROGRESS"))
+					mechanic_view.completeButton_view.setEnabled(true);
+				else
+					mechanic_view.completeButton_view.setEnabled(false);
 			}
 		} 
 		catch (SQLException e) {e.printStackTrace();}
@@ -415,15 +443,51 @@ public class MechanicController
 		String id = mechanic_view.ID_view.getText();
 		if(!id.isEmpty())
 		{
-			String calculateMin = model.returnSingleData("SELECT TIMESTAMPDIFF(MINUTE, startdate, now()) " +
+			Object [] Option = {"Fixed", "Not Fixed", "Cancel"};
+			int i = JOptionPane.showOptionDialog(mechanic_view, "Provide the outcome of your job...", "Repair Complete", 
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, 
+					Option, Option[2]);
+		
+			if(i == 0 || i == 1)
+			{
+				System.out.println(i);
+				String result;
+				if(i == 0)
+					result = "FIXED";
+				else
+					result = "NOT FIXED";
+				
+				String calculateMin = model.returnSingleData("SELECT TIMESTAMPDIFF(MINUTE, startdate, now()) " +
 									"FROM repair WHERE repairID = " + id, 1);
-			float c = (Integer.parseInt(calculateMin)) / 60.0f;
 			
-			String getPartPrice = model.returnSingleData("SELECT price FROM parts JOIN repair ON parts.id = repair.partid " +
-					"WHERE repair.repairid = " + id, 1);
+				float c = Float.parseFloat(calculateMin) / 60.0f;
 			
-			model.updateStatement("UPDATE repair SET enddate = NOW(), repairlength = " 
-					+ String.valueOf(c) + " WHERE repairID = " + id);
+				String getPartPrice = model.returnSingleData("SELECT price FROM parts JOIN repair ON parts.id = repair.partid " +
+						"WHERE repair.repairid = " + id, 1);
+			
+				float totalCharge = (10.3f * c) + Float.parseFloat(getPartPrice);
+			
+				if ((model.updateStatement("UPDATE repair SET enddate = NOW(), repairlength = " 
+						+ String.valueOf(c) + ", totalCharge = " + String.valueOf(totalCharge) + 
+						", status = '" + result + "' WHERE repairID = " + id)) > 0)
+					model.activitylogs(uid, "Mechanic", "UPDATE", "Repair");
+				else
+					JOptionPane.showMessageDialog(mechanic_view, "Error updating Repair data", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+				
+				
+				if((model.updateStatement("UPDATE booking JOIN repair ON booking.id = repair.bookingid " +
+						"SET booking.status = 'COMPLETED' WHERE repair.repairid = " + id)) > 0)
+					model.activitylogs(uid, "Mechanic", "UPDATE", "Booking");
+				else
+					JOptionPane.showMessageDialog(mechanic_view, "Error updating Booking data", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+				
+				showRepairsDetails(mechanic_view.repairList_view.getSelectedIndex());
+				populateList(3, mechanic_view.repairList_view);
+			}
+			
+			
 		}
 	}
 	
@@ -462,33 +526,21 @@ public class MechanicController
 			if(e.getSource() == mechanic_view.addRepair)
 			{
 				content.show(mechanic_view.ContentPanel, "card1");
-				try 
-				{
-					populateList(2, mechanic_view.PartsList_add);
-					populateList(1, mechanic_view.BookingList_add);
-				} 
-				catch (SQLException e1) {e1.printStackTrace();}
+				populateList(2, mechanic_view.PartsList_add);
+				populateList(1, mechanic_view.BookingList_add);
 			}
 			
 			if(e.getSource() == mechanic_view.viewRepair)
 			{
 				content.show(mechanic_view.ContentPanel, "card2");
-				try {
-					populateList(3, mechanic_view.repairList_view);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				mechanic_view.completeButton_view.setEnabled(false);
+				populateList(3, mechanic_view.repairList_view);
 			}
 			
 			if(e.getSource() == mechanic_view.orderParts)
 			{
 				content.show(mechanic_view.ContentPanel, "card3");
-				try 
-				{
-					populateList(2, mechanic_view.PartsList_order);
-				} 
-				catch (SQLException e1) {e1.printStackTrace();}
+				populateList(2, mechanic_view.PartsList_order);
 			}
 			
 			if(e.getSource() == mechanic_view.logoutButton)
@@ -564,7 +616,11 @@ public class MechanicController
 			
 			if (e.getSource() == mechanic_view.save_order)
 			{
-				placeOrder();
+				if(!mechanic_view.description_order.getText().isEmpty())
+					placeOrder();
+				else
+					JOptionPane.showMessageDialog(mechanic_view, "No Parts selected.\nChoose from the list", "Error", 
+							JOptionPane.ERROR_MESSAGE);
 			}
 			
 			if (e.getSource() == mechanic_view.completeButton_view)

@@ -87,6 +87,7 @@ public class ClerkController
 					try {
 						if((model.addTo(list)) > 0)
 						{
+							model.activitylogs(uid, "Clerk", "INSERT", "Car");
 							clerk_view.Regno_add.setText("");
 							clerk_view.Make_add.setText("");
 							clerk_view.Model_add.setText("");
@@ -132,6 +133,7 @@ public class ClerkController
 		
 						if((model.addTo(list)) > 0)
 						{
+							model.activitylogs(uid, "Clerk", "INSERT", "Customer");
 							clerk_view.Fname_add.setText("");
 							clerk_view.Sname_add.setText("");
 							clerk_view.ContactNo_add.setText("");
@@ -215,7 +217,10 @@ public class ClerkController
 		list.add(clerk_view.EmailAdd_edit.getText());
 		list.add(clerk_view.HomeAdd_edit.getText());
 		if((model.updateStaff(list)) > 0)
+		{
+			model.activitylogs(uid, "Clerk", "UPDATE", "Customer");
 			JOptionPane.showMessageDialog(clerk_view, "Update Successful");
+		}
 	}
 	
 	//method to delete customer from database
@@ -230,6 +235,7 @@ public class ClerkController
 				JOptionPane.showMessageDialog(clerk_view, "Delete Successful");
 				try 
 				{
+					model.activitylogs(uid, "Clerk", "DELETE", "Customer");
 					populateCustomerList();
 					showCustomerDetails(-1);
 				} 
@@ -327,27 +333,39 @@ public class ClerkController
 	//Method to add booking
 	private void addBooking() throws HeadlessException, SQLException
 	{
-		list = new ArrayList<String>();
-		list.add("Booking");
-		list.add(uid);
-		list.add(clerk_view.customerID_booking.getText());
-		list.add(clerk_view.carID_booking.getText());
-		list.add(clerk_view.problem_booking.getText());
-		if((model.addTo(list)) > 0)
-		{
-			try 
-			{
-				populateAllListOnPanel();
-				clerk_view.customerID_booking.setText("");
-				clerk_view.carID_booking.setText("");
-				clerk_view.problem_booking.setText("");
-			}
-			catch (SQLException e) {e.printStackTrace();}
-			JOptionPane.showMessageDialog(clerk_view, "Booking Successful");
-		}
-		else
-			JOptionPane.showMessageDialog(clerk_view, "There was a problem in booking\nContact Customer Support", "Error", 
+		if(clerk_view.customerID_booking.getText().isEmpty())
+			JOptionPane.showMessageDialog(clerk_view, "Must Provide Customer!", "Error", 
 					JOptionPane.ERROR_MESSAGE);
+		else
+			if (clerk_view.carID_booking.getText().isEmpty())
+				JOptionPane.showMessageDialog(clerk_view, "Must Provide Car!", "Error", 
+						JOptionPane.ERROR_MESSAGE);
+			else
+			{
+				list = new ArrayList<String>();
+				list.add("Booking");
+				list.add(uid);
+				list.add(clerk_view.customerID_booking.getText());
+				list.add(clerk_view.carID_booking.getText());
+				list.add(clerk_view.problem_booking.getText());
+				
+				if((model.addTo(list)) > 0)
+				{
+					try 
+					{
+						model.activitylogs(uid, "Clerk", "INSERT", "Booking");
+						populateAllListOnPanel();
+						clerk_view.customerID_booking.setText("");
+						clerk_view.carID_booking.setText("");
+						clerk_view.problem_booking.setText("");
+					}
+					catch (SQLException e) {e.printStackTrace();}
+					JOptionPane.showMessageDialog(clerk_view, "Booking Successful");
+				}
+				else
+					JOptionPane.showMessageDialog(clerk_view, "There was a problem in booking\nContact Customer Support", "Error", 
+							JOptionPane.ERROR_MESSAGE);
+			}
 	}
 	
 	
@@ -386,21 +404,29 @@ public class ClerkController
 						+ rs.getString(3) + "\nCar ID: " + rs.getString(4) + "\nDate booked: " + rs.getString(5)
 						+ "\nProblem: " + rs.getString(6) + "\nStatus: " + rs.getString(7);
 		
-		Object[] options = {"Delete this booking", "Go back"};
-		int i = JOptionPane.showOptionDialog(clerk_view, disp, rs.getString(1), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[1]);
-		if(i == JOptionPane.YES_OPTION)
+		if(rs.getString(7).equals("OPEN"))
 		{
-			int j = JOptionPane.showConfirmDialog(clerk_view, "Do you really want to delete this booking?", "Confirmation", JOptionPane.YES_NO_OPTION);
-			if(j == JOptionPane.YES_OPTION)
-				if((model.deletePerson(5, rs.getString(1))) > 0)
-				{
-					populateAllListOnPanel();
-					JOptionPane.showMessageDialog(clerk_view, "Booking successfully removed");
-				}
-				else
-					JOptionPane.showMessageDialog(clerk_view, "Encountered some errors while deleting\nContact Customer Support", "Error", 
-							JOptionPane.ERROR_MESSAGE);
+			Object[] options = {"Delete this booking", "Go back"};
+			int i = JOptionPane.showOptionDialog(clerk_view, disp, rs.getString(1), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[1]);
+			if(i == JOptionPane.YES_OPTION)
+			{
+				int j = JOptionPane.showConfirmDialog(clerk_view, "Do you really want to delete this booking?", "Confirmation", JOptionPane.YES_NO_OPTION);
+				if(j == JOptionPane.YES_OPTION)
+					if((model.deletePerson(5, rs.getString(1))) > 0)
+					{
+						populateAllListOnPanel();
+						JOptionPane.showMessageDialog(clerk_view, "Booking successfully removed");
+					}
+					else
+						JOptionPane.showMessageDialog(clerk_view, "Encountered some errors while deleting\nContact Customer Support", "Error", 
+								JOptionPane.ERROR_MESSAGE);
+			}
 		}
+		else
+			if((rs.getString(7).equals("PROCESSED")) || (rs.getString(7).equals("COMPLETED")))
+			{
+				JOptionPane.showMessageDialog(clerk_view, disp);
+			}
 	}
 	
 	//this method is used when the user wants to log out
@@ -409,6 +435,7 @@ public class ClerkController
 		int i = JOptionPane.showConfirmDialog(clerk_view, "Log out?", "Please Confirm", JOptionPane.YES_NO_OPTION);
 		if (i == JOptionPane.YES_OPTION)
 		{
+			model.sessionlogs(uid, "Mechanic", "System Logout");
 			model.closeConnection();
 			clerk_view.setVisible(false);
 			Login backTo = new Login(2);
@@ -437,8 +464,7 @@ public class ClerkController
 			forComboBox = new String[0];
 		
 		clerk_view.carOwnerCombo(forComboBox);
-		//final DefaultComboBoxModel m = new DefaultComboBoxModel(forComboBox);
-		
+			
 	}
 	
 	class valueChange implements ListSelectionListener
@@ -450,9 +476,7 @@ public class ClerkController
 			if(e.getSource() == clerk_view.CustomerList_booking)
 			{
 				if(clerk_view.CustomerList_booking.getSelectedIndex() < 0)
-				{
-					
-				}
+				{}
 			}
 			
 			if(e.getSource() == clerk_view.CarList_booking)
@@ -558,10 +582,7 @@ public class ClerkController
 				{
 					addCustomer();
 				} 
-				catch (HeadlessException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				catch (HeadlessException | SQLException e1) {e1.printStackTrace();}
 			}
 			
 			if(e.getSource() == clerk_view.Save_edit)

@@ -4,6 +4,7 @@ package javaapplication;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.event.ListSelectionListener;
 
 
@@ -16,6 +17,7 @@ public class MechanicMain extends javax.swing.JFrame
 	private javax.swing.JLabel jLabel16;
 	protected javax.swing.JTextField startDate_view;
 	private javax.swing.JLabel jLabel15;
+	private javax.swing.JLabel jLabel40;
 	public MechanicMain() 
     {
         initComponents();
@@ -101,6 +103,7 @@ public class MechanicMain extends javax.swing.JFrame
         endDate_view = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
         
         jLabel2.setText("jLabel2");
         bookingID_add.setEditable(false);
@@ -119,6 +122,7 @@ public class MechanicMain extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(938, 580));
         setPreferredSize(new java.awt.Dimension(916, 421));
+        setTitle("ARSS - Mechanic");
         setResizable(false);
         
         //------------------------------------------------------Header Panel Starts--------------------------------------------------//
@@ -133,6 +137,10 @@ public class MechanicMain extends javax.swing.JFrame
 
         currentDate.setText("dateandtimegoeshere");
 
+        jLabel40.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 36)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel40.setText("Mechanic");
+
         javax.swing.GroupLayout HeaderPanelLayout = new javax.swing.GroupLayout(HeaderPanel);
         HeaderPanel.setLayout(HeaderPanelLayout);
         HeaderPanelLayout.setHorizontalGroup(
@@ -141,24 +149,28 @@ public class MechanicMain extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addComponent(currentDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutButton)
+                        .addContainerGap())
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
                         .addComponent(welcomeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userName)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderPanelLayout.createSequentialGroup()
-                        .addComponent(currentDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 748, Short.MAX_VALUE)
-                        .addComponent(logoutButton)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 544, Short.MAX_VALUE)
+                        .addComponent(jLabel40))))
         );
         HeaderPanelLayout.setVerticalGroup(
             HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(welcomeLabel)
-                    .addComponent(userName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(welcomeLabel)
+                            .addComponent(userName)))
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logoutButton)
                     .addComponent(currentDate))
@@ -425,7 +437,7 @@ public class MechanicMain extends javax.swing.JFrame
                 .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addNewPartsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(add_order)
+                .addComponent(add_order, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         addNewPartsLayout.setVerticalGroup(
@@ -514,6 +526,7 @@ public class MechanicMain extends javax.swing.JFrame
         viewRepairsPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "View Repairs", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jScrollPane5.setBorder(javax.swing.BorderFactory.createTitledBorder("Repair List"));
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         repairList_view.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { " " };
@@ -521,8 +534,7 @@ public class MechanicMain extends javax.swing.JFrame
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane5.setViewportView(repairList_view);
-        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Repair Details", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -538,7 +550,7 @@ public class MechanicMain extends javax.swing.JFrame
         jLabel10.setText("Part ID :");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setText("Total Charge :");
+        jLabel11.setText("Total Charge (€) :");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Status :");
@@ -598,15 +610,7 @@ public class MechanicMain extends javax.swing.JFrame
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(repairLength_view, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(completeButton_view)
-                                .addGap(174, 174, 174))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(status_view, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(repairLength_view, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel16)
@@ -614,7 +618,15 @@ public class MechanicMain extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(startDate_view, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                            .addComponent(endDate_view))))
+                            .addComponent(endDate_view)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(status_view, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(completeButton_view, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -655,8 +667,8 @@ public class MechanicMain extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(status_view, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addComponent(completeButton_view)
+                .addGap(32, 32, 32)
+                .addComponent(completeButton_view, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 

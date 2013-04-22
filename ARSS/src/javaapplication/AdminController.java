@@ -76,6 +76,7 @@ public class AdminController
 						{
 							if(model.addTo(list) > 0)
 							{
+								model.activitylogs(uid, "Administrator", "INSERT", admin_view.DropDown_add.getSelectedItem().toString());
 								clearDataOn();
 								JOptionPane.showMessageDialog(admin_view, "Successfully Added New Data");
 							}
@@ -137,9 +138,19 @@ public class AdminController
 			list = model.searchForID(ID, 2);
 			if(!list.isEmpty())
 			{
-				admin_view.textArea_activities.setText("Time: " +list.get(0) 
-					+ "\nUser ID: " + list.get(1) + "\nRole: " + list.get(2) +
-					"\nDescription: " + list.get(3));
+				if(list.size() <= 4)
+				{
+					admin_view.textArea_activities.setText("Time: " +list.get(0) 
+							+ "\nUser ID: " + list.get(1) + "\nRole: " + list.get(2) +
+							"\nDescription: " + list.get(3));
+				}
+				else
+					if(list.size() > 4)
+					{
+						admin_view.textArea_activities.setText("Time: " +list.get(0) 
+								+ "\nUser ID: " + list.get(1) + "\nRole: " + list.get(2) +
+								"\nOperation: " + list.get(3) + "\nOn table: " + list.get(4));
+					}
 			}
 			break;
 		}
@@ -157,6 +168,16 @@ public class AdminController
 		l.add(admin_view.HomeAdd_edit.getText());
 		l.add(admin_view.NewPwd_edit.getText());
 		
+		String r = "";
+		if (role == 1)
+			r = "Administrator";
+		else
+			if(role == 2)
+				r = "Clerk";
+			else
+				if(role == 3)
+					r = "Mechanic";
+		
 		if(!l.get(1).toString().equals(""))
 		{
 			if(model.updateStaff(l) > 0)
@@ -164,6 +185,7 @@ public class AdminController
 				populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
 				JOptionPane.showMessageDialog(admin_view, "Update Successful");
 				admin_view.NewPwd_edit.setText("");
+				model.activitylogs(uid, "Administrator", "UPDATE", r);
 			}
 			else
 				JOptionPane.showMessageDialog(admin_view, "Failed to edit", "Error", JOptionPane.ERROR_MESSAGE);
@@ -253,24 +275,37 @@ public class AdminController
 		@Override
 		public void valueChanged(ListSelectionEvent e) 
 		{
-			if(admin_view.Datelist_activities.getSelectedValue() != null)
+			if(e.getSource() == admin_view.Datelist_activities)
 			{
-				populateEditField(admin_view.Datelist_activities.getSelectedValue().toString(), 3);
+				if(admin_view.Datelist_activities.getSelectedValue() != null)
+				{
+					populateEditField(admin_view.Datelist_activities.getSelectedValue().toString(), 3);
+				}
 			}
 			
-			if(admin_view.StaffList_edit.getSelectedValue() != null)
+			if(e.getSource() == admin_view.StaffList_edit)
 			{
-				populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
-				admin_view.NewPwd_edit.setText("");
-			}
-			if(admin_view.StaffList_delete.getSelectedValue() != null)
-			{
-				populateEditField(admin_view.StaffList_delete.getSelectedValue().toString(), 2);
+				if(admin_view.StaffList_edit.getSelectedValue() != null)
+				{
+					populateEditField(admin_view.StaffList_edit.getSelectedValue().toString(), 1);
+					admin_view.NewPwd_edit.setText("");
+				}
 			}
 			
-			if(admin_view.StaffList_activities.getSelectedValue() != null)
+			if(e.getSource() == admin_view.StaffList_delete)
 			{
-				populateList(model.getActivityList(admin_view.StaffList_activities.getSelectedValue().toString()), 4);
+				if(admin_view.StaffList_delete.getSelectedValue() != null)
+				{
+					populateEditField(admin_view.StaffList_delete.getSelectedValue().toString(), 2);
+				}
+			}
+			
+			if(e.getSource() == admin_view.StaffList_activities)
+			{
+				if(admin_view.StaffList_activities.getSelectedValue() != null)
+				{
+					populateList(model.getActivityList(admin_view.StaffList_activities.getSelectedValue().toString()), 4);
+				}
 			}
 			
 		}
@@ -282,6 +317,7 @@ public class AdminController
 			int i = JOptionPane.showConfirmDialog(admin_view, "Log out?", "Please Confirm", JOptionPane.YES_NO_OPTION);
 			if (i == JOptionPane.YES_OPTION)
 			{
+				model.sessionlogs(uid, "Mechanic", "System Logout");
 				model.closeConnection();
 				admin_view.setVisible(false);
 				Login backTo = new Login(1);
@@ -363,10 +399,26 @@ public class AdminController
 					{
 						if ((model.deletePerson(theRole, admin_view.ID1_delete.getText())) > 0)
 						{
+							String r = "";
+							if(theRole == 1)
+								r = "Administrator";
+							else
+								if(theRole == 2)
+									r = "Clerk";
+								else
+									r = "Mechanic";
+							
 							try 
 							{
-								populateList(model.getContentsList(), 2);
+								model.activitylogs(uid, "Administrator", "DELETE", r);
 								JOptionPane.showMessageDialog(admin_view, "Successfully Deleted");
+								populateList(model.getContentsList(), 2);
+								admin_view.ID1_delete.setText("");
+								admin_view.Fname_delete.setText("");
+								admin_view.Sname_delete.setText("");
+								admin_view.ContactNo_delete.setText("");
+								admin_view.EmailAdd_delete.setText("");
+								admin_view.HomeAdd_delete.setText("");
 							} 
 							catch (SQLException e1) {e1.printStackTrace();}
 						}

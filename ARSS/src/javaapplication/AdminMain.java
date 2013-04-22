@@ -14,7 +14,8 @@ import javax.swing.event.ListSelectionListener;
 public class AdminMain extends JFrame
 {
 
-    public AdminMain() 
+    protected javax.swing.JLabel jLabel4;
+	public AdminMain() 
     {
         initComponents();
     }
@@ -114,11 +115,13 @@ public class AdminMain extends JFrame
         currentDate = new javax.swing.JLabel();
         StartingPanel = new javax.swing.JPanel();
         startPanelLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ARSS - Administrator");
         setMinimumSize(new java.awt.Dimension(938, 580));
-        
+        setLocationRelativeTo(null);
+        setResizable(false);
 
         HeaderPanel.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -131,6 +134,10 @@ public class AdminMain extends JFrame
 
         currentDate.setText("dateandtimegoeshere");
 
+        jLabel4.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel4.setText("Administrator");
+
         javax.swing.GroupLayout HeaderPanelLayout = new javax.swing.GroupLayout(HeaderPanel);
         HeaderPanel.setLayout(HeaderPanelLayout);
         HeaderPanelLayout.setHorizontalGroup(
@@ -139,24 +146,28 @@ public class AdminMain extends JFrame
                 .addContainerGap()
                 .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addComponent(currentDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutButton)
+                        .addContainerGap())
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
                         .addComponent(welcomeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userName)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderPanelLayout.createSequentialGroup()
-                        .addComponent(currentDate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 726, Short.MAX_VALUE)
-                        .addComponent(logoutButton)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 544, Short.MAX_VALUE)
+                        .addComponent(jLabel4))))
         );
         HeaderPanelLayout.setVerticalGroup(
             HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(welcomeLabel)
-                    .addComponent(userName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HeaderPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(welcomeLabel)
+                            .addComponent(userName)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logoutButton)
                     .addComponent(currentDate))
@@ -735,8 +746,7 @@ public class AdminMain extends JFrame
         );
 
         getContentPane().add(FooterPanel, java.awt.BorderLayout.PAGE_END);
-        setLocationRelativeTo(null);
-        setResizable(false);
+      
         pack();
     }// </editor-fold>                        
 

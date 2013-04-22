@@ -92,9 +92,9 @@ create table ActivityLog
 (
 	activitytime TIMESTAMP NOT NULL,
 	userID int(10) NOT NULL,
-	userRole varchar(15) NOT NULL,
-	op varchar(8) NOT NULL,
-	tablename varchar(15) NOT NULL
+	userRole varchar(20) NOT NULL,
+	op varchar(20) NOT NULL,
+	tablename varchar(30) NOT NULL
 );
 
 
@@ -163,6 +163,7 @@ select * from customer;
 select * from car;
 select * from booking;
 select * from sessionlog;
+select * from activitylog;
 select * from parts;
 select * from orders;
 select * from repair;
@@ -232,6 +233,8 @@ drop trigger ai_test;
 
 select TIME_FORMAT(TIMEDIFF('2013-02-02 14:00:00.00', '2013-02-02 13:00:00.11'), '%H.%i');
 select TIME_FORMAT(NOW(), '%H.%i');
+
+select 
 
 update dummy, dummy2 
 join test on (dummy.testid = test.id)
