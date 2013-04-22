@@ -283,3 +283,7 @@ insert into dummy values(200, 100, 2.2);
 insert into dummy2 values(300, 200, 30.30)
 select * from test;
 select * from dummy;
+
+select * from activitylog where userid = 1000
+union
+select * from sessionlog where userid = 1000;
