@@ -122,7 +122,9 @@ public class AdminMain extends JFrame
         setMinimumSize(new java.awt.Dimension(938, 580));
         setLocationRelativeTo(null);
         setResizable(false);
-
+        
+        textArea_activities.setEditable(false);
+        
         HeaderPanel.setBackground(new java.awt.Color(255, 255, 204));
 
         welcomeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N

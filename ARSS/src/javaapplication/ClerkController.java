@@ -134,6 +134,7 @@ public class ClerkController
 						if((model.addTo(list)) > 0)
 						{
 							model.activitylogs(uid, "Clerk", "INSERT", "Customer");
+							updateComboBox();
 							clerk_view.Fname_add.setText("");
 							clerk_view.Sname_add.setText("");
 							clerk_view.ContactNo_add.setText("");
@@ -242,7 +243,7 @@ public class ClerkController
 				catch (SQLException e) {e.printStackTrace();}
 			}
 			else
-				JOptionPane.showMessageDialog(clerk_view, "There was a problem deleting a customer \nContact Customer Support", "Error", 
+				JOptionPane.showMessageDialog(clerk_view, "Can't Delete this Customer as it is used in other table", "Error", 
 						JOptionPane.ERROR_MESSAGE);
 		}
 	}
