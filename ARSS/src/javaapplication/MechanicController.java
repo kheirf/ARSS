@@ -574,6 +574,7 @@ public class MechanicController
 				try 
 				{
 					addValues_repair("Parts");
+					mechanic_view.add1_add.setEnabled(false);
 				} 
 				catch (SQLException e1) {e1.printStackTrace();}
 			}
@@ -586,6 +587,7 @@ public class MechanicController
 					{
 						addValues_repair("Booking");
 						mechanic_view.carID_add.setEditable(false);
+						mechanic_view.add2_add.setEnabled(false);
 					} 
 					catch (SQLException e1) {e1.printStackTrace();}
 				}
@@ -603,6 +605,8 @@ public class MechanicController
 				{
 					mechanic_view.carID_add.setEditable(true);
 					addRepair();
+					mechanic_view.add1_add.setEnabled(true);
+					mechanic_view.add2_add.setEnabled(true);
 				}
 			}
 			
@@ -612,6 +616,8 @@ public class MechanicController
 				mechanic_view.carID_add.setText("");
 				mechanic_view.partsID_add.setText("");
 				mechanic_view.carID_add.setEditable(true);
+				mechanic_view.add1_add.setEnabled(true);
+				mechanic_view.add2_add.setEnabled(true);
 			}
 			
 			if (e.getSource() == mechanic_view.save_order)

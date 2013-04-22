@@ -264,7 +264,9 @@ public class ClerkController
 				if (rs.next())
 					string[i] = rs.getString(3) + ", " + rs.getString(2);
 			
-			clerk_view.CustomerList_booking.setModel(new javax.swing.AbstractListModel() 
+			clerk_view.CustomerList_booking.setListData(string);
+			
+			/*clerk_view.CustomerList_booking.setModel(new javax.swing.AbstractListModel() 
     		{
     			String[] strings = string;
     			public int getSize() 
@@ -272,12 +274,12 @@ public class ClerkController
             
     			public Object getElementAt(int i) 
     			{ return strings[i];} 
-    		});
+    		});*/
 			
 		}
 		else
-			clerk_view.CustomerList_booking.setListData(new String[0]);
-		
+			clerk_view.CustomerList_booking.setListData(new String[0]); //if no data returned from the query the list is set to empty
+		/*
 		rs = model.getBatchResult("Car");
 		if(rs.next())
 		{
@@ -302,7 +304,7 @@ public class ClerkController
 		}
 		else
 			clerk_view.CarList_booking.setListData(new String[0]);
-		
+		*/
 		rs = model.getBatchResult("Booking");
 		if(rs.next())
 		{
@@ -328,7 +330,7 @@ public class ClerkController
     		});
 		}
 		else
-			clerk_view.BookingList_booking.setListData(new String[0]);
+			clerk_view.BookingList_booking.setListData(new String[0]); // if no results from the query, set the list to empty.
 	}
 	
 	//Method to add booking
@@ -468,16 +470,67 @@ public class ClerkController
 			
 	}
 	
+	@SuppressWarnings("unchecked")
+	private void populateCarList(String cid)
+	{
+		ResultSet rs;
+		rs = model.getQueryResult("SELECT carregno, make FROM CAR where owner = " + cid);
+		try {
+			if(rs.next())
+			{
+				rs.last();
+				int lastRow = rs.getRow();
+				final String[] string = new String[lastRow];
+				rs.beforeFirst();
+				System.out.println(cid);
+				for (int i = 0; i < lastRow; i++)
+					if (rs.next())
+						string[i] = rs.getString(1);
+				
+				clerk_view.CarList_booking.setModel(new javax.swing.AbstractListModel() 
+				{
+					String[] strings = string;
+					public int getSize() 
+					{ return strings.length; }
+			    
+					public Object getElementAt(int i) 
+					{ return strings[i];} 
+				});
+			}
+			else
+				clerk_view.CarList_booking.setListData(new String[0]);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	class valueChange implements ListSelectionListener
 	{
+
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) 
 		{
 			if(e.getSource() == clerk_view.CustomerList_booking)
 			{
-				if(clerk_view.CustomerList_booking.getSelectedIndex() < 0)
-				{}
+				if(clerk_view.CustomerList_booking.getSelectedIndex() >= 0)
+				{
+					ResultSet rs = model.getBatchResult("Customer");
+					String cid;
+					try 
+					{
+						if (rs.next())
+						{
+							rs.absolute(clerk_view.CustomerList_booking.getSelectedIndex() + 1);
+							cid = rs.getString(1);
+							populateCarList(cid);
+						}
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+				}
+				else
+					clerk_view.CarList_booking.setListData(new String[0]);
 			}
 			
 			if(e.getSource() == clerk_view.CarList_booking)
@@ -516,6 +569,7 @@ public class ClerkController
 					try 
 					{
 						addValues_booking(1);
+						clerk_view.add1_booking.setEnabled(false);
 					} 
 					catch (SQLException e1) {e1.printStackTrace();}
 				}
@@ -531,6 +585,7 @@ public class ClerkController
 					try 
 					{
 						addValues_booking(2);
+						clerk_view.add2_booking.setEnabled(false);
 					} 
 					catch (SQLException e1) {e1.printStackTrace();}
 				}
@@ -601,6 +656,10 @@ public class ClerkController
 				try 
 				{
 					addBooking();
+					clerk_view.add1_booking.setEnabled(true);
+					clerk_view.add2_booking.setEnabled(true);
+					clerk_view.CustomerList_booking.setSelectedIndex(-1);
+					clerk_view.CarList_booking.setSelectedIndex(-1);
 				} 
 				catch (HeadlessException | SQLException e1) {e1.printStackTrace();}
 			}
@@ -660,6 +719,8 @@ public class ClerkController
 				clerk_view.customerID_booking.setText("");
 				clerk_view.carID_booking.setText("");
 				clerk_view.problem_booking.setText("");
+				clerk_view.add1_booking.setEnabled(true);
+				clerk_view.add2_booking.setEnabled(true);
 			}
 		}
 

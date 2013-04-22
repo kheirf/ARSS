@@ -249,6 +249,8 @@ public class AdminController
 	    		{
 	    			admin_view.textArea_activities.setText("The User has no activity");
 	    		}
+	    		else
+	    			admin_view.textArea_activities.setText("Choose date to review the details");
 	    		break;
 	    	}
 	    }
@@ -270,6 +272,8 @@ public class AdminController
 		 return position;
 	 }
 	
+	 
+	 //=======================================Listener for JLISTS=========================================================//
 	class valueChange implements ListSelectionListener
 	{
 		@Override

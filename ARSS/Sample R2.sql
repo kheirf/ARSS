@@ -287,3 +287,5 @@ select * from dummy;
 select * from activitylog where userid = 1000
 union
 select * from sessionlog where userid = 1000;
+
+SELECT carregno, make FROM CAR where owner = 1;
