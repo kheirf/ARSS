@@ -8,12 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+//======= this class is a GUI class for logging in =================//
 public class Login extends JFrame //implements ActionListener
 
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	public JButton Login;
@@ -24,8 +22,8 @@ public class Login extends JFrame //implements ActionListener
     
 	public Login(int role) 
     {
-		Role = role;
-        initComponents();
+		Role = role;		//gets the role on which the user wants to login
+        initComponents();	//initialise components
     }
 
     
@@ -34,7 +32,6 @@ public class Login extends JFrame //implements ActionListener
     {
     	// Variables declaration - do not modify                     
         JLabel ID;
-        
         JLabel Main_Title;
         JLabel Login_Title;
         JLabel background;
@@ -56,21 +53,21 @@ public class Login extends JFrame //implements ActionListener
         icon = new JLabel();
         background = new JLabel();
         
-        switch(Role)
+        switch(Role)		//Check which role the user choose
         {
         
         case 1:
-    		Login_Title.setText("Administrator");
+    		Login_Title.setText("Administrator"); //if administrator, sets all variables needed for administrator login
     		LoginLabel.setToolTipText("Login as Administrator");
     		LoginLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/admin.png"))); // NOI18N
     		break;
         case 2:
-    		Login_Title.setText("Clerk");
+    		Login_Title.setText("Clerk");  //if clerk, sets all vars needed login
     		LoginLabel.setToolTipText("Login as Clerk");
     		LoginLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clerk.png"))); // NOI18N
     	    break;
         case 3:
-    		Login_Title.setText("Mechanic");
+    		Login_Title.setText("Mechanic"); // etcetera etcetera
     		LoginLabel.setToolTipText("Login as Mechanic");
     		LoginLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mechanic.png"))); // NOI18N
     	    break;
@@ -154,11 +151,11 @@ public class Login extends JFrame //implements ActionListener
     
     void loginBListener(ActionListener login)
     {
-    	Login.addActionListener(login);
+    	Login.addActionListener(login); // add action listener to "LOGIN" button
     }
     
     void switchUserListener(ActionListener SUL)
     {
-    	switchUser.addActionListener(SUL);
+    	switchUser.addActionListener(SUL); // add action listener to "SWITCH USER" button
     }
 }

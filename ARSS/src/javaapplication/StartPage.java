@@ -9,24 +9,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
+//This Class is for the welcome or start page. The user will choose which role he wants to log in
 public class StartPage extends JFrame implements ActionListener
 {    
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private JButton admin; 
-	private JButton clerk; 
-	private JButton mech; 
+	private JButton admin;  //Button for administrator
+	private JButton clerk;  //Button for clerk
+	private JButton mech;  // Button for mechanic
 	
     public StartPage() 
     {
-        initComponents();
+        initComponents();  //initialises the components
     }
                   
-    public void initComponents() {
-    	                    
-        
+    
+    public void initComponents() 
+    {                    
         JLabel adminTitle;
         JLabel background;       
         JLabel clerkTitle;
@@ -52,7 +50,9 @@ public class StartPage extends JFrame implements ActionListener
         setTitle("Auto Repair Shop System");
         setBackground(new java.awt.Color(255, 255, 102));
         setIconImage(getIconImage());
-        setMinimumSize(new java.awt.Dimension(938, 580));
+        setMinimumSize(new java.awt.Dimension(938, 580));   //sets the
+        setLocationRelativeTo(null);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         mainTitle.setFont(new Font("Tahoma", 0, 36)); // NOI18N
@@ -97,9 +97,6 @@ public class StartPage extends JFrame implements ActionListener
         background.setIcon(new ImageIcon(getClass().getResource("/bg.jpg"))); // NOI18N
         getContentPane().add(background);
         background.setBounds(0, 0, 940, 580);
-
-        setLocationRelativeTo(null);
-        setResizable(false);
         
     }                 
    
@@ -108,7 +105,7 @@ public class StartPage extends JFrame implements ActionListener
     
     public void actionPerformed(ActionEvent e) 
     {                                      
-    	 if (e.getSource() == admin) 
+    	 if (e.getSource() == admin) //if admin button is pressed
     	 {    
        		this.setVisible(false);
        		Login adminL = new Login(1);
@@ -116,7 +113,7 @@ public class StartPage extends JFrame implements ActionListener
     		new Controller(adminL);
     		 
     	 }
-    	 if (e.getSource() == clerk) 
+    	 if (e.getSource() == clerk) //if clerk button is pressed
     	 {
     		 this.setVisible(false);
     		 Login clerkL = new Login(2);
@@ -124,12 +121,12 @@ public class StartPage extends JFrame implements ActionListener
     		 new Controller(clerkL);
     		 
     	 }
-    	 if (e.getSource() == mech) 
+    	 if (e.getSource() == mech)  //If mechanic button is pressed,
     	 {
-    		 this.setVisible(false);
-    		 Login mechL = new Login(3);
-    		 mechL.setVisible(true);
-    		 new Controller(mechL);
+    		 this.setVisible(false); //set this frame invisible
+    		 Login mechL = new Login(3); //create an instance of Login class
+    		 mechL.setVisible(true); // set the login class to visible
+    		 new Controller(mechL);  // creates an instance of Controller.java which set the controller which controls all on the gui on Login class
     	 }
     }
     

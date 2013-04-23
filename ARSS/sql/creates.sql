@@ -1,5 +1,5 @@
-drop table Booking;
 drop table repair;
+drop table Booking;
 drop table orders;
 drop table parts;
 drop table Administrator;
@@ -74,8 +74,8 @@ create table Booking
 	Problem varchar(100),
 	status varchar(50) DEFAULT 'OPEN',
 	FOREIGN KEY (ClerkID) REFERENCES Clerk(ID),
-	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
-	FOREIGN KEY (CarID) REFERENCES Car(CarRegno)
+	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+	# FOREIGN KEY (CarID) REFERENCES Car(CarRegno)
 );
 
 create table SessionLog

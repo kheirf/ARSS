@@ -33,8 +33,8 @@ public class ClerkController
 	
 	public ClerkController(ClerkMain view, String uid)
 	{
-		this.uid = uid;
-		clerk_view = view;
+		this.uid = uid; //sets the global variable uid to the one provided by Controller.java class
+		clerk_view = view; //sets which view class to show
 		clerk_view.buttonListener(new buttonListener());
 		clerk_view.listSelectionListener(new valueChange());
 		content = (CardLayout) clerk_view.ContentPanel.getLayout();
@@ -202,12 +202,12 @@ public class ClerkController
 			clerk_view.EmailAdd_edit.setText("");
 			clerk_view.HomeAdd_edit.setText("");
 			clerk_view.registered_edit.setText("");
-			//selectedCustomerID = rs.getString(1);
 		}
 			
 	}
 	
-	private void updateCustomer() 
+	//method used to update customer when the clerk edited the field and clicked save
+	private void updateCustomer()
 	{
 		list = new ArrayList<String>();
 		list.add("Customer");
@@ -217,10 +217,13 @@ public class ClerkController
 		list.add(clerk_view.ContactNo_edit.getText());
 		list.add(clerk_view.EmailAdd_edit.getText());
 		list.add(clerk_view.HomeAdd_edit.getText());
-		if((model.updateStaff(list)) > 0)
+		if (!clerk_view.ID_edit.getText().equals(""))
 		{
-			model.activitylogs(uid, "Clerk", "UPDATE", "Customer");
-			JOptionPane.showMessageDialog(clerk_view, "Update Successful");
+			if((model.updateStaff(list)) > 0)
+			{
+				model.activitylogs(uid, "Clerk", "UPDATE", "Customer");
+				JOptionPane.showMessageDialog(clerk_view, "Update Successful");
+			}
 		}
 	}
 	
@@ -228,7 +231,7 @@ public class ClerkController
 	private void deleteCustomer() 
 	{
 		int i = JOptionPane.showConfirmDialog(null, "Do you really wish to delete this person?", "Confirm",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); //dialog opens to confirm
 		if (i == JOptionPane.YES_OPTION)
 		{
 			if ((model.deletePerson(4, selectedCustomerID)) > 0)
@@ -264,34 +267,7 @@ public class ClerkController
 				if (rs.next())
 					string[i] = rs.getString(3) + ", " + rs.getString(2);
 			
-			clerk_view.CustomerList_booking.setListData(string);
-			
-			/*clerk_view.CustomerList_booking.setModel(new javax.swing.AbstractListModel() 
-    		{
-    			String[] strings = string;
-    			public int getSize() 
-    			{ return strings.length; }
-            
-    			public Object getElementAt(int i) 
-    			{ return strings[i];} 
-    		});*/
-			
-		}
-		else
-			clerk_view.CustomerList_booking.setListData(new String[0]); //if no data returned from the query the list is set to empty
-		/*
-		rs = model.getBatchResult("Car");
-		if(rs.next())
-		{
-			rs.last();
-			int lastRow = rs.getRow();
-			final String[] string = new String[lastRow];
-			rs.beforeFirst();
-			for (int i = 0; i < lastRow; i++)
-				if (rs.next())
-					string[i] = rs.getString(1);
-			
-			clerk_view.CarList_booking.setModel(new javax.swing.AbstractListModel() 
+			clerk_view.CustomerList_booking.setModel(new javax.swing.AbstractListModel() //populate the list from the data on resultset
     		{
     			String[] strings = string;
     			public int getSize() 
@@ -303,8 +279,8 @@ public class ClerkController
 			
 		}
 		else
-			clerk_view.CarList_booking.setListData(new String[0]);
-		*/
+			clerk_view.CustomerList_booking.setListData(new String[0]); //if no data returned from the query the list is set to empty
+		
 		rs = model.getBatchResult("Booking");
 		if(rs.next())
 		{
@@ -317,8 +293,6 @@ public class ClerkController
 					string[i] = rs.getString(1);
 				else
 					break;
-			
-			
 			clerk_view.BookingList_booking.setModel(new javax.swing.AbstractListModel() 
     		{
     			String[] strings = string;
@@ -328,6 +302,7 @@ public class ClerkController
     			public Object getElementAt(int i) 
     			{ return strings[i];} 
     		});
+			
 		}
 		else
 			clerk_view.BookingList_booking.setListData(new String[0]); // if no results from the query, set the list to empty.
@@ -496,9 +471,13 @@ public class ClerkController
 					public Object getElementAt(int i) 
 					{ return strings[i];} 
 				});
+				clerk_view.carID_booking.setEditable(false);
 			}
 			else
+			{
 				clerk_view.CarList_booking.setListData(new String[0]);
+				clerk_view.carID_booking.setEditable(true);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -525,12 +504,19 @@ public class ClerkController
 							rs.absolute(clerk_view.CustomerList_booking.getSelectedIndex() + 1);
 							cid = rs.getString(1);
 							populateCarList(cid);
+							//if(clerk_view.CustomerList_booking.getModel().getSize() < 0)
+								//clerk_view.carID_booking.setEditable(true);
+						//	else
+							//	clerk_view.carID_booking.setEditable(false);
+						}
+						else
+						{
+							clerk_view.CarList_booking.setListData(new String[0]);
 						}
 					} 
 					catch (SQLException e1) {e1.printStackTrace();}
 				}
-				else
-					clerk_view.CarList_booking.setListData(new String[0]);
+				
 			}
 			
 			if(e.getSource() == clerk_view.CarList_booking)
@@ -545,6 +531,12 @@ public class ClerkController
 				{
 					try 
 					{
+						clerk_view.Fname_edit.setEditable(true);
+						clerk_view.Sname_edit.setEditable(true);
+						clerk_view.ContactNo_edit.setEditable(true);
+						clerk_view.EmailAdd_edit.setEditable(true);
+						clerk_view.HomeAdd_edit.setEditable(true);
+						
 						showCustomerDetails(clerk_view.CustomerList_edit.getSelectedIndex());
 					} 
 					catch (SQLException e1) {e1.printStackTrace();}
@@ -570,6 +562,9 @@ public class ClerkController
 					{
 						addValues_booking(1);
 						clerk_view.add1_booking.setEnabled(false);
+						//if(clerk_view.CarList_booking.getSize().height <= 0)
+							//clerk_view.carID_booking.
+						
 					} 
 					catch (SQLException e1) {e1.printStackTrace();}
 				}
@@ -627,6 +622,11 @@ public class ClerkController
 				content.show(clerk_view.ContentPanel, "card2");
 				try 
 				{
+					clerk_view.Fname_edit.setEditable(false);
+					clerk_view.Sname_edit.setEditable(false);
+					clerk_view.ContactNo_edit.setEditable(false);
+					clerk_view.EmailAdd_edit.setEditable(false);
+					clerk_view.HomeAdd_edit.setEditable(false);
 					populateCustomerList();
 				} 
 				catch (SQLException e1) {e1.printStackTrace();}
@@ -636,22 +636,22 @@ public class ClerkController
 			{
 				try 
 				{
-					addCustomer();
+					addCustomer(); // when add customer/car button is pressed then go to addCustomer function defined above
 				} 
 				catch (HeadlessException | SQLException e1) {e1.printStackTrace();}
 			}
 			
 			if(e.getSource() == clerk_view.Save_edit)
 			{
-				updateCustomer();
+				updateCustomer(); //if Edit customer was pressed then call the function updateCustomer.
 			}
 			
 			if(e.getSource() == clerk_view.Delete_edit)
 			{
-				deleteCustomer();
+				deleteCustomer(); //if Delete customer button in options panel was pressed then call the function deleteCustomer
 			}
 			
-			if(e.getSource() == clerk_view.Save_booking)
+			if(e.getSource() == clerk_view.Save_booking) //save button on booking panel
 			{
 				try 
 				{

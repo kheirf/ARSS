@@ -180,6 +180,9 @@ public class MechanicController
 		if(mechanic_view.productNoAdd_order.getText().isEmpty())
 			JOptionPane.showMessageDialog(mechanic_view, "Must Provide Product Number", "Error", 
 					JOptionPane.ERROR_MESSAGE);
+		else if(mechanic_view.priceAdd_order.getText().isEmpty())
+			JOptionPane.showMessageDialog(mechanic_view, "Must Provide Product Price", "Error", 
+					JOptionPane.ERROR_MESSAGE);
 		else
 		{
 			List<String> list = new ArrayList<String>();
@@ -479,9 +482,6 @@ public class MechanicController
 				if((model.updateStatement("UPDATE booking JOIN repair ON booking.id = repair.bookingid " +
 						"SET booking.status = 'COMPLETED' WHERE repair.repairid = " + id)) > 0)
 					model.activitylogs(uid, "Mechanic", "UPDATE", "Booking");
-				else
-					JOptionPane.showMessageDialog(mechanic_view, "Error updating Booking data", "Error", 
-							JOptionPane.ERROR_MESSAGE);
 				
 				showRepairsDetails(mechanic_view.repairList_view.getSelectedIndex());
 				populateList(3, mechanic_view.repairList_view);
@@ -526,6 +526,11 @@ public class MechanicController
 			if(e.getSource() == mechanic_view.addRepair)
 			{
 				content.show(mechanic_view.ContentPanel, "card1");
+				mechanic_view.add1_add.setEnabled(true);
+				mechanic_view.add2_add.setEnabled(true);
+				mechanic_view.partsID_add.setText("");
+				mechanic_view.bookingID_add.setText("");
+				mechanic_view.carID_add.setText("");
 				populateList(2, mechanic_view.PartsList_add);
 				populateList(1, mechanic_view.BookingList_add);
 			}
@@ -540,6 +545,7 @@ public class MechanicController
 			if(e.getSource() == mechanic_view.orderParts)
 			{
 				content.show(mechanic_view.ContentPanel, "card3");
+				mechanic_view.description_order.setText("");
 				populateList(2, mechanic_view.PartsList_order);
 			}
 			
@@ -571,25 +577,28 @@ public class MechanicController
 			
 			if(e.getSource() == mechanic_view.add1_add)
 			{
-				try 
-				{
-					addValues_repair("Parts");
-					mechanic_view.add1_add.setEnabled(false);
-				} 
-				catch (SQLException e1) {e1.printStackTrace();}
+				if(mechanic_view.PartsList_add.getSelectedIndex() >= 0)
+					try 
+					{
+						addValues_repair("Parts");
+						mechanic_view.add1_add.setEnabled(false);
+					} 
+					catch (SQLException e1) {e1.printStackTrace();}
+					
 			}
 			
 			if(e.getSource() == mechanic_view.add2_add)
 			{
 				if(mechanic_view.carID_add.getText().isEmpty())
 				{
-					try 
-					{
-						addValues_repair("Booking");
-						mechanic_view.carID_add.setEditable(false);
-						mechanic_view.add2_add.setEnabled(false);
-					} 
-					catch (SQLException e1) {e1.printStackTrace();}
+					if(mechanic_view.BookingList_add.getSelectedIndex() >= 0)
+						try 
+						{
+							addValues_repair("Booking");
+							mechanic_view.carID_add.setEditable(false);
+							mechanic_view.add2_add.setEnabled(false);
+						} 
+						catch (SQLException e1) {e1.printStackTrace();}
 				}
 				else
 					JOptionPane.showMessageDialog(mechanic_view, "You already provided a car", "Error", 

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+// ========================= this class is for controlling the components of Login GUI class ===============================
 public class Controller 
 {
 	private Login login_view;
@@ -13,11 +14,11 @@ public class Controller
 	protected String userID;
 	protected String role;
 	
-	Controller(Login view)
+	Controller(Login view)		// constructor
 	{
 		login_view = view;
-		view.loginBListener(new buttonListener());
-		view.switchUserListener(new buttonListener());
+		view.loginBListener(new buttonListener()); // specify steps to take when login button is pressed
+		view.switchUserListener(new buttonListener()); // specify steps to take when switch button is pressed
 	}
 	
 	class buttonListener implements ActionListener
@@ -25,16 +26,15 @@ public class Controller
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			if (e.getSource() == login_view.Login) 
+			if (e.getSource() == login_view.Login) // if login button was pressed
 	    	 {	
 	    		 try
 	    		 {
-	    			model = new Main();
-					checkLogin(model.search(login_view.getUserID(), login_view.getPassword(), login_view.getRole()));
+	    			model = new Main(); // create an instance of Main.java class
+					checkLogin(model.search(login_view.getUserID(), login_view.getPassword(), login_view.getRole())); //this is a method to if login details was correct
 				 } 
-	    		 catch (SQLException e1){e1.printStackTrace();} 
-	    		 catch (ClassNotFoundException e1) 
-	    		 {e1.printStackTrace();}
+	    		 catch (SQLException | ClassNotFoundException e1){e1.printStackTrace();} 
+	    	
 	    		
 	    	 }
 			
